@@ -1,21 +1,22 @@
 #
 # Conditional build:
-%bcond_with	python		#with boost-python support (not working now)
+%bcond_with	python	# with boost-python support (not working now)
 #
-
-Name:		boost
 Summary:	The Boost C++ Libraries
 Summary(pl):	Biblioteki C++ "Boost"
+Name:		boost
 Version:	1.30.2
 Release:	0.1
 License:	Freely distributable
-URL:		http://www.boost.org/
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}-%{version}.tar.bz2
 # Source0-md5:	4aed692a863bb4beaa0b70d6dc53bda5
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-BuildRequires:	boost-jam >= 3.1.3 libstdc++ %{?_with_python:python-devel:}
+URL:		http://www.boost.org/
+BuildRequires:	boost-jam >= 3.1.3
+BuildRequires:	libstdc++-devel
+%{?with_python:BuildRequires:	python-devel}
 BuildConflicts:	gcc = 5:3.3.1
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 The Boost web site provides free peer-reviewed portable C++ source
@@ -27,13 +28,26 @@ already been proposed for inclusion in the C++ Standards Committee's
 upcoming C++ Standard Library Technical Report.
 
 %description -l pl
-Strona www.boost.org dostarcza darmowe biblioteki C++ wraz z kodem
-¼ród³owym. Nacisk po³o¿ono na biblioteki, które dobrze wspó³pracuj± ze
-standardow± bibliotek± C++. Celem jest ustanowienie "isniej±cej
-praktyki" i dostarczenie implementacji, tak ¿e biblioteki "Boost"
-nadaj± siê do ewentualnej standaryzacji. Niektóre z bibliotek ju¿
-zosta³y zg³oszone do komitetu standaryzacyjnego C++ w nadchodz±cym
+Strona http://www.boost.org/ dostarcza darmowe biblioteki C++ wraz z
+kodem ¼ród³owym. Nacisk po³o¿ono na biblioteki, które dobrze
+wspó³pracuj± ze standardow± bibliotek± C++. Celem jest ustanowienie
+"isniej±cej praktyki" i dostarczenie implementacji, tak ¿e biblioteki
+"Boost" nadaj± siê do ewentualnej standaryzacji. Niektóre z bibliotek
+ju¿ zosta³y zg³oszone do komitetu standaryzacyjnego C++ w nadchodz±cym
 Raporcie Technicznym Biblioteki Standardowej C++
+
+%package devel
+Summary:	Boost C++ development libraries and headers
+Summary(pl):	Pliki nag³ówkowe i biblioteki statyczne Boost C++
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	libstdc++-devel
+
+%description devel
+Headers and static libraries for the Boost C++ libraries.
+
+%description devel -l pl
+Pliki nag³ówkowe i biblioteki statyczne bibliotek Boost C++.
 
 #according to ldd (and automatically generated RPM dependencies) it
 #doesn't strictly require python, but IMHO it's cleaner to split it
@@ -42,7 +56,8 @@ Raporcie Technicznym Biblioteki Standardowej C++
 Summary:	Boost.Python library
 Summary(pl):	biblioteka Boost.Python
 Group:		Libraries
-Requires:	boost python
+Requires:	%{name} = %{version}-%{release}
+Requires:	python
 
 %description python
 Use the Boost Python Library to quickly and easily export a C++
@@ -64,8 +79,8 @@ klasy C++ i funkcje do Pythona.
 %package python-devel
 Summary:	Boost.Python development headers
 Summary(pl):	Pliki nag³ówkowe dla Boost.Python
-Group:		Libraries
-Requires:	%{name}-devel
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description python-devel
 Headers for the Boost.Python library.
@@ -73,37 +88,24 @@ Headers for the Boost.Python library.
 %description python-devel -l pl
 Pliki nag³ówkowe dla biblioteki Boost.Python.
 
-%package devel
-Summary:	Boost C++ development libraries and headers
-Summary(pl):	Pliki nag³ówkowe i biblioteki statyczne Boost C++
-Group:		Libraries
-Requires:	boost = %{version}
-Requires:	libstdc++-devel
-
-%description devel
-Headers and static libraries for the Boost C++ libraries.
-
-%description devel -l pl
-Pliki nag³ówkowe i biblioteki statyczne bibliotek Boost C++.
-
 %package regex
 Summary:	Boost C++ regular expressions library
 Summary(pl):	Biblioteka wyra¿eñ regularnych Boost C++
 Group:		Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description regex
-Shared libraries for Boost C++ regular expressions.
+Shared library for Boost C++ regular expressions.
 
 %description regex -l pl
 Biblioteka wyra¿eñ regularnych dla C++, biblioteki dzielone.
 
 %package regex-devel
-Group:		Libraries
 Summary:	Boost C++ Regex library headers and static libraries
 Summary(pl):	Pliki nag³ówkowe i biblioteki statyczne Boost C++ Regex
-Requires:	%{name}-regex = %{version}
-Requires:	%{name}-devel = %{version}
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-regex = %{version}-%{release}
 
 %description regex-devel
 Boost C++ Regex headers and static libraries.
@@ -112,10 +114,10 @@ Boost C++ Regex headers and static libraries.
 Pliki nag³ówkowe i biblioteki statyczne dla Boost C++ Regex.
 
 %package any-devel
-Group:		Libraries
 Summary:	Header for Boost C++ "Any" Library
 Summary(pl):	Plik nag³ówkowy dla biblioteki Boost C++ "Any"
-Requires:	%{name}-devel = %{version}
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description any-devel
 The boost::any class, is a variant value type, which supports copying
@@ -130,14 +132,15 @@ Klasa boost::any jest typem, który umo¿liwia kopiowanie ze zmiennej
 dowolnego typu i bezpieczne, sprawdzone wydobycie jej warto¶ci
 dok³adnie tego samego typu.
 
-Np. 5 jest trzymane jako int i nie jest niejawnie konwertowne ani jako
-"5" ani jako 5.0.
+Np. 5 jest trzymane jako int i nie jest niejawnie konwertowalne ani
+do "5" ani do 5.0.
 
 %package array-devel
-Group:		Libraries
 Summary:	STL compliant container wrapper for arrays of constant size
 Summary(pl):	Wrapper na STLowe kontenery dla tablic o sta³ym rozmiarze
-Requires:	%{name}-devel = %{version}
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
 %description array-devel
 As replacement for ordinary arrays, the STL provides class vector<>.
 However, vector<> provides the semantics of dynamic arrays. Thus, it
@@ -155,9 +158,11 @@ o sta³ym rozmiarze.
 
 
 %package preprocessor-devel
-Group:		Libraries
-Summary:	Preprocessor metaprogramming tools including repetition and recursion.
-Summary(pl):	Narzêdzia metaprogramowania preprocesora razem z repetycj± i rekursj±.
+Summary:	Preprocessor metaprogramming tools including repetition and recursion
+Summary(pl):	Narzêdzia metaprogramowania preprocesora razem z repetycj± i rekursj±
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
 %description preprocessor-devel
 This library provides preprocessor metaprogramming tools, including
 repetition and recursion.
@@ -167,13 +172,14 @@ Biblioteka udostêpnia narzêdzia metaprogramowania preprocesora,
 w³±czaj±c w to repetycje i rekursjê.
 
 %package mpl-devel
-Group:		Libraries
-Summary:	Compile-time algorithms, sequences and metafunction classes.
-Summary(pl):	Algorytmy czasu kompilacji, sekwencji i klas metafunkcji.
-Requires:	%{name}-devel = %{version}
-Requires:	%{name}-preprocessor-devel = %{version}
-Requires:	%{name}-type_traits-devel = %{version}
-Requires:	%{name}-utility-devel = %{version}
+Summary:	Compile-time algorithms, sequences and metafunction classes
+Summary(pl):	Algorytmy czasu kompilacji, sekwencji i klas metafunkcji
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-preprocessor-devel = %{version}-%{release}
+Requires:	%{name}-type_traits-devel = %{version}-%{release}
+Requires:	%{name}-utility-devel = %{version}-%{release}
+
 %description mpl-devel
 The boost-mpl library is a C++ template metaprogramming framework of
 compile-time algorithms, sequences and metafunction classes.
@@ -182,16 +188,15 @@ compile-time algorithms, sequences and metafunction classes.
 Biblioteka boost-mpl jest szkieletem wzorców C++ dla algorytmów czasu
 kompilacji, sekwencji i klas metafunkcji.
 
-
 %package type_traits-devel
-Group:		Libraries
-Summary:	Templates for fundamental properties of types.
-Summary(pl):	Wzorce dla fundamentalnych w³a¶ciwo¶ci typów.
-Requires:	%{name}-devel = %{version}
-Requires:	%{name}-preprocessor-devel = %{version}
-Requires:	%{name}-mpl-devel = %{version}
-Requires:	%{name}-utility-devel = %{version}
-Requires:	%{name}-static_assert-devel = %{version}
+Summary:	Templates for fundamental properties of types
+Summary(pl):	Wzorce dla fundamentalnych w³a¶ciwo¶ci typów
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-mpl-devel = %{version}-%{release}
+Requires:	%{name}-preprocessor-devel = %{version}-%{release}
+Requires:	%{name}-utility-devel = %{version}-%{release}
+Requires:	%{name}-static_assert-devel = %{version}-%{release}
 
 %description type_traits-devel
 The boost-type_traits library defines three kinds of type trait: 
@@ -206,9 +211,9 @@ Biblioteka boost-type_traits definiuje trzy rodzaje cech typów:
 	3. transformacjê z jednego typu do drugiego.
 
 %package utility-devel
-Group:		Libraries
 Summary:	Useful utilities: classes and function templates.
 Summary(pl):	U¿yteczne narzêdzia: klasy i wzorce funkcji
+Group:		Development/Libraries
 Requires:	%{name}-type_traits-devel = %{version}
 
 %description utility-devel
@@ -220,9 +225,9 @@ Klasy noncopyable i checked_delete, funkcje checked_array_delete(),
 next(), prior() oraz idiom base-from-member.
 
 %package static_assert-devel
-Group:		Libraries
-Summary:	Static assertions (compile time assertions).
-Summary(pl):	Statyczne asercje (asercje kompilacyjne).
+Summary:	Static assertions (compile time assertions)
+Summary(pl):	Statyczne asercje (asercje kompilacyjne)
+Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
 %description static_assert-devel
@@ -250,7 +255,7 @@ biblioteka zosta³a u¿yta w sposób który nie jest zalecany.
 %package doc
 Summary:	Boost C++ Library documentation
 Summary(pl):	Dokumentacja dla biblioteki Boost C++
-Group:		Libraries
+Group:		Documentation
 Requires:	%{name}-devel = %{version}
 
 %description doc
@@ -260,19 +265,20 @@ Documentation for the Boost C++ Library.
 Dokumentacja dla biblioteki Boost C++.
 
 %prep
-rm -rf $RPM_BUILD_ROOT
-
-%setup -n boost-%{version} -q
+%setup -q
 
 %build
-%if %{?_with_python:1}%{!?_with_python:0}
+%if %{with python}
 PYTHON_VERSION=`python -V 2>&1 | sed 's,.* \([0-9]\.[0-9]\)\(\.[0-9]\)\?.*,\1,'`
 PYTHON_ROOT=%{_prefix}
 %else
 PYTHON_ROOT=
 PYTHON_VERSION=
 %endif
-bjam -sBUILD=release -sPYTHON_ROOT=$PYTHON_ROOT -sPYTHON_VERSION=$PYTHON_VERSION
+bjam \
+	-sBUILD=release \
+	-sPYTHON_ROOT=$PYTHON_ROOT \
+	-sPYTHON_VERSION=$PYTHON_VERSION
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -431,18 +437,11 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%if %{?_with_python:1}%{!?_with_python:0}
 %post python	-p /sbin/ldconfig
 %postun python	-p /sbin/ldconfig
-%endif
 
 %files -f master.list
 %defattr(644,root,root,755)
-
-%if %{?_with_python:1}%{!?_with_python:0}
-%files python -f python.list
-%defattr(644,root,root,755)
-%endif
 
 %files devel -f devel.list
 %defattr(644,root,root,755)
@@ -526,7 +525,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_includedir}/boost/type_traits/detail
 %dir %{_includedir}/boost/utility
 
-%if %{?_with_python:1}%{!?_with_python:0}
+%if %{with python}
+%files python -f python.list
+%defattr(644,root,root,755)
+
 %files python-devel -f python-devel.list
 %defattr(644,root,root,755)
 %endif
