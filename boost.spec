@@ -393,6 +393,23 @@ programming.
 Biblioteka boost::concept_check dostarcza ró¿ne narzêdzia dla
 programowania generycznego.
 
+%package conversion-devel
+Group:		Development/Libraries
+Summary:	Numeric, polymorphic, and lexical casts.
+Summary(pl):	Numeryczne, polimorficzne i leksykalne rzutowania.
+Requires:	%{name}-type_traits-devel = %{version}-%{release}
+
+%description conversion-devel
+The boost::conversion library improves program safety and clarity by
+performing otherwise messy conversions. It includes cast-style
+function templates designed to complement the C++ Standard's built-in
+casts
+
+%description conversion-devel -l pl
+Biblioteka boost::conversion zwiêksza bezpieczeñstwo i klarowno¶æ
+programu dokonuj±c konwersji które s± w innych przypadkach niechlujne.
+Biblioteka zawiera "rzutopodobne" wzorce funkcji uzupe³niaj±ce
+wbudowane w Standard C++ rzutowania.
 
 %package doc
 Summary:	Boost C++ Library documentation
@@ -578,6 +595,13 @@ mv {_,}devel.list
 #concept_check
 RFILES="%{_includedir}/boost/concept.*.hpp"
 egrep "$RFILES" devel.list > concept.list
+egrep -v "$RFILES" devel.list >_devel.list
+mv {_,}devel.list
+
+#conversion
+RFILES="%{_includedir}/boost/cast.hpp"
+RFILES="$RFILES|%{_includedir}/boost/lexical_cast.hpp"
+egrep "$RFILES" devel.list > conversion.list
 egrep -v "$RFILES" devel.list >_devel.list
 mv {_,}devel.list
 
@@ -781,4 +805,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 
 %files concept_check-devel -f concept.list
+%defattr(644,root,root,755)
+
+%files conversion-devel -f conversion.list
 %defattr(644,root,root,755)
