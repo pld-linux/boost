@@ -626,7 +626,7 @@ Biblioteka boost-type_traits definiuje trzy rodzaje cech typów:
 
 %package uBLAS-devel
 Summary:	Basic linear algebra for dense, packed and sparse matrices
-Summary(pl):	Prosta liniowa algebra dla gêstych, upakowanych i rzadkich macierzy.
+Summary(pl):	Prosta liniowa algebra dla gêstych, upakowanych i rzadkich macierzy
 Group:		Development/Libraries
 Requires:	%{name}-concept_check-devel = %{version}-%{release}
 Requires:	%{name}-utility-devel = %{version}-%{release}
@@ -639,8 +639,8 @@ hermitian and sparse matrices.
 
 %description uBLAS-devel -l pl
 Biblioteka uBLAS dostarcza wzorce klas C++ dla gêstych, jednostkowych
-i rzadkich wektorów oraz gêstych, jednostkowych, diagonalnych,
-symetrycznych, hermitowskich i rzadkich macierzy.
+i rzadkich wektorów oraz gêstych, jednostkowych, trójk±tnych,
+diagonalnych, symetrycznych, hermitowskich i rzadkich macierzy.
 
 %package utility-devel
 Summary:	Useful utilities: classes and function templates
