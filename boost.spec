@@ -156,7 +156,6 @@ pewnym nadmiarem w przypadku kiedy tylko tablice o sta³ym rozmiarze s±
 potrzebne. Ta biblioteka dostarcza wsparcie dla takich w³a¶nie tablic
 o sta³ym rozmiarze.
 
-
 %package preprocessor-devel
 Summary:	Preprocessor metaprogramming tools including repetition and recursion
 Summary(pl):	Narzêdzia metaprogramowania preprocesora razem z repetycj± i rekursj±
@@ -199,19 +198,19 @@ Requires:	%{name}-utility-devel = %{version}-%{release}
 Requires:	%{name}-static_assert-devel = %{version}-%{release}
 
 %description type_traits-devel
-The boost-type_traits library defines three kinds of type trait: 
-	1. The properties of a specific type. 
-	2. The relationship between two types. 
-	3. A transformation from one type to another.
+The boost-type_traits library defines three kinds of type trait:
+ 1. The properties of a specific type.
+ 2. The relationship between two types.
+ 3. A transformation from one type to another.
 
 %description type_traits-devel -l pl
-Biblioteka boost-type_traits definiuje trzy rodzaje cech typów: 
-	1. w³a¶ciwo¶ci konkretnego typu. 
-	2. powi±zania miêdzy dwoma typami. 
-	3. transformacjê z jednego typu do drugiego.
+Biblioteka boost-type_traits definiuje trzy rodzaje cech typów:
+ 1. w³a¶ciwo¶ci konkretnego typu.
+ 2. powi±zania miêdzy dwoma typami.
+ 3. transformacjê z jednego typu do drugiego.
 
 %package utility-devel
-Summary:	Useful utilities: classes and function templates.
+Summary:	Useful utilities: classes and function templates
 Summary(pl):	U¿yteczne narzêdzia: klasy i wzorce funkcji
 Group:		Development/Libraries
 Requires:	%{name}-type_traits-devel = %{version}
@@ -252,13 +251,12 @@ Jednym z celów BOOST_STATIC_ASSERT jest generowanie czytelnych
 komunikatów o b³êdach. One b³yskawicznie powiedz± u¿ytkownikowi ¿e
 biblioteka zosta³a u¿yta w sposób który nie jest zalecany.
 
-
 %package bind-devel
+Summary:	Generalized binders for function/object/pointers
+Summary(pl):	Uogólnione bindery dla funkcji/obiektów/wska¼ników
 Group:		Development/Libraries
-Summary:	Generalized binders for function/object/pointers.
-Summary(pl):	Uogólnione bindery dla funkcji/obiektów/wska¼ników.
-Requires:	boost-ref-devel = %{version}-%{release}
-Requires:	boost-mem_fn-devel = %{version}-%{release}
+Requires:	%{name}-mem_fn-devel = %{version}-%{release}
+Requires:	%{name}-ref-devel = %{version}-%{release}
 
 %description bind-devel
 boost::bind is a generalization of the standard functions std::bind1st
@@ -268,12 +266,11 @@ and std::bind2nd.
 boost::bind jest uogólnieniem standardowych funkcji std::bind1st i
 std::bind2nd.
 
-
 %package mem_fn-devel
+Summary:	Generalized binders for member functions
+Summary(pl):	Uogólnione bindery dla metod
 Group:		Development/Libraries
-Summary:	Generalized binders for member functions.
-Summary(pl):	Uogólnione bindery dla metod.
-Requires:	boost-devel = %{version}-%{release}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description mem_fn-devel
 boost::mem_fn is a generalization of the standard functions
@@ -283,14 +280,13 @@ std::mem_fun and std::mem_fun_ref.
 boost::mem_fn jest uogólnieniem standardowych funkcji std::mem_fun i
 std::mem_fun_ref.
 
-
 %package ref-devel
+Summary:	Small library useful for passing references to function templates
+Summary(pl):	Ma³a biblioteka u¿yteczna przy przekazywaniu referencji do wzorców funkcji
 Group:		Development/Libraries
-Summary:	Small library useful for passing references to function templates.
-Summary(pl):	Ma³a biblioteka u¿yteczna przy przekazywaniu referencji do wzorców funkcjii.
-Requires:	boost-devel = %{version}-%{release}
-Requires:	boost-utility-devel = %{version}-%{release}
-Requires:	boost-mpl-devel = %{version}-%{release}
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-mpl-devel = %{version}-%{release}
+Requires:	%{name}-utility-devel = %{version}-%{release}
 
 %description ref-devel
 boost::ref library is a small library that is useful for passing
@@ -302,13 +298,12 @@ Biblioteka boost::ref jest ma³± bibliotek± która jest u¿yteczna w
 przypadku przekazywania referencji do wzorców funkcji (algorytmów)
 które zazwyczaj bior± kopiê swoich argumentów.
 
-
 %package call_traits-devel
+Summary:	Defines types for passing parameters
+Summary(pl):	Definiowanie typów dla przekazywania parametrów
 Group:		Development/Libraries
-Summary:	Defines types for passing parameters.
-Summary(pl):	Definiuje typy dla przekazywania parametrów.
-Requires:	boost-devel = %{version}-%{release}
-Requires:	boost-type_traits-devel = %{version}-%{release}
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-type_traits-devel = %{version}-%{release}
 
 %description call_traits-devel
 boost::call_traits<T> encapsulates the "best" method to pass a
@@ -324,48 +319,46 @@ zapewnienie ¿e problemy takie jak "referencja referencji" nigdy nie
 wyst±pi± i ¿e parametry s± przekazywane w mo¿liwie najbardziej
 efektywny sposób.
 
-
 %package compatibility-devel
-Group:		Development/Libraries
 Summary:	Help for non-conforming standard libraries
-Summary(pl):	Pomoc dla nie trzymaj±cych standardu bibliotek.
-Requires:	boost-devel = %{version}-%{release}
+Summary(pl):	Pomoc dla nie trzymaj±cych standardu bibliotek
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description compatibility-devel
 This library provides workarounds which allow the other Boost
-libraries to be used on otherwise non-conforming platforms
+libraries to be used on otherwise non-conforming platforms.
 
 %description compatibility-devel -l pl
-Bibliteka dostarcza obej¶cie problemu platform nie trzymaj±cych
+Biblioteka dostarcza obej¶cie problemu platform nie trzymaj±cych
 standardu C++, pozwalaj±ce na u¿ywanie bibliotek Boost na tych
 platformach.
 
-
 %package compose-devel
+Summary:	Functional composition adapters for the STL
+Summary(pl):	Funkcjonalne adaptery kompozycji dla STL
 Group:		Development/Libraries
-Summary:	Functional composition adapters for the STL.
-Summary(pl):	Funkcjonalne adaptery kompozycji dla STL.
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description compose-devel
 The boost::compose provides compose function object adapter extensions
 for use with the Standard Template Library (STL) portion of the C++
 Standard Library. If you aren't currently using the STL, this library
-won't be of any interest, but hard-core STL users will appreciate it's
-usefulness
+won't be of any interest, but hard-core STL users will appreciate its
+usefulness.
 
 %description compose-devel -l pl
 boost::compose dostarcza rozszerzenie adaptera obiektu funkcji compose
-do u¿ytku z STLow± czê¶ci± Standardu C++. Je¿eli nie u¿ywasz STL,
+do u¿ytku z STL-ow± czê¶ci± Standardu C++. Je¿eli nie u¿ywasz STL,
 biblioteka bêdzie poza twoim zainteresowaniem, lecz hardkorowi
-u¿ytkownicy STLa doceni± jej u¿yteczno¶æ.
-
+u¿ytkownicy STL-a doceni± jej u¿yteczno¶æ.
 
 %package compressed_pair-devel
+Summary:	Empty member optimization
+Summary(pl):	Optymalizacja pustego elementu
 Group:		Development/Libraries
-Summary:	Empty member optimization.
-Summary(pl):	Optymalizacja pustego membera.
-Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-call_traits-devel = %{version}-%{release}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description compressed_pair-devel
 The class boost::compressed_pair is very similar to std::pair, but if
@@ -374,16 +367,15 @@ base-class optimisation" is applied to compress the size of the pair.
 
 %description compressed_pair-devel -l pl
 Klasa boost::compressed_pair jest bardzo podobna do std::pair, ale
-je¿eli który¶ z argumentów wzorca hest pust± klas±, wtedy stosowana
+je¿eli który¶ z argumentów wzorca jest pust± klas±, wtedy stosowana
 jest "optymalizacja pustej klasy bazowej" do kompresji pary.
 
-
 %package concept_check-devel
+Summary:	Tools for generic programming
+Summary(pl):	Narzêdzia dla programowania generycznego
 Group:		Development/Libraries
-Summary:	Tools for generic programming.
-Summary(pl):	Narzêdzia dla programowania generycznego.
-Requires:	%{name}-type_traits-devel = %{version}-%{release}
 Requires:	%{name}-static_assert-devel = %{version}-%{release}
+Requires:	%{name}-type_traits-devel = %{version}-%{release}
 
 %description concept_check-devel
 The boost::concept_check library provides various tools for generic
@@ -394,16 +386,16 @@ Biblioteka boost::concept_check dostarcza ró¿ne narzêdzia dla
 programowania generycznego.
 
 %package conversion-devel
+Summary:	Numeric, polymorphic, and lexical casts
+Summary(pl):	Numeryczne, polimorficzne i leksykalne rzutowania
 Group:		Development/Libraries
-Summary:	Numeric, polymorphic, and lexical casts.
-Summary(pl):	Numeryczne, polimorficzne i leksykalne rzutowania.
 Requires:	%{name}-type_traits-devel = %{version}-%{release}
 
 %description conversion-devel
 The boost::conversion library improves program safety and clarity by
 performing otherwise messy conversions. It includes cast-style
 function templates designed to complement the C++ Standard's built-in
-casts
+casts.
 
 %description conversion-devel -l pl
 Biblioteka boost::conversion zwiêksza bezpieczeñstwo i klarowno¶æ
@@ -415,7 +407,7 @@ wbudowane w Standard C++ rzutowania.
 Summary:	Boost C++ Library documentation
 Summary(pl):	Dokumentacja dla biblioteki Boost C++
 Group:		Documentation
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description doc
 Documentation for the Boost C++ Library.
@@ -604,8 +596,6 @@ RFILES="$RFILES|%{_includedir}/boost/lexical_cast.hpp"
 egrep "$RFILES" devel.list > conversion.list
 egrep -v "$RFILES" devel.list >_devel.list
 mv {_,}devel.list
-
-
 
 # documentation
 install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
