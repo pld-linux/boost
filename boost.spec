@@ -36,7 +36,7 @@ upcoming C++ Standard Library Technical Report.
 Strona http://www.boost.org/ dostarcza darmowe biblioteki C++ wraz z
 kodem ¼ród³owym. Nacisk po³o¿ono na biblioteki, które dobrze
 wspó³pracuj± ze standardow± bibliotek± C++. Celem jest ustanowienie
-"isniej±cej praktyki" i dostarczenie implementacji, tak ¿e biblioteki
+"istniej±cej praktyki" i dostarczenie implementacji, tak ¿e biblioteki
 "Boost" nadaj± siê do ewentualnej standaryzacji. Niektóre z bibliotek
 ju¿ zosta³y zg³oszone do komitetu standaryzacyjnego C++ w nadchodz±cym
 Raporcie Technicznym Biblioteki Standardowej C++
