@@ -101,11 +101,30 @@ Biblioteka wyra¿eñ regularnych dla C++, biblioteki dzielone.
 Group:		Libraries
 Summary:	Boost C++ Regex library headers and static libraries
 Summary(pl):	Nag³ówki i statyczne biblioteki Boost C++ Regex
-Requires:	%{name}-regex = %{version}
+Requires:	%{name}-regex = %{version}, %{name}-devel = %{version}
 
 %description regex-devel
 %description regex-devel -l pl
 Nag³ówi i statyczne biblioteki dla Boost C++ Regex
+
+%package any-devel
+Group:		Libraries
+Summary: 		Header for Boost C++ "Any" Library
+Summary(pl):	Nag³ówek dla biblioteki Boost C++ "Any"
+Requires:		%{name}-devel	=	%{version}
+%description any-devel
+The boost::any class, is a variant value type, which supports copying of any
+value type and safe checked extraction of that value strictly against that
+type.  
+I.e. 5 is held strictly as an int and is not implicitly convertible
+either to "5" or to 5.0. 
+%description any-devel -l pl
+Klasa boost::any jest typem, który umo¿liwia kopiowanie miêdzy ka¿dym zmiennymi
+ka¿dego typu i  bezpieczne, sprawdzone wydobycie jej warto¶ci u¿ywaj±c
+dok³adnie jej typu.  
+Np. 5 jest trzymane dok³adnie jako int i nie jest
+niejawnie konwertowne ani jako "5" ani jako 5.0. 
+
 
 %package doc
 Summary:	Boost C++ Library documentation
@@ -135,7 +154,7 @@ bjam -sBUILD=release -sPYTHON_ROOT=$PYTHON_ROOT -sPYTHON_VERSION=$PYTHON_VERSION
 
 %install
 rm -rf $RPM_BUILD_ROOT
-rm -f master.list regex.list regex-devel.list python.list devel.list python-devel.list doc.list
+rm -f master.list regex.list regex-devel.list python.list devel.list python-devel.list doc.list any.list
 # include files
 install -d $RPM_BUILD_ROOT%{_includedir}
 for i in `find boost -type d`; do
@@ -179,8 +198,8 @@ done
 #regex library
 grep libboost_regex.so master.list > regex.list
 grep -v libboost_regex.so master.list >_master.list
-mv _master.list master.list
-
+mv {_,}master.list
+#regex-devel
 RFILES="%{_includedir}/boost/cregex.hpp|"
 RFILES="$RFILES%{_includedir}/boost/regex/|"
 RFILES="$RFILES%{_includedir}/boost/regex.h(pp){0,1}|"
@@ -189,9 +208,12 @@ RFILES="$RFILES%{_libdir}/libboost_regex.a"
 
 egrep "$RFILES"   devel.list > regex-devel.list
 egrep -v "$RFILES"  devel.list > _devel.list
-mv _devel.list devel.list
+mv {_,}devel.list
 
-
+#any-devel library
+grep any.hpp devel.list > any.list
+grep -v any.hpp devel.list > _devel.list
+mv {_,}devel.list
 
 # documentation
 install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
@@ -419,4 +441,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 
 %files regex-devel -f regex-devel.list
+%defattr(644,root,root,755)
+
+%files any-devel -f any.list
 %defattr(644,root,root,755)
