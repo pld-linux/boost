@@ -101,7 +101,8 @@ Biblioteka wyra¿eñ regularnych dla C++, biblioteki dzielone.
 Group:		Libraries
 Summary:	Boost C++ Regex library headers and static libraries
 Summary(pl):	Nag³ówki i statyczne biblioteki Boost C++ Regex
-Requires:	%{name}-regex = %{version}, %{name}-devel = %{version}
+Requires:	%{name}-regex = %{version}
+Requires:	%{name}-devel = %{version}
 
 %description regex-devel
 Boost C++ Regex headers and static libraries
