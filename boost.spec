@@ -359,6 +359,41 @@ do u¿ytku z STLow± czê¶ci± Standardu C++. Je¿eli nie u¿ywasz STL,
 biblioteka bêdzie poza twoim zainteresowaniem, lecz hardkorowi
 u¿ytkownicy STLa doceni± jej u¿yteczno¶æ.
 
+
+%package compressed_pair-devel
+Group:		Development/Libraries
+Summary:	Empty member optimization.
+Summary(pl):	Optymalizacja pustego membera.
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-call_traits-devel = %{version}-%{release}
+
+%description compressed_pair-devel
+The class boost::compressed_pair is very similar to std::pair, but if
+either of the template arguments are empty classes, then the "empty
+base-class optimisation" is applied to compress the size of the pair.
+
+%description compressed_pair-devel -l pl
+Klasa boost::compressed_pair jest bardzo podobna do std::pair, ale
+je¿eli który¶ z argumentów wzorca hest pust± klas±, wtedy stosowana
+jest "optymalizacja pustej klasy bazowej" do kompresji pary.
+
+
+%package concept_check-devel
+Group:		Development/Libraries
+Summary:	Tools for generic programming.
+Summary(pl):	Narzêdzia dla programowania generycznego.
+Requires:	%{name}-type_traits-devel = %{version}-%{release}
+Requires:	%{name}-static_assert-devel = %{version}-%{release}
+
+%description concept_check-devel
+The boost::concept_check library provides various tools for generic
+programming.
+
+%description concept_check-devel -l pl
+Biblioteka boost::concept_check dostarcza ró¿ne narzêdzia dla
+programowania generycznego.
+
+
 %package doc
 Summary:	Boost C++ Library documentation
 Summary(pl):	Dokumentacja dla biblioteki Boost C++
@@ -530,6 +565,19 @@ mv {_,}devel.list
 #compose-devel
 RFILES="%{_includedir}/boost/compose.hpp"
 egrep "$RFILES" devel.list > compose.list
+egrep -v "$RFILES" devel.list >_devel.list
+mv {_,}devel.list
+
+#compressed-pair
+RFILES="%{_includedir}/boost/compressed_pair.hpp"
+RFILES="$RFILES|%{_includedir}/boost/detail/(ob_)*compressed_pair.hpp"
+egrep "$RFILES" devel.list > compressed.list
+egrep -v "$RFILES" devel.list >_devel.list
+mv {_,}devel.list
+
+#concept_check
+RFILES="%{_includedir}/boost/concept.*.hpp"
+egrep "$RFILES" devel.list > concept.list
 egrep -v "$RFILES" devel.list >_devel.list
 mv {_,}devel.list
 
@@ -727,4 +775,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 
 %files compose-devel -f compose.list
+%defattr(644,root,root,755)
+
+%files compressed_pair-devel -f compressed.list
+%defattr(644,root,root,755)
+
+%files concept_check-devel -f concept.list
 %defattr(644,root,root,755)
