@@ -292,7 +292,7 @@ wbudowane w Standard C++ rzutowania.
 Summary:	Generalized binders for member functions
 Summary(pl):	Uogólnione bindery dla metod
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-bind-devel = %{version}-%{release}
 
 %description mem_fn-devel
 boost::mem_fn is a generalization of the standard functions
