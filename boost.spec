@@ -324,6 +324,23 @@ zapewnienie ¿e problemy takie jak "referencja referencji" nigdy nie
 wyst±pi± i ¿e parametry s± przekazywane w mo¿liwie najbardziej
 efektywny sposób.
 
+
+%package compatibility-devel
+Group:		Development/Libraries
+Summary:	Help for non-conforming standard libraries
+Summary(pl):	Pomoc dla nie trzymaj±cych standardu bibliotek.
+Requires:	boost-devel = %{version}-%{release}
+
+%description compatibility-devel
+This library provides workarounds which allow the other Boost
+libraries to be used on otherwise non-conforming platforms
+
+%description compatibility-devel -l pl
+Bibliteka dostarcza obej¶cie problemu platform nie trzymaj±cych
+standardu C++, pozwalaj±ce na u¿ywanie bibliotek Boost na tych
+platformach.
+
+
 %package doc
 Summary:	Boost C++ Library documentation
 Summary(pl):	Dokumentacja dla biblioteki Boost C++
@@ -485,6 +502,14 @@ egrep -v "$RFILES" devel.list >_devel.list
 mv {_,}devel.list
 
 
+#compatibility-devel
+RFILES="%{_includedir}/boost/limits.hpp"
+RFILES="$RFILES|%{_includedir}/boost/compatibility/"
+egrep "$RFILES" devel.list > compat.list
+egrep -v "$RFILES" devel.list >_devel.list
+mv {_,}devel.list
+
+
 
 # documentation
 install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
@@ -548,8 +573,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel -f devel.list
 %defattr(644,root,root,755)
 %dir %{_includedir}/boost
-%dir %{_includedir}/boost/compatibility
-%dir %{_includedir}/boost/compatibility/cpp_c_headers
 %dir %{_includedir}/boost/config
 %dir %{_includedir}/boost/config/compiler
 %dir %{_includedir}/boost/config/platform
@@ -674,4 +697,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 
 %files call_traits-devel -f call_traits.list
+%defattr(644,root,root,755)
+
+%files compatibility-devel -f compat.list
 %defattr(644,root,root,755)
