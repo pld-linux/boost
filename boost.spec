@@ -132,8 +132,8 @@ Klasa boost::any jest typem, który umo¿liwia kopiowanie ze zmiennej
 dowolnego typu i bezpieczne, sprawdzone wydobycie jej warto¶ci
 dok³adnie tego samego typu.
 
-Np. 5 jest trzymane jako int i nie jest niejawnie konwertowalne ani
-do "5" ani do 5.0.
+Np. 5 jest trzymane jako int i nie jest niejawnie konwertowalne ani do
+"5" ani do 5.0.
 
 %package array-devel
 Summary:	STL compliant container wrapper for arrays of constant size
@@ -251,6 +251,56 @@ kompilacyjny ekwiwalent makra 'assert'; czasami znane jest jako
 Jednym z celów BOOST_STATIC_ASSERT jest generowanie czytelnych
 komunikatów o b³êdach. One b³yskawicznie powiedz± u¿ytkownikowi ¿e
 biblioteka zosta³a u¿yta w sposób który nie jest zalecany.
+
+
+%package bind-devel
+Group:		Development/Libraries
+Summary:	Generalized binders for function/object/pointers.
+Summary(pl):	Uogólnione bindery dla funkcji/obiektów/wska¼ników.
+Requires:	boost-ref-devel = %{version}-%{release}
+Requires:	boost-mem_fn-devel = %{version}-%{release}
+
+%description bind-devel
+boost::bind is a generalization of the standard functions std::bind1st
+and std::bind2nd.
+
+%description bind-devel -l pl
+boost::bind jest uogólnieniem standardowych funkcji std::bind1st i
+std::bind2nd.
+
+
+%package mem_fn-devel
+Group:		Development/Libraries
+Summary:	Generalized binders for member functions.
+Summary(pl):	Uogólnione bindery dla metod.
+Requires:	boost-devel = %{version}-%{release}
+
+%description mem_fn-devel
+boost::mem_fn is a generalization of the standard functions
+std::mem_fun and std::mem_fun_ref.
+
+%description mem_fn-devel -l pl
+boost::mem_fn jest uogólnieniem standardowych funkcji std::mem_fun i
+std::mem_fun_ref.
+
+
+%package ref-devel
+Group:		Development/Libraries
+Summary:	Small library useful for passing references to function templates.
+Summary(pl):	Ma³a biblioteka u¿yteczna przy przekazywaniu referencji do wzorców funkcjii.
+Requires:	boost-devel = %{version}-%{release}
+Requires:	boost-utility-devel = %{version}-%{release}
+Requires:	boost-mpl-devel = %{version}-%{release}
+
+%description ref-devel
+boost::ref library is a small library that is useful for passing
+references to function templates (algorithms) that would usually take
+copies of their arguments.
+
+%description ref-devel -l pl
+Biblioteka boost::ref jest ma³± bibliotek± która jest u¿yteczna w
+przypadku przekazywania referencji do wzorców funkcji (algorytmów)
+które zazwyczaj bior± kopiê swoich argumentów.
 
 %package doc
 Summary:	Boost C++ Library documentation
@@ -383,6 +433,27 @@ egrep "$RFILES" devel.list > static_assert.list
 egrep -v "$RFILES" devel.list >_devel.list
 mv {_,}devel.list
 
+#bind-devel
+RFILES="%{_includedir}/boost/bind.hpp"
+RFILES="$RFILES|%{_includedir}/boost/bind/"
+egrep "$RFILES" devel.list > bind.list
+egrep -v "$RFILES" devel.list >_devel.list
+mv {_,}devel.list
+
+#mem_fn-devel
+RFILES="%{_includedir}/boost/mem_fn.hpp"
+RFILES="$RFILES|%{_includedir}/boost/get_pointer.hpp"
+egrep "$RFILES" devel.list > mem_fn.list
+egrep -v "$RFILES" devel.list >_devel.list
+mv {_,}devel.list
+
+#ref-devel
+RFILES="%{_includedir}/boost/ref.hpp"
+egrep "$RFILES" devel.list > ref.list
+egrep -v "$RFILES" devel.list >_devel.list
+mv {_,}devel.list
+
+
 
 # documentation
 install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
@@ -446,7 +517,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel -f devel.list
 %defattr(644,root,root,755)
 %dir %{_includedir}/boost
-%dir %{_includedir}/boost/bind
 %dir %{_includedir}/boost/compatibility
 %dir %{_includedir}/boost/compatibility/cpp_c_headers
 %dir %{_includedir}/boost/config
@@ -537,6 +607,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc %{_docdir}/boost-%{version}
 
+%files bind-devel -f bind.list
+%defattr(644,root,root,755)
+
 %files regex -f regex.list
 %defattr(644,root,root,755)
 
@@ -562,4 +635,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 
 %files static_assert-devel -f static_assert.list
+%defattr(644,root,root,755)
+
+%files mem_fn-devel -f mem_fn.list
+%defattr(644,root,root,755)
+
+%files ref-devel -f ref.list
 %defattr(644,root,root,755)
