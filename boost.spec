@@ -602,6 +602,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/iterator*.hpp
 %{_includedir}/boost/lambda
 %{_includedir}/boost/last_value.hpp
+%{_includedir}/boost/limits.hpp
 %{_includedir}/boost/math
 %{_includedir}/boost/math_fwd.hpp
 %{_includedir}/boost/min_rand.hpp
@@ -699,7 +700,6 @@ rm -rf $RPM_BUILD_ROOT
 %files compatibility-devel
 %defattr(644,root,root,755)
 %{_includedir}/boost/compatibility
-%{_includedir}/boost/limits.hpp
 
 %files compose-devel
 %defattr(644,root,root,755)
