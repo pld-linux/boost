@@ -3,7 +3,7 @@
 %bcond_without	python	# with boost-python support (not working now)
 #
 %define _ver	1.31.0
-%define _fver 	%(echo %{_ver}|sed 's/\\./_/g')
+%define _fver 	%(echo %{_ver} | tr . _)
 
 Summary:	The Boost C++ Libraries
 Summary(pl):	Biblioteki C++ "Boost"
