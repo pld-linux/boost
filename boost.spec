@@ -45,10 +45,6 @@ Summary:	Boost C++ development libraries and headers
 Summary(pl):	Pliki nag³ówkowe i biblioteki statyczne Boost C++
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-# req'd by <boost/signal.hpp>
-Requires:	%{name}-any-devel = %{version}-%{release}
-Requires:	%{name}-mem_fn-devel = %{version}-%{release}
-Requires:	%{name}-ref-devel = %{version}-%{release}
 # req'd by <boost/iterator_adaptors.hpp> (also included by <boost/signal.h>)
 Requires:	%{name}-compressed_pair-devel = %{version}-%{release}
 Requires:	%{name}-concept_check-devel = %{version}-%{release}
@@ -59,6 +55,18 @@ Headers and static libraries for the Boost C++ libraries.
 
 %description devel -l pl
 Pliki nag³ówkowe i biblioteki statyczne bibliotek Boost C++.
+
+%package static
+Summary:	Static versions of Boost libraries
+Summary(pl):	Statyczne wersje bibliotek Boost
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description static
+Static versions of Boost libraries.
+
+%description static -l pl
+Statyczne wersje bibliotek Boost.
 
 %package python
 Summary:	Boost.Python library
@@ -446,12 +454,13 @@ Summary(pl):	Pliki nag³ówkowe dla biblioteki boost::signals
 Group:		Development/Libraries
 Requires:	%{name}-any-devel = %{version}-%{release}
 #TODO: separate smart_ptr or include to the main devel package
-#Requires:	%{name}-smart_ptr-devel = %{version}-%{release}
-#Requires:	%{name}-operators-devel = %{version}-%{release}
 #Requires:	%{name}-iterator_adaptors-devel = %{version}-%{release}
-Requires:	%{name}-utility-devel = %{version}-%{release}
+#Requires:	%{name}-operators-devel = %{version}-%{release}
+#Requires:	%{name}-smart_ptr-devel = %{version}-%{release}
+Requires:	%{name}-mem_fn-devel = %{version}-%{release}
 Requires:	%{name}-ref-devel = %{version}-%{release}
 Requires:	%{name}-type_traits-devel = %{version}-%{release}
+Requires:	%{name}-utility-devel = %{version}-%{release}
 
 %description signals-devel
 Header files for boost::signals library.
@@ -505,10 +514,10 @@ Summary(pl):	Przeno¶na biblioteka w±tków C++
 Group:		Libraries
 
 %description thread
-Portable C++ threads library. Shared libraries.
+Portable C++ threads library - shared library.
 
 %description thread -l pl
-Przeno¶na biblioteka w±tków dla C++. Biblioteki dzielone.
+Przeno¶na biblioteka w±tków dla C++ - biblioteka dzielona.
 
 %package thread-devel
 Summary:	Header files for boost::thread library
@@ -531,8 +540,8 @@ Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-mpl-devel = %{version}-%{release}
 Requires:	%{name}-preprocessor-devel = %{version}-%{release}
-Requires:	%{name}-utility-devel = %{version}-%{release}
 Requires:	%{name}-static_assert-devel = %{version}-%{release}
+Requires:	%{name}-utility-devel = %{version}-%{release}
 
 %description type_traits-devel
 The boost-type_traits library defines three kinds of type trait:
@@ -559,18 +568,6 @@ next(), prior() function templates, plus base-from-member idiom.
 %description utility-devel -l pl
 Klasy noncopyable i checked_delete, funkcje checked_array_delete(),
 next(), prior() oraz idiom base-from-member.
-
-%package static
-Summary:	Static versions of Boost libraries
-Summary(pl):	Statyczne wersje bibliotek Boost
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-
-%description static
-Static versions of Boost libraries.
-
-%description static -l pl
-Statyczne wersje bibliotek Boost.
 
 %package doc
 Summary:	Boost C++ Library documentation
@@ -785,7 +782,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/detail/none.hpp
 %{_includedir}/boost/detail/none_t.hpp
 %{_includedir}/boost/detail/typed_in_place_factory.hpp
-
 
 %files static
 %defattr(644,root,root,755)
