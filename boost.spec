@@ -14,6 +14,7 @@ Source0:	http://dl.sourceforge.net/boost/%{name}-%{version}.tar.bz2
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.3
 BuildRequires:	libstdc++-devel
+BuildRequires:	perl-base
 %{?with_python:BuildRequires:	python-devel}
 BuildConflicts:	gcc = 5:3.3.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -156,101 +157,6 @@ pewnym nadmiarem w przypadku kiedy tylko tablice o sta³ym rozmiarze s±
 potrzebne. Ta biblioteka dostarcza wsparcie dla takich w³a¶nie tablic
 o sta³ym rozmiarze.
 
-%package preprocessor-devel
-Summary:	Preprocessor metaprogramming tools including repetition and recursion
-Summary(pl):	Narzêdzia metaprogramowania preprocesora razem z repetycj± i rekursj±
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-
-%description preprocessor-devel
-This library provides preprocessor metaprogramming tools, including
-repetition and recursion.
-
-%description preprocessor-devel -l pl
-Biblioteka udostêpnia narzêdzia metaprogramowania preprocesora,
-w³±czaj±c w to repetycje i rekursjê.
-
-%package mpl-devel
-Summary:	Compile-time algorithms, sequences and metafunction classes
-Summary(pl):	Algorytmy czasu kompilacji, sekwencji i klas metafunkcji
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-Requires:	%{name}-preprocessor-devel = %{version}-%{release}
-Requires:	%{name}-type_traits-devel = %{version}-%{release}
-Requires:	%{name}-utility-devel = %{version}-%{release}
-
-%description mpl-devel
-The boost-mpl library is a C++ template metaprogramming framework of
-compile-time algorithms, sequences and metafunction classes.
-
-%description mpl-devel -l pl
-Biblioteka boost-mpl jest szkieletem wzorców C++ dla algorytmów czasu
-kompilacji, sekwencji i klas metafunkcji.
-
-%package type_traits-devel
-Summary:	Templates for fundamental properties of types
-Summary(pl):	Wzorce dla fundamentalnych w³a¶ciwo¶ci typów
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-Requires:	%{name}-mpl-devel = %{version}-%{release}
-Requires:	%{name}-preprocessor-devel = %{version}-%{release}
-Requires:	%{name}-utility-devel = %{version}-%{release}
-Requires:	%{name}-static_assert-devel = %{version}-%{release}
-
-%description type_traits-devel
-The boost-type_traits library defines three kinds of type trait:
- 1. The properties of a specific type.
- 2. The relationship between two types.
- 3. A transformation from one type to another.
-
-%description type_traits-devel -l pl
-Biblioteka boost-type_traits definiuje trzy rodzaje cech typów:
- 1. w³a¶ciwo¶ci konkretnego typu.
- 2. powi±zania miêdzy dwoma typami.
- 3. transformacjê z jednego typu do drugiego.
-
-%package utility-devel
-Summary:	Useful utilities: classes and function templates
-Summary(pl):	U¿yteczne narzêdzia: klasy i wzorce funkcji
-Group:		Development/Libraries
-Requires:	%{name}-type_traits-devel = %{version}
-
-%description utility-devel
-Class noncopyable plus checked_delete(), checked_array_delete(),
-next(), prior() function templates, plus base-from-member idiom.
-
-%description utility-devel -l pl
-Klasy noncopyable i checked_delete, funkcje checked_array_delete(),
-next(), prior() oraz idiom base-from-member.
-
-%package static_assert-devel
-Summary:	Static assertions (compile time assertions)
-Summary(pl):	Statyczne asercje (asercje kompilacyjne)
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
-
-%description static_assert-devel
-The header <boost/static_assert.hpp> supplies a single macro
-BOOST_STATIC_ASSERT(x), which generates a compile time error message
-if the integral-constant-expression x is not true. In other words it
-is the compile time equivalent of the assert macro; this is sometimes
-known as a "compile-time-assertion"
-
-One of the aims of BOOST_STATIC_ASSERT is to generate readable error
-messages. These immediately tell the user that a library is being used
-in a manner that is not supported.
-
-%description static_assert-devel -l pl
-Plik nag³ówkowy <boost/static_assert.hpp> dostarcza pojedyncze makro
-BOOST_STATIC_ASSERT(x), które generuje komunikat b³êdu kompilacji
-je¿eli sta³e wyra¿enie x nie jest prawdziwe. Innymi s³owy jest to
-kompilacyjny ekwiwalent makra 'assert'; czasami znane jest jako
-"asercja czasu kompilacji"
-
-Jednym z celów BOOST_STATIC_ASSERT jest generowanie czytelnych
-komunikatów o b³êdach. One b³yskawicznie powiedz± u¿ytkownikowi ¿e
-biblioteka zosta³a u¿yta w sposób który nie jest zalecany.
-
 %package bind-devel
 Summary:	Generalized binders for function/object/pointers
 Summary(pl):	Uogólnione bindery dla funkcji/obiektów/wska¼ników
@@ -265,38 +171,6 @@ and std::bind2nd.
 %description bind-devel -l pl
 boost::bind jest uogólnieniem standardowych funkcji std::bind1st i
 std::bind2nd.
-
-%package mem_fn-devel
-Summary:	Generalized binders for member functions
-Summary(pl):	Uogólnione bindery dla metod
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-
-%description mem_fn-devel
-boost::mem_fn is a generalization of the standard functions
-std::mem_fun and std::mem_fun_ref.
-
-%description mem_fn-devel -l pl
-boost::mem_fn jest uogólnieniem standardowych funkcji std::mem_fun i
-std::mem_fun_ref.
-
-%package ref-devel
-Summary:	Small library useful for passing references to function templates
-Summary(pl):	Ma³a biblioteka u¿yteczna przy przekazywaniu referencji do wzorców funkcji
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-Requires:	%{name}-mpl-devel = %{version}-%{release}
-Requires:	%{name}-utility-devel = %{version}-%{release}
-
-%description ref-devel
-boost::ref library is a small library that is useful for passing
-references to function templates (algorithms) that would usually take
-copies of their arguments.
-
-%description ref-devel -l pl
-Biblioteka boost::ref jest ma³± bibliotek± która jest u¿yteczna w
-przypadku przekazywania referencji do wzorców funkcji (algorytmów)
-które zazwyczaj bior± kopiê swoich argumentów.
 
 %package call_traits-devel
 Summary:	Defines types for passing parameters
@@ -403,6 +277,145 @@ programu dokonuj±c konwersji które s± w innych przypadkach niechlujne.
 Biblioteka zawiera "rzutopodobne" wzorce funkcji uzupe³niaj±ce
 wbudowane w Standard C++ rzutowania.
 
+%package mem_fn-devel
+Summary:	Generalized binders for member functions
+Summary(pl):	Uogólnione bindery dla metod
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description mem_fn-devel
+boost::mem_fn is a generalization of the standard functions
+std::mem_fun and std::mem_fun_ref.
+
+%description mem_fn-devel -l pl
+boost::mem_fn jest uogólnieniem standardowych funkcji std::mem_fun i
+std::mem_fun_ref.
+
+%package mpl-devel
+Summary:	Compile-time algorithms, sequences and metafunction classes
+Summary(pl):	Algorytmy czasu kompilacji, sekwencji i klas metafunkcji
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-preprocessor-devel = %{version}-%{release}
+Requires:	%{name}-type_traits-devel = %{version}-%{release}
+Requires:	%{name}-utility-devel = %{version}-%{release}
+
+%description mpl-devel
+The boost-mpl library is a C++ template metaprogramming framework of
+compile-time algorithms, sequences and metafunction classes.
+
+%description mpl-devel -l pl
+Biblioteka boost-mpl jest szkieletem wzorców C++ dla algorytmów czasu
+kompilacji, sekwencji i klas metafunkcji.
+
+%package preprocessor-devel
+Summary:	Preprocessor metaprogramming tools including repetition and recursion
+Summary(pl):	Narzêdzia metaprogramowania preprocesora razem z repetycj± i rekursj±
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description preprocessor-devel
+This library provides preprocessor metaprogramming tools, including
+repetition and recursion.
+
+%description preprocessor-devel -l pl
+Biblioteka udostêpnia narzêdzia metaprogramowania preprocesora,
+w³±czaj±c w to repetycje i rekursjê.
+
+%package ref-devel
+Summary:	Small library useful for passing references to function templates
+Summary(pl):	Ma³a biblioteka u¿yteczna przy przekazywaniu referencji do wzorców funkcji
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-mpl-devel = %{version}-%{release}
+Requires:	%{name}-utility-devel = %{version}-%{release}
+
+%description ref-devel
+boost::ref library is a small library that is useful for passing
+references to function templates (algorithms) that would usually take
+copies of their arguments.
+
+%description ref-devel -l pl
+Biblioteka boost::ref jest ma³± bibliotek± która jest u¿yteczna w
+przypadku przekazywania referencji do wzorców funkcji (algorytmów)
+które zazwyczaj bior± kopiê swoich argumentów.
+
+%package static_assert-devel
+Summary:	Static assertions (compile time assertions)
+Summary(pl):	Statyczne asercje (asercje kompilacyjne)
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}
+
+%description static_assert-devel
+The header <boost/static_assert.hpp> supplies a single macro
+BOOST_STATIC_ASSERT(x), which generates a compile time error message
+if the integral-constant-expression x is not true. In other words it
+is the compile time equivalent of the assert macro; this is sometimes
+known as a "compile-time-assertion"
+
+One of the aims of BOOST_STATIC_ASSERT is to generate readable error
+messages. These immediately tell the user that a library is being used
+in a manner that is not supported.
+
+%description static_assert-devel -l pl
+Plik nag³ówkowy <boost/static_assert.hpp> dostarcza pojedyncze makro
+BOOST_STATIC_ASSERT(x), które generuje komunikat b³êdu kompilacji
+je¿eli sta³e wyra¿enie x nie jest prawdziwe. Innymi s³owy jest to
+kompilacyjny ekwiwalent makra 'assert'; czasami znane jest jako
+"asercja czasu kompilacji"
+
+Jednym z celów BOOST_STATIC_ASSERT jest generowanie czytelnych
+komunikatów o b³êdach. One b³yskawicznie powiedz± u¿ytkownikowi ¿e
+biblioteka zosta³a u¿yta w sposób który nie jest zalecany.
+
+%package type_traits-devel
+Summary:	Templates for fundamental properties of types
+Summary(pl):	Wzorce dla fundamentalnych w³a¶ciwo¶ci typów
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-mpl-devel = %{version}-%{release}
+Requires:	%{name}-preprocessor-devel = %{version}-%{release}
+Requires:	%{name}-utility-devel = %{version}-%{release}
+Requires:	%{name}-static_assert-devel = %{version}-%{release}
+
+%description type_traits-devel
+The boost-type_traits library defines three kinds of type trait:
+ 1. The properties of a specific type.
+ 2. The relationship between two types.
+ 3. A transformation from one type to another.
+
+%description type_traits-devel -l pl
+Biblioteka boost-type_traits definiuje trzy rodzaje cech typów:
+ 1. w³a¶ciwo¶ci konkretnego typu.
+ 2. powi±zania miêdzy dwoma typami.
+ 3. transformacjê z jednego typu do drugiego.
+
+%package utility-devel
+Summary:	Useful utilities: classes and function templates
+Summary(pl):	U¿yteczne narzêdzia: klasy i wzorce funkcji
+Group:		Development/Libraries
+Requires:	%{name}-type_traits-devel = %{version}
+
+%description utility-devel
+Class noncopyable plus checked_delete(), checked_array_delete(),
+next(), prior() function templates, plus base-from-member idiom.
+
+%description utility-devel -l pl
+Klasy noncopyable i checked_delete, funkcje checked_array_delete(),
+next(), prior() oraz idiom base-from-member.
+
+%package static
+Summary:	Static versions of Boost libraries
+Summary(pl):	Statyczne wersje bibliotek Boost
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description static
+Static versions of Boost libraries.
+
+%description static -l pl
+Statyczne wersje bibliotek Boost.
+
 %package doc
 Summary:	Boost C++ Library documentation
 Summary(pl):	Dokumentacja dla biblioteki Boost C++
@@ -438,169 +451,13 @@ bjam \
 
 %install
 rm -rf $RPM_BUILD_ROOT
-rm -f master.list regex.list regex-devel.list python.list devel.list python-devel.list doc.list any.list
-# include files
-install -d $RPM_BUILD_ROOT%{_includedir}
-for i in `find boost -type d`; do
-	install -d $RPM_BUILD_ROOT%{_includedir}/$i
-done
-for i in `find boost -type f`; do
-	install -m 644 $i $RPM_BUILD_ROOT%{_includedir}/$i
-	if test "`echo $i | sed 's,python,,g'`" = "$i"; then
-		echo %{_includedir}/$i >> devel.list
-	else
-		echo %{_includedir}/$i >> python-devel.list
-	fi
-done
-# static libraries
-install -d $RPM_BUILD_ROOT%{_libdir}
-for i in `find libs -type f -name '*.a' | grep gcc`; do
-	install -m 644 $i $RPM_BUILD_ROOT%{_libdir}/`basename $i`
-	if test "`echo $i | sed 's,python,,g'`" = "$i"; then
-		echo %{_libdir}/`basename $i` >> devel.list
-	else
-		echo %{_libdir}/`basename $i` >> python-devel.list
-	fi
-done
+install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}}
 
+cp -rf boost $RPM_BUILD_ROOT%{_includedir}
 
-# dynamic libraries
-for i in `find libs -type f -name '*.so.%{version}' | grep gcc`; do
-	install -m 755 $i $RPM_BUILD_ROOT%{_libdir}/`basename $i`
-	#ldconfig fails to generate the symlinks for boost libs :-(
-	LINK=`basename $i | sed 's,\.so\..*,.so,'`
-	(cd $RPM_BUILD_ROOT%{_libdir} && ln -s `basename $i` $LINK)
-	if test "`echo $i | sed 's,python,,g'`" = "$i"; then
-		echo %{_libdir}/`basename $i` >> master.list
-		echo %{_libdir}/$LINK >> master.list
-	else
-		echo %{_libdir}/`basename $i` >> python.list
-		echo %{_libdir}/$LINK >> python.list
-	fi
-done
-
-#regex library
-grep libboost_regex.so master.list > regex.list
-grep -v libboost_regex.so master.list >_master.list
-mv {_,}master.list
-#regex-devel
-RFILES="%{_includedir}/boost/cregex.hpp|"
-RFILES="$RFILES%{_includedir}/boost/regex/|"
-RFILES="$RFILES%{_includedir}/boost/regex.h(pp){0,1}|"
-RFILES="$RFILES%{_includedir}/boost/regex_fwd.hpp|"
-RFILES="$RFILES%{_libdir}/libboost_regex.a"
-
-egrep "$RFILES" devel.list > regex-devel.list
-egrep -v "$RFILES" devel.list > _devel.list
-mv {_,}devel.list
-
-#any-devel library
-grep any.hpp devel.list > any.list
-grep -v any.hpp devel.list > _devel.list
-mv {_,}devel.list
-
-#array-devel library
-egrep '/boost/array.hpp$' devel.list >array.list
-egrep -v '/boost/array.hpp$' devel.list > _devel.list
-mv {_,}devel.list
-
-#preprocessor-devel
-RFILES="%{_includedir}/boost/preprocessor"
-egrep "$RFILES" devel.list > preprocessor.list
-egrep -v $RFILES devel.list > _devel.list
-mv {_,}devel.list
-
-#mpl-devel
-RFILES="%{_includedir}/boost/mpl/"
-egrep "$RFILES" devel.list > mpl.list
-egrep -v "$RFILES" devel.list >_devel.list
-mv {_,}devel.list
-
-#type_traits-devel
-RFILES="%{_includedir}/boost/type_traits/"
-RFILES="$RFILES|%{_includedir}/boost/type_traits.hpp"
-egrep "$RFILES" devel.list > type_traits.list
-egrep -v "$RFILES" devel.list >_devel.list
-mv {_,}devel.list
-
-#utility-devel
-RFILES="%{_includedir}/boost/noncopyable.hpp"
-RFILES="$RFILES|%{_includedir}/boost/checked_delete.hpp"
-RFILES="$RFILES|%{_includedir}/boost/next_prior.hpp"
-RFILES="$RFILES|%{_includedir}/boost/utility(_fwd){0,1}.hpp"
-RFILES="$RFILES|%{_includedir}/boost/utility/"
-egrep "$RFILES" devel.list > utility.list
-egrep -v "$RFILES" devel.list >_devel.list
-mv {_,}devel.list
-
-#static_assert-devel
-RFILES="%{_includedir}/boost/static_assert.hpp"
-egrep "$RFILES" devel.list > static_assert.list
-egrep -v "$RFILES" devel.list >_devel.list
-mv {_,}devel.list
-
-#bind-devel
-RFILES="%{_includedir}/boost/bind.hpp"
-RFILES="$RFILES|%{_includedir}/boost/bind/"
-egrep "$RFILES" devel.list > bind.list
-egrep -v "$RFILES" devel.list >_devel.list
-mv {_,}devel.list
-
-#mem_fn-devel
-RFILES="%{_includedir}/boost/mem_fn.hpp"
-RFILES="$RFILES|%{_includedir}/boost/get_pointer.hpp"
-egrep "$RFILES" devel.list > mem_fn.list
-egrep -v "$RFILES" devel.list >_devel.list
-mv {_,}devel.list
-
-#ref-devel
-RFILES="%{_includedir}/boost/ref.hpp"
-egrep "$RFILES" devel.list > ref.list
-egrep -v "$RFILES" devel.list >_devel.list
-mv {_,}devel.list
-
-
-#call_traits-devel
-RFILES="%{_includedir}/boost/call_traits.hpp"
-RFILES="$RFILES|%{_includedir}/boost/detail/call_traits.hpp"
-RFILES="$RFILES|%{_includedir}/boost/detail/ob_call_traits.hpp"
-egrep "$RFILES" devel.list > call_traits.list
-egrep -v "$RFILES" devel.list >_devel.list
-mv {_,}devel.list
-
-
-#compatibility-devel
-RFILES="%{_includedir}/boost/limits.hpp"
-RFILES="$RFILES|%{_includedir}/boost/compatibility/"
-egrep "$RFILES" devel.list > compat.list
-egrep -v "$RFILES" devel.list >_devel.list
-mv {_,}devel.list
-
-#compose-devel
-RFILES="%{_includedir}/boost/compose.hpp"
-egrep "$RFILES" devel.list > compose.list
-egrep -v "$RFILES" devel.list >_devel.list
-mv {_,}devel.list
-
-#compressed-pair
-RFILES="%{_includedir}/boost/compressed_pair.hpp"
-RFILES="$RFILES|%{_includedir}/boost/detail/(ob_)*compressed_pair.hpp"
-egrep "$RFILES" devel.list > compressed.list
-egrep -v "$RFILES" devel.list >_devel.list
-mv {_,}devel.list
-
-#concept_check
-RFILES="%{_includedir}/boost/concept.*.hpp"
-egrep "$RFILES" devel.list > concept.list
-egrep -v "$RFILES" devel.list >_devel.list
-mv {_,}devel.list
-
-#conversion
-RFILES="%{_includedir}/boost/cast.hpp"
-RFILES="$RFILES|%{_includedir}/boost/lexical_cast.hpp"
-egrep "$RFILES" devel.list > conversion.list
-egrep -v "$RFILES" devel.list >_devel.list
-mv {_,}devel.list
+install libs/*/build/bin/*.a/*/*/*/lib*.a $RPM_BUILD_ROOT%{_libdir}
+install libs/*/build/bin/*.so/*/*/*/*/{,*/}lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
+cp -df libs/*/build/bin/*.so/*/*/*/*/{,*/}lib*.so $RPM_BUILD_ROOT%{_libdir}
 
 # documentation
 install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
@@ -614,7 +471,7 @@ for i in `find -type f -name '*.htm*'`; do
 	# bjam docu is included in the boost-jam RPM
 	if test "`echo $i | sed 's,jam_src,,'`" = "$i"; then
 		install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/`dirname $i`
-		for LINKED in `perl - $i $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/$i <<'EOT'
+		for LINKED in `%{__perl} - $i $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/$i <<'EOT'
 			sub rewrite_link
 			{
 				my $link = shift;
@@ -655,152 +512,232 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%post python	-p /sbin/ldconfig
+%post	python	-p /sbin/ldconfig
 %postun python	-p /sbin/ldconfig
 
-%files -f master.list
-%defattr(644,root,root,755)
+%post	regex	-p /sbin/ldconfig
+%postun regex	-p /sbin/ldconfig
 
-%files devel -f devel.list
+%files
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_date_time.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_signals.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_thread.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_unit_test_framework.so.*.*.*
+
+%files devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_date_time.so
+%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so
+%attr(755,root,root) %{_libdir}/libboost_signals.so
+%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor.so
+%attr(755,root,root) %{_libdir}/libboost_thread.so
+%attr(755,root,root) %{_libdir}/libboost_unit_test_framework.so
+# static-only
+%{_libdir}/libboost_filesystem.a
 %dir %{_includedir}/boost
-%dir %{_includedir}/boost/config
-%dir %{_includedir}/boost/config/compiler
-%dir %{_includedir}/boost/config/platform
-%dir %{_includedir}/boost/config/stdlib
-%dir %{_includedir}/boost/date_time
-%dir %{_includedir}/boost/date_time/gregorian
-%dir %{_includedir}/boost/date_time/posix_time
-%dir %{_includedir}/boost/filesystem
-%dir %{_includedir}/boost/format
-%dir %{_includedir}/boost/function
-%dir %{_includedir}/boost/function/detail
-%dir %{_includedir}/boost/graph
-%dir %{_includedir}/boost/graph/detail
-%dir %{_includedir}/boost/integer
-%dir %{_includedir}/boost/io
-%dir %{_includedir}/boost/lambda
-%dir %{_includedir}/boost/lambda/detail
-%dir %{_includedir}/boost/math
-%dir %{_includedir}/boost/math/special_functions
-%dir %{_includedir}/boost/multi_array
-%dir %{_includedir}/boost/numeric
-%dir %{_includedir}/boost/numeric/interval
-%dir %{_includedir}/boost/numeric/interval/compare
-%dir %{_includedir}/boost/numeric/interval/detail
-%dir %{_includedir}/boost/numeric/interval/ext
-%dir %{_includedir}/boost/numeric/ublas
-%dir %{_includedir}/boost/pending
-%dir %{_includedir}/boost/pending/detail
-%dir %{_includedir}/boost/pool
-%dir %{_includedir}/boost/pool/detail
-%dir %{_includedir}/boost/random
-%dir %{_includedir}/boost/random/detail
-%dir %{_includedir}/boost/signals
-%dir %{_includedir}/boost/signals/detail
-%dir %{_includedir}/boost/spirit
-%dir %{_includedir}/boost/spirit/attribute
-%dir %{_includedir}/boost/spirit/core
-%dir %{_includedir}/boost/spirit/core/composite
-%dir %{_includedir}/boost/spirit/core/composite/impl
-%dir %{_includedir}/boost/spirit/core/impl
-%dir %{_includedir}/boost/spirit/core/meta
-%dir %{_includedir}/boost/spirit/core/meta/impl
-%dir %{_includedir}/boost/spirit/core/non_terminal
-%dir %{_includedir}/boost/spirit/core/non_terminal/impl
-%dir %{_includedir}/boost/spirit/core/primitives
-%dir %{_includedir}/boost/spirit/core/primitives/impl
-%dir %{_includedir}/boost/spirit/core/scanner
-%dir %{_includedir}/boost/spirit/core/scanner/impl
-%dir %{_includedir}/boost/spirit/debug
-%dir %{_includedir}/boost/spirit/debug/impl
-%dir %{_includedir}/boost/spirit/dynamic
-%dir %{_includedir}/boost/spirit/dynamic/impl
-%dir %{_includedir}/boost/spirit/error_handling
-%dir %{_includedir}/boost/spirit/error_handling/impl
-%dir %{_includedir}/boost/spirit/iterator
-%dir %{_includedir}/boost/spirit/iterator/impl
-%dir %{_includedir}/boost/spirit/phoenix
-%dir %{_includedir}/boost/spirit/symbols
-%dir %{_includedir}/boost/spirit/symbols/impl
-%dir %{_includedir}/boost/spirit/tree
-%dir %{_includedir}/boost/spirit/tree/impl
-%dir %{_includedir}/boost/spirit/utility
-%dir %{_includedir}/boost/spirit/utility/impl
-%dir %{_includedir}/boost/spirit/utility/impl/chset
-%dir %{_includedir}/boost/test
-%dir %{_includedir}/boost/test/detail
-%dir %{_includedir}/boost/test/included
-%dir %{_includedir}/boost/thread
-%dir %{_includedir}/boost/thread/detail
-%dir %{_includedir}/boost/tuple
-%dir %{_includedir}/boost/tuple/detail
-%dir %{_includedir}/boost/type_traits
-%dir %{_includedir}/boost/type_traits/detail
-%dir %{_includedir}/boost/utility
+%{_includedir}/boost/assert.hpp
+%{_includedir}/boost/config
+%{_includedir}/boost/config.hpp
+%{_includedir}/boost/counting_iterator.hpp
+%{_includedir}/boost/crc.hpp
+%{_includedir}/boost/cstd*.hpp
+%{_includedir}/boost/current_function.hpp
+%{_includedir}/boost/date_time
+%dir %{_includedir}/boost/detail
+%{_includedir}/boost/detail/algorithm.hpp
+%{_includedir}/boost/detail/allocator.hpp
+%{_includedir}/boost/detail/atomic_count*.hpp
+%{_includedir}/boost/detail/binary_search.hpp
+%{_includedir}/boost/detail/catch_exceptions.hpp
+%{_includedir}/boost/detail/dynamic_bitset.hpp
+%{_includedir}/boost/detail/iterator.hpp
+%{_includedir}/boost/detail/lightweight_*.hpp
+%{_includedir}/boost/detail/limits.hpp
+%{_includedir}/boost/detail/lwm_*.hpp
+%{_includedir}/boost/detail/named_template_params.hpp
+%{_includedir}/boost/detail/numeric_traits.hpp
+%{_includedir}/boost/detail/quick_allocator.hpp
+%{_includedir}/boost/detail/select_type.hpp
+%{_includedir}/boost/detail/shared_*.hpp
+%{_includedir}/boost/detail/workaround.hpp
+%{_includedir}/boost/dynamic_bitset*.hpp
+%{_includedir}/boost/enable_shared_from_this.hpp
+%{_includedir}/boost/filesystem
+%{_includedir}/boost/format
+%{_includedir}/boost/format.hpp
+%{_includedir}/boost/function
+%{_includedir}/boost/function.hpp
+%{_includedir}/boost/function_output_iterator.hpp
+%{_includedir}/boost/functional.hpp
+%{_includedir}/boost/generator_iterator.hpp
+%{_includedir}/boost/graph
+%{_includedir}/boost/half_open_range.hpp
+%{_includedir}/boost/integer
+%{_includedir}/boost/integer*.hpp
+%{_includedir}/boost/intrusive_ptr.hpp
+%{_includedir}/boost/io
+%{_includedir}/boost/io_fwd.hpp
+%{_includedir}/boost/iterator*.hpp
+%{_includedir}/boost/lambda
+%{_includedir}/boost/last_value.hpp
+%{_includedir}/boost/math
+%{_includedir}/boost/math_fwd.hpp
+%{_includedir}/boost/min_rand.hpp
+%{_includedir}/boost/multi_array
+%{_includedir}/boost/multi_array.hpp
+%{_includedir}/boost/nondet_random.hpp
+%{_includedir}/boost/numeric
+%{_includedir}/boost/operators.hpp
+%{_includedir}/boost/optional.hpp
+%{_includedir}/boost/pending
+%{_includedir}/boost/permutation_iterator.hpp
+%{_includedir}/boost/pool
+%{_includedir}/boost/progress.hpp
+%{_includedir}/boost/property_map*.hpp
+%{_includedir}/boost/random
+%{_includedir}/boost/random.hpp
+%{_includedir}/boost/rational.hpp
+%{_includedir}/boost/scoped_*.hpp
+%{_includedir}/boost/shared_*.hpp
+%{_includedir}/boost/signal.hpp
+%{_includedir}/boost/signals
+%{_includedir}/boost/smart_ptr.hpp
+%{_includedir}/boost/spirit
+%{_includedir}/boost/spirit.hpp
+%{_includedir}/boost/test
+%{_includedir}/boost/thread
+%{_includedir}/boost/thread.hpp
+%{_includedir}/boost/throw_exception.hpp
+%{_includedir}/boost/timer.hpp
+%{_includedir}/boost/token*.hpp
+%{_includedir}/boost/tuple
+%{_includedir}/boost/type.hpp
+%{_includedir}/boost/type_traits
+%{_includedir}/boost/utility
+%{_includedir}/boost/version.hpp
+%{_includedir}/boost/visit_each.hpp
+%{_includedir}/boost/weak_ptr.hpp
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/libboost_date_time.a
+%{_libdir}/libboost_prg_exec_monitor.a
+%{_libdir}/libboost_regex.a
+%{_libdir}/libboost_signals.a
+%{_libdir}/libboost_test_exec_monitor.a
+%{_libdir}/libboost_unit_test_framework.a
 
 %if %{with python}
-%files python -f python.list
+%files python
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_python.so.*.*.*
 
-%files python-devel -f python-devel.list
+%files python-devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_python.so
+%{_includedir}/boost/python
+%{_includedir}/boost/python.hpp
+
+# ?
+#%files python-static
+#%defattr(644,root,root,755)
+#%{_libdir}/libboost_python.a
 %endif
+
+%files regex
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_regex.so.*.*.*
+
+%files regex-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_regex.so
+%{_includedir}/boost/cregex.hpp
+%{_includedir}/boost/regex.h
+%{_includedir}/boost/regex*.hpp
+%{_includedir}/boost/regex
+
+%files any-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/any.hpp
+
+%files array-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/array.hpp
+
+%files bind-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/bind
+%{_includedir}/boost/bind.hpp
+
+%files call_traits-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/call_traits.hpp
+%{_includedir}/boost/detail/call_traits.hpp
+%{_includedir}/boost/detail/ob_call_traits.hpp
+
+%files compatibility-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/compatibility
+%{_includedir}/boost/limits.hpp
+
+%files compose-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/compose.hpp
+
+%files compressed_pair-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/compressed_pair.hpp
+%{_includedir}/boost/detail/compressed_pair.hpp
+%{_includedir}/boost/detail/ob_compressed_pair.hpp
+
+%files concept_check-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/concept_archetype.hpp
+%{_includedir}/boost/concept_check.hpp
+
+%files conversion-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/cast.hpp
+%{_includedir}/boost/lexical_cast.hpp
+
+%files mem_fn-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/get_pointer.hpp
+%{_includedir}/boost/mem_fn.hpp
+
+%files mpl-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/mpl
+
+%files preprocessor-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/preprocessor
+%{_includedir}/boost/preprocessor.hpp
+
+%files ref-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/ref.hpp
+
+%files static_assert-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/static_assert.hpp
+
+%files type_traits-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/type_traits.hpp
+%{_includedir}/boost/type_traits
+
+%files utility-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/checked_delete.hpp
+%{_includedir}/boost/next_prior.hpp
+%{_includedir}/boost/noncopyable.hpp
+%{_includedir}/boost/utility*.hpp
+%{_includedir}/boost/utility
 
 %files doc
 %defattr(644,root,root,755)
-%doc %{_docdir}/boost-%{version}
-
-%files bind-devel -f bind.list
-%defattr(644,root,root,755)
-
-%files regex -f regex.list
-%defattr(644,root,root,755)
-
-%files regex-devel -f regex-devel.list
-%defattr(644,root,root,755)
-
-%files any-devel -f any.list
-%defattr(644,root,root,755)
-
-%files array-devel -f array.list
-%defattr(644,root,root,755)
-
-%files preprocessor-devel -f preprocessor.list
-%defattr(644,root,root,755)
-
-%files mpl-devel -f mpl.list
-%defattr(644,root,root,755)
-
-%files type_traits-devel -f type_traits.list
-%defattr(644,root,root,755)
-
-%files utility-devel -f utility.list
-%defattr(644,root,root,755)
-
-%files static_assert-devel -f static_assert.list
-%defattr(644,root,root,755)
-
-%files mem_fn-devel -f mem_fn.list
-%defattr(644,root,root,755)
-
-%files ref-devel -f ref.list
-%defattr(644,root,root,755)
-
-%files call_traits-devel -f call_traits.list
-%defattr(644,root,root,755)
-
-%files compatibility-devel -f compat.list
-%defattr(644,root,root,755)
-
-%files compose-devel -f compose.list
-%defattr(644,root,root,755)
-
-%files compressed_pair-devel -f compressed.list
-%defattr(644,root,root,755)
-
-%files concept_check-devel -f concept.list
-%defattr(644,root,root,755)
-
-%files conversion-devel -f conversion.list
-%defattr(644,root,root,755)
+%{_docdir}/boost-%{version}
