@@ -104,8 +104,9 @@ Summary(pl):	Nag³ówki i statyczne biblioteki Boost C++ Regex
 Requires:	%{name}-regex = %{version}, %{name}-devel = %{version}
 
 %description regex-devel
+Boost C++ Regex headers and static libraries
 %description regex-devel -l pl
-Nag³ówi i statyczne biblioteki dla Boost C++ Regex
+Nag³ówki i statyczne biblioteki dla Boost C++ Regex
 
 %package any-devel
 Group:		Libraries
