@@ -932,6 +932,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/nondet_random.hpp
 %{_includedir}/boost/none.hpp
 %{_includedir}/boost/non_type.hpp
+%dir %{_includedir}/boost/numeric
 %{_includedir}/boost/numeric/interval*
 %{_includedir}/boost/numeric/conversion
 %{_includedir}/boost/operators.hpp
