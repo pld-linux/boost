@@ -45,7 +45,6 @@ Raporcie Technicznym Biblioteki Standardowej C++
 Summary:	Boost C++ development libraries and headers
 Summary(pl):	Pliki nag³ówkowe i biblioteki statyczne Boost C++
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
 # req'd by <boost/iterator_adaptors.hpp> (also included by <boost/signal.h>)
 Requires:	%{name}-compressed_pair-devel = %{version}-%{release}
 Requires:	%{name}-concept_check-devel = %{version}-%{release}
@@ -57,23 +56,10 @@ Headers and static libraries for the Boost C++ libraries.
 %description devel -l pl
 Pliki nag³ówkowe i biblioteki statyczne bibliotek Boost C++.
 
-%package static
-Summary:	Static versions of Boost libraries
-Summary(pl):	Statyczne wersje bibliotek Boost
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-
-%description static
-Static versions of Boost libraries.
-
-%description static -l pl
-Statyczne wersje bibliotek Boost.
-
 %package python
 Summary:	Boost.Python library
 Summary(pl):	biblioteka Boost.Python
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
 %pyrequires_eq	python
 
 %description python
@@ -122,7 +108,6 @@ Statyczna wersja biblioteki Boost.Python.
 Summary:	Boost C++ regular expressions library
 Summary(pl):	Biblioteka wyra¿eñ regularnych Boost C++
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
 
 %description regex
 Shared library for Boost C++ regular expressions.
@@ -549,6 +534,48 @@ Jednym z celów BOOST_STATIC_ASSERT jest generowanie czytelnych
 komunikatów o b³êdach. One b³yskawicznie powiedz± u¿ytkownikowi ¿e
 biblioteka zosta³a u¿yta w sposób który nie jest zalecany.
 
+%package test
+Summary:	Support for program testing and  execution monitoring
+Summary(pl):	Wsparcie dla testowania i monitorowania programu
+Group:		Libraries
+
+%description test
+Support for simple program testing, full unit testing, and for program
+execution monitoring.
+
+%description test -l pl
+Wsparcie dla prostego testowania programu, pe³nego testowania i
+monitorowania wykonania programu.
+
+%package test-devel
+Summary:	Header files for boost::test
+Summary(pl):	Pliki nag³ówkowe dla boost::test
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-mpl-devel = %{version}-%{release}
+Requires:	%{name}-preprocessor-devel = %{version}-%{release}
+#TODO:
+#Requires:	%{name}-smart_ptr = %{version}-%{release}
+#?Requires?:	%{name}-function-devel = %{version}-%{release}
+
+%description test-devel
+Header files for boost::test.
+
+%description test-devel -l pl
+Pliki nag³ówkowe dla boost::test
+
+%package test-static
+Summary:	Static libraries for boost::test
+Summary(pl):	Biblioteki statyczne dla boost::test
+Group:		Development/Libraries
+Requires:	%{name}-test-devel
+
+%description test-static
+Static libraries for boost::test.
+
+%description test-static -l pl
+Biblioteki statyczne dla boost::test.
+
 %package thread
 Summary:	Portable C++ threads library
 Summary(pl):	Przeno¶na biblioteka w±tków C++
@@ -723,26 +750,19 @@ rm -rf $RPM_BUILD_ROOT
 %post	signals	-p /sbin/ldconfig
 %postun	signals	-p /sbin/ldconfig
 
+%post	test	-p /sbin/ldconfig
+%postun	test	-p /sbin/ldconfig
+
 %post	thread	-p /sbin/ldconfig
 %postun	thread	-p /sbin/ldconfig
 
-%files
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor-gcc-1_31.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor-gcc-1_31.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_unit_test_framework-gcc-1_31.so.*.*.*
-
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor-gcc-1_31.so
-%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor-gcc-1_31.so
-%attr(755,root,root) %{_libdir}/libboost_unit_test_framework-gcc-1_31.so
 %dir %{_includedir}/boost
 %{_includedir}/boost/assert.hpp
 %{_includedir}/boost/blank_fwd.hpp
 %{_includedir}/boost/config
 %{_includedir}/boost/config.hpp
-%{_includedir}/boost/iterator/counting_iterator.hpp
 %{_includedir}/boost/cstd*.hpp
 %{_includedir}/boost/current_function.hpp
 %dir %{_includedir}/boost/detail
@@ -795,7 +815,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/operators.hpp
 %{_includedir}/boost/optional.hpp
 %{_includedir}/boost/pending
-%{_includedir}/boost/iterator/permutation_iterator.hpp
 %{_includedir}/boost/pool
 %{_includedir}/boost/pointee.hpp
 %{_includedir}/boost/progress.hpp
@@ -808,7 +827,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/smart_ptr.hpp
 %{_includedir}/boost/spirit
 %{_includedir}/boost/spirit.hpp
-%{_includedir}/boost/test
 %{_includedir}/boost/throw_exception.hpp
 %{_includedir}/boost/timer.hpp
 %{_includedir}/boost/token*.hpp
@@ -819,8 +837,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/version.hpp
 %{_includedir}/boost/vector_property_map.hpp
 %{_includedir}/boost/weak_ptr.hpp
-#boost::enable_if
-%{_includedir}/boost/utility/enable_if.hpp
 #boost::variant
 %{_includedir}/boost/variant.hpp
 %{_includedir}/boost/variant
@@ -832,12 +848,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/detail/none.hpp
 %{_includedir}/boost/detail/none_t.hpp
 %{_includedir}/boost/detail/typed_in_place_factory.hpp
-
-%files static
-%defattr(644,root,root,755)
-%{_libdir}/libboost_prg_exec_monitor-gcc-1_31.a
-%{_libdir}/libboost_test_exec_monitor-gcc-1_31.a
-%{_libdir}/libboost_unit_test_framework-gcc-1_31.a
 
 %if %{with python}
 %files python
@@ -982,6 +992,25 @@ rm -rf $RPM_BUILD_ROOT
 %files static_assert-devel
 %defattr(644,root,root,755)
 %{_includedir}/boost/static_assert.hpp
+
+%files test
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor-gcc-1_31.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor-gcc-1_31.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_unit_test_framework-gcc-1_31.so.*.*.*
+
+%files test-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor-gcc-1_31.so
+%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor-gcc-1_31.so
+%attr(755,root,root) %{_libdir}/libboost_unit_test_framework-gcc-1_31.so
+%{_includedir}/boost/test
+
+%files test-static
+%defattr(644,root,root,755)
+%{_libdir}/libboost_prg_exec_monitor-gcc-1_31.a
+%{_libdir}/libboost_test_exec_monitor-gcc-1_31.a
+%{_libdir}/libboost_unit_test_framework-gcc-1_31.a
 
 %files thread
 %defattr(644,root,root,755)
