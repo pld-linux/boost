@@ -373,6 +373,44 @@ Static boost::date_time library.
 %description date_time-devel -l pl
 Statyczna biblioteka boost::date_time.
 
+%package filesystem
+Summary:	Portable paths, iteration over directories, and other useful filesystem operations
+Summary(pl):	Przeno¶ne ¶cie¿ki, iteracje katalogów i inne u¿yteczne operacje na systemie plików
+Group:		Libraries
+
+%description filesystem
+The boost::filesystem library provides portable facilities to query and manipulate paths, files, and directories.
+
+%description filesystem -l pl
+Przeno¶na biblioteka boost::filesystem dostarcza u³atwienia w operacjach na ¶cie¿kach, plikach i katalogach.
+
+%package filesystem-devel
+Summary:	Header files for boost::filesystem
+Summary(pl):	Pliki nag³ówkowe dla boost::filesystem
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-filesystem = %{version}-%{release}
+#TODO:
+#Requires:	%{name}-smart_ptr = %{version}-%{release}
+
+%description filesystem-devel
+Header files for boost::filesystem library.
+
+%description filesystem-devel -l pl
+Pliki nag³ówkowe dla biblioteki boost::filesystem.
+
+%package filesystem-static
+Summary:	Static boost::filesystem library
+Summary(pl):	Biblioteka statyczna boost::filesystem
+Group:		Development/Libraries
+Requires:	%{name}-filesystem-devel = %{version}-%{release}
+
+%description filesystem-static
+Static boost::filesystem library.
+
+%description filesystem-static -l pl
+Biblioteka statyczna boost::filesystem.
+
 %package mem_fn-devel
 Summary:	Generalized binders for member functions
 Summary(pl):	Uogólnione bindery dla metod
@@ -683,19 +721,20 @@ rm -rf $RPM_BUILD_ROOT
 %post	thread	-p /sbin/ldconfig
 %postun	thread	-p /sbin/ldconfig
 
+%post	filesystem -p /sbin/ldconfig
+%postun	filesystem -p /sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor-gcc-1_31.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_test_exec_monitor-gcc-1_31.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_unit_test_framework-gcc-1_31.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_filesystem-gcc-1_31.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor-gcc-1_31.so
 %attr(755,root,root) %{_libdir}/libboost_test_exec_monitor-gcc-1_31.so
 %attr(755,root,root) %{_libdir}/libboost_unit_test_framework-gcc-1_31.so
-%attr(755,root,root) %{_libdir}/libboost_filesystem-gcc-1_31.so
 %dir %{_includedir}/boost
 %{_includedir}/boost/assert.hpp
 %{_includedir}/boost/blank_fwd.hpp
@@ -725,7 +764,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/detail/workaround.hpp
 %{_includedir}/boost/dynamic_bitset*.hpp
 %{_includedir}/boost/enable_shared_from_this.hpp
-%{_includedir}/boost/filesystem
 %{_includedir}/boost/format
 %{_includedir}/boost/format.hpp
 %{_includedir}/boost/function
@@ -798,7 +836,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_prg_exec_monitor-gcc-1_31.a
 %{_libdir}/libboost_test_exec_monitor-gcc-1_31.a
 %{_libdir}/libboost_unit_test_framework-gcc-1_31.a
-%{_libdir}/libboost_filesystem-gcc-1_31.a
 
 %if %{with python}
 %files python
@@ -892,6 +929,19 @@ rm -rf $RPM_BUILD_ROOT
 %files date_time-static
 %defattr(644,root,root,755)
 %{_libdir}/libboost_date_time-gcc-1_31.a
+
+%files filesystem
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_filesystem-gcc-1_31.so.*.*.*
+
+%files filesystem-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_filesystem-gcc-1_31.so
+%{_includedir}/boost/filesystem
+
+%files filesystem-static
+%defattr(644,root,root,755)
+%{_libdir}/libboost_filesystem-gcc-1_31.a
 
 %files mem_fn-devel
 %defattr(644,root,root,755)
