@@ -624,6 +624,24 @@ Biblioteka boost-type_traits definiuje trzy rodzaje cech typów:
  2. powi±zania miêdzy dwoma typami.
  3. transformacjê z jednego typu do drugiego.
 
+%package uBLAS-devel
+Summary:	Basic linear algebra for dense, packed and sparse matrices
+Summary(pl):	Prosta liniowa algebra dla gêstych, upakowanych i rzadkich macierzy.
+Group:		Development/Libraries
+Requires:	%{name}-concept_check-devel = %{version}-%{release}
+Requires:	%{name}-utility-devel = %{version}-%{release}
+Requires:	%{name}-mpl-devel = %{version}-%{release}
+
+%description uBLAS-devel
+uBLAS library provides templated C++ classes for dense, unit and
+sparse vectors, dense, identity, triangular, banded, symmetric,
+hermitian and sparse matrices.
+
+%description uBLAS-devel -l pl
+Biblioteka uBLAS dostarcza wzorce klas C++ dla gêstych, jednostkowych
+i rzadkich wektorów oraz gêstych, jednostkowych, diagonalnych,
+symetrycznych, hermitowskich i rzadkich macierzy.
+
 %package utility-devel
 Summary:	Useful utilities: classes and function templates
 Summary(pl):	U¿yteczne narzêdzia: klasy i wzorce funkcji
@@ -812,7 +830,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/multi_array.hpp
 %{_includedir}/boost/nondet_random.hpp
 %{_includedir}/boost/non_type.hpp
-%{_includedir}/boost/numeric
+%{_includedir}/boost/numeric/interval*
 %{_includedir}/boost/operators.hpp
 %{_includedir}/boost/optional.hpp
 %{_includedir}/boost/pending
@@ -1026,6 +1044,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_includedir}/boost/type_traits.hpp
 %{_includedir}/boost/type_traits
+
+%files uBLAS-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/numeric/ublas
 
 %files utility-devel
 %defattr(644,root,root,755)
