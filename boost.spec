@@ -9,7 +9,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	%{_ver}
-Release:	0.9
+Release:	0.91
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
@@ -720,7 +720,7 @@ PYTHON_VERSION=
 %endif
 bjam \
 	-d2 \
-	-sBUILD=release \
+	-sBUILD="release <threading>multi" \
 	-sPYTHON_ROOT=$PYTHON_ROOT \
 	-sPYTHON_VERSION=$PYTHON_VERSION
 
@@ -730,10 +730,10 @@ install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}}
 
 cp -rf boost $RPM_BUILD_ROOT%{_includedir}
 
-install bin/boost/libs/*/build/*.a/*/release/lib*.a $RPM_BUILD_ROOT%{_libdir}
-install bin/boost/libs/*/build/*.so/*/release/*/{*/,}lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
+install bin/boost/libs/*/build/*.a/*/release/*/lib*.a $RPM_BUILD_ROOT%{_libdir}
+install bin/boost/libs/*/build/*.so/*/release/*/*/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
 # use cp -d, install follows symlinks instead of preserving them!
-cp -df bin/boost/libs/*/build/*.so/*/release/*/{*/,}lib*.so $RPM_BUILD_ROOT%{_libdir}
+cp -df bin/boost/libs/*/build/*.so/*/release/*/*/lib*.so $RPM_BUILD_ROOT%{_libdir}
 
 # documentation
 install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
@@ -899,26 +899,26 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python}
 %files python
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_python-gcc-1_31.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_python-gcc-mt-1_31.so.*.*.*
 
 %files python-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_python-gcc-1_31.so
+%attr(755,root,root) %{_libdir}/libboost_python-gcc-mt-1_31.so
 %{_includedir}/boost/python
 %{_includedir}/boost/python.hpp
 
 %files python-static
 %defattr(644,root,root,755)
-%{_libdir}/libboost_python-gcc-1_31.a
+%{_libdir}/libboost_python-gcc-mt-1_31.a
 %endif
 
 %files regex
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_regex-gcc-1_31.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_regex-gcc-mt-1_31.so.*.*.*
 
 %files regex-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_regex-gcc-1_31.so
+%attr(755,root,root) %{_libdir}/libboost_regex-gcc-mt-1_31.so
 %{_includedir}/boost/cregex.hpp
 %{_includedir}/boost/regex.h
 %{_includedir}/boost/regex*.hpp
@@ -926,7 +926,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files regex-static
 %defattr(644,root,root,755)
-%{_libdir}/libboost_regex-gcc-1_31.a
+%{_libdir}/libboost_regex-gcc-mt-1_31.a
 
 %files any-devel
 %defattr(644,root,root,755)
@@ -978,29 +978,29 @@ rm -rf $RPM_BUILD_ROOT
 
 %files date_time
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_date_time-gcc-1_31.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_date_time-gcc-mt-1_31.so.*.*.*
 
 %files date_time-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_date_time-gcc-1_31.so
+%attr(755,root,root) %{_libdir}/libboost_date_time-gcc-mt-1_31.so
 %{_includedir}/boost/date_time
 
 %files date_time-static
 %defattr(644,root,root,755)
-%{_libdir}/libboost_date_time-gcc-1_31.a
+%{_libdir}/libboost_date_time-gcc-mt-1_31.a
 
 %files filesystem
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_filesystem-gcc-1_31.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_filesystem-gcc-mt-1_31.so.*.*.*
 
 %files filesystem-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_filesystem-gcc-1_31.so
+%attr(755,root,root) %{_libdir}/libboost_filesystem-gcc-mt-1_31.so
 %{_includedir}/boost/filesystem
 
 %files filesystem-static
 %defattr(644,root,root,755)
-%{_libdir}/libboost_filesystem-gcc-1_31.a
+%{_libdir}/libboost_filesystem-gcc-mt-1_31.a
 
 %files mem_fn-devel
 %defattr(644,root,root,755)
@@ -1022,11 +1022,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files signals
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_signals-gcc-1_31.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_signals-gcc-mt-1_31.so.*.*.*
 
 %files signals-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_signals-gcc-1_31.so
+%attr(755,root,root) %{_libdir}/libboost_signals-gcc-mt-1_31.so
 %{_includedir}/boost/signal*.hpp
 %{_includedir}/boost/signals
 %{_includedir}/boost/last_value.hpp
@@ -1034,7 +1034,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files signals-static
 %defattr(644,root,root,755)
-%{_libdir}/libboost_signals-gcc-1_31.a
+%{_libdir}/libboost_signals-gcc-mt-1_31.a
 
 %files spirit-devel
 %defattr(644,root,root,755)
@@ -1047,22 +1047,22 @@ rm -rf $RPM_BUILD_ROOT
 
 %files test
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor-gcc-1_31.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor-gcc-1_31.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_unit_test_framework-gcc-1_31.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor-gcc-mt-1_31.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor-gcc-mt-1_31.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_unit_test_framework-gcc-mt-1_31.so.*.*.*
 
 %files test-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor-gcc-1_31.so
-%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor-gcc-1_31.so
-%attr(755,root,root) %{_libdir}/libboost_unit_test_framework-gcc-1_31.so
+%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor-gcc-mt-1_31.so
+%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor-gcc-mt-1_31.so
+%attr(755,root,root) %{_libdir}/libboost_unit_test_framework-gcc-mt-1_31.so
 %{_includedir}/boost/test
 
 %files test-static
 %defattr(644,root,root,755)
-%{_libdir}/libboost_prg_exec_monitor-gcc-1_31.a
-%{_libdir}/libboost_test_exec_monitor-gcc-1_31.a
-%{_libdir}/libboost_unit_test_framework-gcc-1_31.a
+%{_libdir}/libboost_prg_exec_monitor-gcc-mt-1_31.a
+%{_libdir}/libboost_test_exec_monitor-gcc-mt-1_31.a
+%{_libdir}/libboost_unit_test_framework-gcc-mt-1_31.a
 
 %files thread
 %defattr(644,root,root,755)
