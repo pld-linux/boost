@@ -7,7 +7,7 @@ Summary(pl):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.32.0
 %define	_fver	%(echo %{version} | tr . _)
-Release:	1
+Release:	2
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
