@@ -554,6 +554,7 @@ Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-mpl-devel = %{version}-%{release}
 Requires:	%{name}-preprocessor-devel = %{version}-%{release}
+Requires:	%{name}-test = %{version}-%{release}
 #TODO:
 #Requires:	%{name}-smart_ptr = %{version}-%{release}
 #?Requires?:	%{name}-function-devel = %{version}-%{release}
@@ -568,7 +569,7 @@ Pliki nag³ówkowe dla boost::test
 Summary:	Static libraries for boost::test
 Summary(pl):	Biblioteki statyczne dla boost::test
 Group:		Development/Libraries
-Requires:	%{name}-test-devel
+Requires:	%{name}-test-devel = %{version}-%{release}
 
 %description test-static
 Static libraries for boost::test.
