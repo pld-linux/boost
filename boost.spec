@@ -14,7 +14,7 @@ Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}-%{version}.tar.bz2
 # Source0-md5:	4aed692a863bb4beaa0b70d6dc53bda5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-BuildRequires:	boost-jam >= 3.1.3 libstdc++-devel %{?_with_python:python-devel:}
+BuildRequires:	boost-jam >= 3.1.3 libstdc++ %{?_with_python:python-devel:}
 BuildConflicts:	gcc = 5:3.3.1
 
 %description
@@ -35,9 +35,9 @@ nadaj± siê do ewentualnej standaryzacji. Niektóre z bibliotek ju¿
 zosta³y zg³oszone do komitetu standaryzacyjnego C++ w nadchodz±cym
 Raporcie Technicznym Biblioteki Standardowej C++
 
-# according to ldd (and automatically generated RPM dependencies) it
-# doesn't strictly require python, but IMHO it's cleaner to split it
-# this way
+#according to ldd (and automatically generated RPM dependencies) it
+#doesn't strictly require python, but IMHO it's cleaner to split it
+#this way
 %package python
 Summary:	Boost.Python library
 Summary(pl):	biblioteka Boost.Python
@@ -77,7 +77,8 @@ Pliki nag³ówkowe dla biblioteki Boost.Python.
 Summary:	Boost C++ development libraries and headers
 Summary(pl):	Pliki nag³ówkowe i biblioteki statyczne Boost C++
 Group:		Libraries
-Requires:	boost
+Requires:	boost = %{version}
+Requires:	libstdc++-devel
 
 %description devel
 Headers and static libraries for the Boost C++ libraries.
@@ -134,33 +135,117 @@ Np. 5 jest trzymane jako int i nie jest niejawnie konwertowne ani jako
 
 %package array-devel
 Group:		Libraries
-Summary:		STL compliant container wrapper for arrays of constant size
+Summary:	STL compliant container wrapper for arrays of constant size
 Summary(pl):	Wrapper na STLowe kontenery dla tablic o sta³ym rozmiarze
-Requires:		%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}
 %description array-devel
-As replacement for ordinary arrays, the STL provides class vector<>. However,
-vector<> provides the semantics of dynamic arrays. Thus, it manages data to be
-able to change the number of elements. This results in some overhead in case
-only arrays with static size are needed. This library provides support for such
-static size arrays. 
+As replacement for ordinary arrays, the STL provides class vector<>.
+However, vector<> provides the semantics of dynamic arrays. Thus, it
+manages data to be able to change the number of elements. This results
+in some overhead in case only arrays with static size are needed. This
+library provides support for such static size arrays.
+
 %description array-devel -l pl
-STL dostarcza klasê vector<> jako zamiennik zwyk³ej tablicy. Jednak vector<>
-dostarcza semantykê dynamicznych tablic. Zatem zarz±dza danymi tak, by by³a
-mo¿liwa zmiana ilo¶ci elementów. To skutkuje pewnym nadmiarem w przypadku kiedy
-tylko tablice o sta³ym rozmiarze s± potrzebne. Ta biblioteka dostarcza wsparcie
-dla takich w³a¶nie tablic o sta³ym rozmiarze.
+STL dostarcza klasê vector<> jako zamiennik zwyk³ej tablicy. Jednak
+vector<> dostarcza semantykê dynamicznych tablic. Zatem zarz±dza
+danymi tak, by by³a mo¿liwa zmiana ilo¶ci elementów. To skutkuje
+pewnym nadmiarem w przypadku kiedy tylko tablice o sta³ym rozmiarze s±
+potrzebne. Ta biblioteka dostarcza wsparcie dla takich w³a¶nie tablic
+o sta³ym rozmiarze.
 
 
 %package preprocessor-devel
 Group:		Libraries
-Summary: 		Preprocessor metaprogramming tools including repetition and recursion.
+Summary:	Preprocessor metaprogramming tools including repetition and recursion.
 Summary(pl):	Narzêdzia metaprogramowania preprocesora razem z repetycj± i rekursj±.
 %description preprocessor-devel
-This library provides preprocessor metaprogramming tools, including repetition
-and recursion. 
+This library provides preprocessor metaprogramming tools, including
+repetition and recursion.
+
 %description preprocessor-devel -l pl
-Biblioteka udostêpnia narzêdzia metaprogramowania preprocesora, w³±czaj±c w to
-repetycje i rekursjê.  
+Biblioteka udostêpnia narzêdzia metaprogramowania preprocesora,
+w³±czaj±c w to repetycje i rekursjê.
+
+%package mpl-devel
+Group:		Libraries
+Summary:	Compile-time algorithms, sequences and metafunction classes.
+Summary(pl):	Algorytmy czasu kompilacji, sekwencji i klas metafunkcji.
+Requires:	%{name}-devel = %{version}
+Requires:	%{name}-preprocessor-devel = %{version}
+Requires:	%{name}-type_traits-devel = %{version}
+Requires:	%{name}-utility-devel = %{version}
+%description mpl-devel
+The boost-mpl library is a C++ template metaprogramming framework of
+compile-time algorithms, sequences and metafunction classes.
+
+%description mpl-devel -l pl
+Biblioteka boost-mpl jest szkieletem wzorców C++ dla algorytmów czasu
+kompilacji, sekwencji i klas metafunkcji.
+
+
+%package type_traits-devel
+Group:		Libraries
+Summary:	Templates for fundamental properties of types.
+Summary(pl):	Wzorce dla fundamentalnych w³a¶ciwo¶ci typów.
+Requires:	%{name}-devel = %{version}
+Requires:	%{name}-preprocessor-devel = %{version}
+Requires:	%{name}-mpl-devel = %{version}
+Requires:	%{name}-utility-devel = %{version}
+Requires:	%{name}-static_assert-devel = %{version}
+
+%description type_traits-devel
+The boost-type_traits library defines three kinds of type trait: 
+	1. The properties of a specific type. 
+	2. The relationship between two types. 
+	3. A transformation from one type to another.
+
+%description type_traits-devel -l pl
+Biblioteka boost-type_traits definiuje trzy rodzaje cech typów: 
+	1. w³a¶ciwo¶ci konkretnego typu. 
+	2. powi±zania miêdzy dwoma typami. 
+	3. transformacjê z jednego typu do drugiego.
+
+%package utility-devel
+Group:		Libraries
+Summary:	Useful utilities: classes and function templates.
+Summary(pl):	U¿yteczne narzêdzia: klasy i wzorce funkcji
+Requires:	%{name}-type_traits-devel = %{version}
+
+%description utility-devel
+Class noncopyable plus checked_delete(), checked_array_delete(),
+next(), prior() function templates, plus base-from-member idiom.
+
+%description utility-devel -l pl
+Klasy noncopyable i checked_delete, funkcje checked_array_delete(),
+next(), prior() oraz idiom base-from-member.
+
+%package static_assert-devel
+Group:		Libraries
+Summary:	Static assertions (compile time assertions).
+Summary(pl):	Statyczne asercje (asercje kompilacyjne).
+Requires:	%{name}-devel = %{version}
+
+%description static_assert-devel
+The header <boost/static_assert.hpp> supplies a single macro
+BOOST_STATIC_ASSERT(x), which generates a compile time error message
+if the integral-constant-expression x is not true. In other words it
+is the compile time equivalent of the assert macro; this is sometimes
+known as a "compile-time-assertion"
+
+One of the aims of BOOST_STATIC_ASSERT is to generate readable error
+messages. These immediately tell the user that a library is being used
+in a manner that is not supported.
+
+%description static_assert-devel -l pl
+Plik nag³ówkowy <boost/static_assert.hpp> dostarcza pojedyncze makro
+BOOST_STATIC_ASSERT(x), które generuje komunikat b³êdu kompilacji
+je¿eli sta³e wyra¿enie x nie jest prawdziwe. Innymi s³owy jest to
+kompilacyjny ekwiwalent makra 'assert'; czasami znane jest jako
+"asercja czasu kompilacji"
+
+Jednym z celów BOOST_STATIC_ASSERT jest generowanie czytelnych
+komunikatów o b³êdach. One b³yskawicznie powiedz± u¿ytkownikowi ¿e
+biblioteka zosta³a u¿yta w sposób który nie jest zalecany.
 
 %package doc
 Summary:	Boost C++ Library documentation
@@ -259,10 +344,39 @@ mv {_,}devel.list
 
 #preprocessor-devel
 RFILES="%{_includedir}/boost/preprocessor"
-
 egrep "$RFILES" devel.list > preprocessor.list
 egrep -v $RFILES devel.list > _devel.list
 mv {_,}devel.list
+
+#mpl-devel
+RFILES="%{_includedir}/boost/mpl/"
+egrep "$RFILES" devel.list > mpl.list
+egrep -v "$RFILES" devel.list >_devel.list
+mv {_,}devel.list
+
+#type_traits-devel
+RFILES="%{_includedir}/boost/type_traits/"
+RFILES="$RFILES|%{_includedir}/boost/type_traits.hpp"
+egrep "$RFILES" devel.list > type_traits.list
+egrep -v "$RFILES" devel.list >_devel.list
+mv {_,}devel.list
+
+#utility-devel
+RFILES="%{_includedir}/boost/noncopyable.hpp"
+RFILES="$RFILES|%{_includedir}/boost/checked_delete.hpp"
+RFILES="$RFILES|%{_includedir}/boost/next_prior.hpp"
+RFILES="$RFILES|%{_includedir}/boost/utility(_fwd){0,1}.hpp"
+RFILES="$RFILES|%{_includedir}/boost/utility/"
+egrep "$RFILES" devel.list > utility.list
+egrep -v "$RFILES" devel.list >_devel.list
+mv {_,}devel.list
+
+#static_assert-devel
+RFILES="%{_includedir}/boost/static_assert.hpp"
+egrep "$RFILES" devel.list > static_assert.list
+egrep -v "$RFILES" devel.list >_devel.list
+mv {_,}devel.list
+
 
 # documentation
 install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
@@ -356,33 +470,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_includedir}/boost/lambda/detail
 %dir %{_includedir}/boost/math
 %dir %{_includedir}/boost/math/special_functions
-%dir %{_includedir}/boost/mpl
-%dir %{_includedir}/boost/mpl/aux_
-%dir %{_includedir}/boost/mpl/aux_/config
-%dir %{_includedir}/boost/mpl/aux_/preprocessed
-%dir %{_includedir}/boost/mpl/aux_/preprocessed/bcc
-%dir %{_includedir}/boost/mpl/aux_/preprocessed/bcc551
-%dir %{_includedir}/boost/mpl/aux_/preprocessed/gcc
-%dir %{_includedir}/boost/mpl/aux_/preprocessed/msvc60
-%dir %{_includedir}/boost/mpl/aux_/preprocessed/msvc70
-%dir %{_includedir}/boost/mpl/aux_/preprocessed/mwcw
-%dir %{_includedir}/boost/mpl/aux_/preprocessed/no_ctps
-%dir %{_includedir}/boost/mpl/aux_/preprocessed/no_ttp
-%dir %{_includedir}/boost/mpl/aux_/preprocessed/plain
-%dir %{_includedir}/boost/mpl/aux_/preprocessor
-%dir %{_includedir}/boost/mpl/aux_/range_c
-%dir %{_includedir}/boost/mpl/limits
-%dir %{_includedir}/boost/mpl/list
-%dir %{_includedir}/boost/mpl/list/aux_
-%dir %{_includedir}/boost/mpl/list/aux_/preprocessed
-%dir %{_includedir}/boost/mpl/list/aux_/preprocessed/plain
-%dir %{_includedir}/boost/mpl/math
-%dir %{_includedir}/boost/mpl/vector
-%dir %{_includedir}/boost/mpl/vector/aux_
-%dir %{_includedir}/boost/mpl/vector/aux_/preprocessed
-%dir %{_includedir}/boost/mpl/vector/aux_/preprocessed/no_ctps
-%dir %{_includedir}/boost/mpl/vector/aux_/preprocessed/plain
-%dir %{_includedir}/boost/mpl/vector/aux_/preprocessed/typeof_based
 %dir %{_includedir}/boost/multi_array
 %dir %{_includedir}/boost/numeric
 %dir %{_includedir}/boost/numeric/interval
@@ -394,42 +481,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_includedir}/boost/pending/detail
 %dir %{_includedir}/boost/pool
 %dir %{_includedir}/boost/pool/detail
-%dir %{_includedir}/boost/preprocessor
-%dir %{_includedir}/boost/preprocessor/arithmetic
-%dir %{_includedir}/boost/preprocessor/arithmetic/detail
-%dir %{_includedir}/boost/preprocessor/array
-%dir %{_includedir}/boost/preprocessor/comparison
-%dir %{_includedir}/boost/preprocessor/config
-%dir %{_includedir}/boost/preprocessor/control
-%dir %{_includedir}/boost/preprocessor/control/detail
-%dir %{_includedir}/boost/preprocessor/control/detail/edg
-%dir %{_includedir}/boost/preprocessor/control/detail/msvc
-%dir %{_includedir}/boost/preprocessor/debug
-%dir %{_includedir}/boost/preprocessor/detail
-%dir %{_includedir}/boost/preprocessor/facilities
-%dir %{_includedir}/boost/preprocessor/iteration
-%dir %{_includedir}/boost/preprocessor/iteration/detail
-%dir %{_includedir}/boost/preprocessor/iteration/detail/bounds
-%dir %{_includedir}/boost/preprocessor/iteration/detail/iter
-%dir %{_includedir}/boost/preprocessor/list
-%dir %{_includedir}/boost/preprocessor/list/detail
-%dir %{_includedir}/boost/preprocessor/list/detail/edg
-%dir %{_includedir}/boost/preprocessor/logical
-%dir %{_includedir}/boost/preprocessor/punctuation
-%dir %{_includedir}/boost/preprocessor/repetition
-%dir %{_includedir}/boost/preprocessor/repetition/detail
-%dir %{_includedir}/boost/preprocessor/repetition/detail/edg
-%dir %{_includedir}/boost/preprocessor/repetition/detail/msvc
-%dir %{_includedir}/boost/preprocessor/selection
-%dir %{_includedir}/boost/preprocessor/seq
-%dir %{_includedir}/boost/preprocessor/seq/detail
-%dir %{_includedir}/boost/preprocessor/slot
-%dir %{_includedir}/boost/preprocessor/slot/detail
-%dir %{_includedir}/boost/preprocessor/tuple
 %dir %{_includedir}/boost/random
 %dir %{_includedir}/boost/random/detail
-%dir %{_includedir}/boost/regex
-%dir %{_includedir}/boost/regex/v3
 %dir %{_includedir}/boost/signals
 %dir %{_includedir}/boost/signals/detail
 %dir %{_includedir}/boost/spirit
@@ -495,4 +548,16 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 
 %files preprocessor-devel -f preprocessor.list
+%defattr(644,root,root,755)
+
+%files mpl-devel -f mpl.list
+%defattr(644,root,root,755)
+
+%files type_traits-devel -f type_traits.list
+%defattr(644,root,root,755)
+
+%files utility-devel -f utility.list
+%defattr(644,root,root,755)
+
+%files static_assert-devel -f static_assert.list
 %defattr(644,root,root,755)
