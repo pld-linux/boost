@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	python	# with boost-python support (not working now)
+%bcond_without	python	# without boost-python support
 #
 %define _ver	1.31.0
 %define _fver 	%(echo %{_ver} | tr . _)
