@@ -27,21 +27,20 @@ already been proposed for inclusion in the C++ Standards Committee's
 upcoming C++ Standard Library Technical Report.
 
 %description -l pl
-Strona www.boost.org dostarcza wolne biblioteki C++ wraz z kodem
-¼ród³owym. Nacisk jest po³o¿ony na biblioteki które dobrze
-wspó³pracuj± z Bibliotek± Standardow± C++. Celem jest ustanowiæ
-"isniej±c± praktykê" i dostarczaæ implementacje tak ¿e biblioteki
-"Boost" nadaj± siê do ewentualnej standaryzacji. Niektóre z bibliotek
-ju¿ zosta³y zg³oszone do komitetu standaryzacyjnego C++ w nadchodz±cym
+Strona www.boost.org dostarcza darmowe biblioteki C++ wraz z kodem
+¼ród³owym. Nacisk po³o¿ono na biblioteki, które dobrze wspó³pracuj± ze
+standardow± bibliotek± C++. Celem jest ustanowienie "isniej±cej
+praktyki" i dostarczenie implementacji, tak ¿e biblioteki "Boost"
+nadaj± siê do ewentualnej standaryzacji. Niektóre z bibliotek ju¿
+zosta³y zg³oszone do komitetu standaryzacyjnego C++ w nadchodz±cym
 Raporcie Technicznym Biblioteki Standardowej C++
 
-
-%if %{?_with_python:1}%{!?_with_python:0}
 # according to ldd (and automatically generated RPM dependencies) it
 # doesn't strictly require python, but IMHO it's cleaner to split it
 # this way
 %package python
 Summary:	Boost.Python library
+Summary(pl):	biblioteka Boost.Python
 Group:		Libraries
 Requires:	boost python
 
@@ -54,37 +53,37 @@ classes in any way in order to use them with Boost.Python. The system
 should simply ``reflect'' your C++ classes and functions into Python.
 
 %description python -l pl
-U¿yj Biblioteki Boost Python ¿eby szybko i prosto eksportowaæ
-biblioteki C++ do Pythona tak ¿e interfejs Pythona jest bardzo podobny
-do interfejsu C++. Biblioteka jest zaprojektowana tak ¿eby narzucaæ
-jak najmniej wymagañ dot. twoich konstrukcjii C++. W wiêkszo¶ci
-przypadków nie musisz wogóle zmieniaæ twoich klas C++ ¿eby u¿ywaæ ich
-z Boost.Python. System powinien po prostu ``odbiæ'' twoje klasy C++ i
-funkcje do Pythona.
-
+Biblioteka Boost Python s³u¿y do szybkiego i prostego eksportu
+biblioteki C++ do Pythona, tak ¿e interfejs Pythona jest bardzo
+podobny do interfejsu C++. Biblioteka jest zaprojektowana tak, ¿eby
+narzucaæ jak najmniej wymagañ dotycz±cych konstrukcjii C++. W
+wiêkszo¶ci przypadków nie trzeba w ogóle zmieniaæ w³asnych klas C++,
+¿eby u¿ywaæ ich z Boost.Python. System powinien po prostu ,,odbiæ''
+klasy C++ i funkcje do Pythona.
 
 %package python-devel
 Summary:	Boost.Python development headers
+Summary(pl):	Pliki nag³ówkowe dla Boost.Python
 Group:		Libraries
 Requires:	%{name}-devel
 
 %description python-devel
-Headers for the Boost.Python library
+Headers for the Boost.Python library.
 
 %description python-devel -l pl
-Nag³ówki dla biblioteki Boost.Python
-%endif
+Pliki nag³ówkowe dla biblioteki Boost.Python.
 
 %package devel
 Summary:	Boost C++ development libraries and headers
+Summary(pl):	Pliki nag³ówkowe i biblioteki statyczne Boost C++
 Group:		Libraries
 Requires:	boost
 
 %description devel
-Headers and static libraries for the Boost C++ libraries
+Headers and static libraries for the Boost C++ libraries.
 
 %description devel -l pl
-Nag³ówki i biblioteki statyczne bibliotek Boost C++
+Pliki nag³ówkowe i biblioteki statyczne bibliotek Boost C++.
 
 %package regex
 Summary:	Boost C++ regular expressions library
@@ -94,50 +93,56 @@ Requires:	%{name} = %{version}
 
 %description regex
 Shared libraries for Boost C++ regular expressions.
+
 %description regex -l pl
 Biblioteka wyra¿eñ regularnych dla C++, biblioteki dzielone.
 
 %package regex-devel
 Group:		Libraries
 Summary:	Boost C++ Regex library headers and static libraries
-Summary(pl):	Nag³ówki i statyczne biblioteki Boost C++ Regex
+Summary(pl):	Pliki nag³ówkowe i biblioteki statyczne Boost C++ Regex
 Requires:	%{name}-regex = %{version}
 Requires:	%{name}-devel = %{version}
 
 %description regex-devel
-Boost C++ Regex headers and static libraries
+Boost C++ Regex headers and static libraries.
+
 %description regex-devel -l pl
-Nag³ówki i statyczne biblioteki dla Boost C++ Regex
+Pliki nag³ówkowe i biblioteki statyczne dla Boost C++ Regex.
 
 %package any-devel
 Group:		Libraries
-Summary: 		Header for Boost C++ "Any" Library
-Summary(pl):	Nag³ówek dla biblioteki Boost C++ "Any"
-Requires:		%{name}-devel	=	%{version}
-%description any-devel
-The boost::any class, is a variant value type, which supports copying of any
-value type and safe checked extraction of that value strictly against that
-type.  
-I.e. 5 is held strictly as an int and is not implicitly convertible
-either to "5" or to 5.0. 
-%description any-devel -l pl
-Klasa boost::any jest typem, który umo¿liwia kopiowanie miêdzy ka¿dym zmiennymi
-ka¿dego typu i  bezpieczne, sprawdzone wydobycie jej warto¶ci u¿ywaj±c
-dok³adnie jej typu.  
-Np. 5 jest trzymane dok³adnie jako int i nie jest
-niejawnie konwertowne ani jako "5" ani jako 5.0. 
+Summary:	Header for Boost C++ "Any" Library
+Summary(pl):	Plik nag³ówkowy dla biblioteki Boost C++ "Any"
+Requires:	%{name}-devel = %{version}
 
+%description any-devel
+The boost::any class, is a variant value type, which supports copying
+of any value type and safe checked extraction of that value strictly
+against that type.
+
+I.e. 5 is held strictly as an int and is not implicitly convertible
+either to "5" or to 5.0.
+
+%description any-devel -l pl
+Klasa boost::any jest typem, który umo¿liwia kopiowanie ze zmiennej
+dowolnego typu i bezpieczne, sprawdzone wydobycie jej warto¶ci
+dok³adnie tego samego typu.
+
+Np. 5 jest trzymane jako int i nie jest niejawnie konwertowne ani jako
+"5" ani jako 5.0.
 
 %package doc
 Summary:	Boost C++ Library documentation
+Summary(pl):	Dokumentacja dla biblioteki Boost C++
 Group:		Libraries
 Requires:	%{name}-devel = %{version}
 
 %description doc
-Documentation for the Boost C++ Library
+Documentation for the Boost C++ Library.
 
-%description doc
-Dokumentacja dla biblioteki Boost C++
+%description doc -l pl
+Dokumentacja dla biblioteki Boost C++.
 
 %prep
 rm -rf $RPM_BUILD_ROOT
@@ -208,8 +213,8 @@ RFILES="$RFILES%{_includedir}/boost/regex.h(pp){0,1}|"
 RFILES="$RFILES%{_includedir}/boost/regex_fwd.hpp|"
 RFILES="$RFILES%{_libdir}/libboost_regex.a"
 
-egrep "$RFILES"   devel.list > regex-devel.list
-egrep -v "$RFILES"  devel.list > _devel.list
+egrep "$RFILES" devel.list > regex-devel.list
+egrep -v "$RFILES" devel.list > _devel.list
 mv {_,}devel.list
 
 #any-devel library
@@ -245,13 +250,13 @@ for i in `find -type f -name '*.htm*'`; do
 			}
 			open IN, @ARGV[0];
 			open OUT, ">@ARGV[1]";
-            my $in_link;
+			my $in_link;
 			while (<IN>)
 			{
-                $in_link and s/^\s*"([^"> ]*)"/'"' . rewrite_link($1) . '"'/e;
+				$in_link and s/^\s*"([^"> ]*)"/'"' . rewrite_link($1) . '"'/e;
 				s/(href|src)="([^"> ]*)"/"$1=\"" . rewrite_link($2) . '"'/eig;
 				print OUT;
-                $in_link = /href|src=\s*$/;
+  				$in_link = /href|src=\s*$/;
 			}
 EOT`; do
 			TARGET=`dirname $i`/$LINKED
@@ -267,14 +272,12 @@ done
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
 %if %{?_with_python:1}%{!?_with_python:0}
-%post python -p /sbin/ldconfig
-
-%postun python -p /sbin/ldconfig
+%post python	-p /sbin/ldconfig
+%postun python	-p /sbin/ldconfig
 %endif
 
 %files -f master.list
@@ -284,8 +287,6 @@ rm -rf $RPM_BUILD_ROOT
 %files python -f python.list
 %defattr(644,root,root,755)
 %endif
-
-
 
 %files devel -f devel.list
 %defattr(644,root,root,755)
