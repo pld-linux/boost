@@ -418,6 +418,10 @@ Dokumentacja dla biblioteki Boost C++.
 %prep
 %setup -q
 
+# don't know how to pass it through (b)jam -s (no way?)
+# due to oversophisticated build flags system
+%{__perl} -pi -e 's/ -O3 / %{rpmcflags} /' tools/build/gcc-tools.jam
+
 %build
 %if %{with python}
 PYTHON_VERSION=`python -V 2>&1 | sed 's,.* \([0-9]\.[0-9]\)\(\.[0-9]\)\?.*,\1,'`
@@ -427,6 +431,7 @@ PYTHON_ROOT=
 PYTHON_VERSION=
 %endif
 bjam \
+	-d2 \
 	-sBUILD=release \
 	-sPYTHON_ROOT=$PYTHON_ROOT \
 	-sPYTHON_VERSION=$PYTHON_VERSION
