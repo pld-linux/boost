@@ -120,17 +120,30 @@ Shared library for Boost C++ regular expressions.
 Biblioteka wyra¿eñ regularnych dla C++, biblioteki dzielone.
 
 %package regex-devel
-Summary:	Boost C++ Regex library headers and static libraries
-Summary(pl):	Pliki nag³ówkowe i biblioteki statyczne Boost C++ Regex
+Summary:	Boost C++ Regex library headers.
+Summary(pl):	Pliki nag³ówkowe Boost C++ Regex.
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-regex = %{version}-%{release}
 
 %description regex-devel
-Boost C++ Regex headers and static libraries.
+Boost C++ Regex headers.
 
 %description regex-devel -l pl
-Pliki nag³ówkowe i biblioteki statyczne dla Boost C++ Regex.
+Pliki nag³ówkowe dla Boost C++ Regex.
+
+%package regex-static
+Summary:	Boost C++ Regex static libraries.
+Summary(pl):	Biblioteki statyczne Boost C++ Regex.
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-regex = %{version}-%{release}
+
+%description regex-static
+Boost C++ Regex static libraries.
+
+%description regex-static -l pl
+Biblioteki statyczne dla Boost C++ Regex.
 
 %package any-devel
 Summary:	Header for Boost C++ "Any" Library
@@ -295,6 +308,61 @@ programu dokonuj±c konwersji które s± w innych przypadkach niechlujne.
 Biblioteka zawiera "rzutopodobne" wzorce funkcji uzupe³niaj±ce
 wbudowane w Standard C++ rzutowania.
 
+%package crc-devel
+Summary:	CRC computing library.
+Summary(pl):	Biblioteka obliczaj±ca CRC.
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description crc-devel
+The boost::crc library provides two implementations of CRC computation
+objects and functions. The implementations are template-based.
+
+%description crc-devel -l pl
+Bibliteka boost::crc dostarcza dwie implementacje obiektów i funkcji
+obliczaj±cych CRC. Implementacje s± oparte na wzorcach.
+
+%package date_time
+Summary:	Date-Time library.
+Summary(pl):	Biblioteka daty-czasu.
+Group:		Libraries
+
+%description date_time
+A set of date-time libraries.
+
+%description date_time -l pl
+Zbiór bibliotek daty-czasu.
+
+%package date_time-devel
+Summary:	Header files for boost::date_time library.
+Summary(pl):	Pliki nag³ówkowe dla biblioteki boost::date_time.
+Group:		Development/Libraries
+Requires:	%{name}-date_time = %{version}-%{release}
+#TODO: make decision if do separate packages include it to main devel package
+#Requires:	%{name}-operators-devel = %{version}-%{release}
+#Requires:	%{name}-integer-devel = %{version}-%{release}
+#Requires:	%{name}-tokenizer-devel = %{version}-%{release}
+Requires:	%{name}-conversion-devel = %{version}-%{release}
+
+%description date_time-devel
+Header files for boost::date_time library.
+
+%description date_time-devel -l pl
+Pliki nag³ówkowe dla biblioteki boost::date_time
+
+%package date_time-static
+Summary:	Static boost::date_time library.
+Summary(pl):	Statyczna biblioteka boost::date_time.
+Group:		Development/Libraries
+Requires:	%{name}-date_time-devel = %{version}-%{release}
+
+%description date_time-static
+Static boost::date_time library.
+
+%description date_time-devel -l pl
+Statyczna biblioteka boost::date_time.
+
+
 %package mem_fn-devel
 Summary:	Generalized binders for member functions
 Summary(pl):	Uogólnione bindery dla metod
@@ -385,6 +453,32 @@ kompilacyjny ekwiwalent makra 'assert'; czasami znane jest jako
 Jednym z celów BOOST_STATIC_ASSERT jest generowanie czytelnych
 komunikatów o b³êdach. One b³yskawicznie powiedz± u¿ytkownikowi ¿e
 biblioteka zosta³a u¿yta w sposób który nie jest zalecany.
+
+
+%package thread
+Summary:	Portable C++ threads library.
+Summary(pl):	Przeno¶na biblioteka w±tków C++.
+Group:		Libraries
+
+%description thread
+Portable C++ threads library. Shared libraries.
+
+%description thread -l pl
+Przeno¶na biblioteka w±tków dla C++. Biblioteki dzielone.
+
+%package thread-devel
+Summary:	Header files for boost::thread library.
+Summary(pl):	Pliki nag³ówkowe dla biblioteki boost::thread.
+Group:		Development/Libraries
+Requires:	%{name}-thread = %{version}-%{release}
+Requires:	%{name}-utility-devel = %{version}-%{release}
+#TODO:requires boost::function or boost::function to boost-devel
+
+%description thread-devel
+Header files for boost::thread library.
+
+%description thread-devel -l pl
+Pliki nag³ówkowe dla biblioteki boost::thread.
 
 %package type_traits-devel
 Summary:	Templates for fundamental properties of types
@@ -539,32 +633,24 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_date_time.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_signals.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_test_exec_monitor.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_thread.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_unit_test_framework.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_date_time.so
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so
 %attr(755,root,root) %{_libdir}/libboost_signals.so
 %attr(755,root,root) %{_libdir}/libboost_test_exec_monitor.so
-%attr(755,root,root) %{_libdir}/libboost_thread.so
 %attr(755,root,root) %{_libdir}/libboost_unit_test_framework.so
-# static-only
-%{_libdir}/libboost_filesystem.a
 %dir %{_includedir}/boost
 %{_includedir}/boost/assert.hpp
 %{_includedir}/boost/config
 %{_includedir}/boost/config.hpp
 %{_includedir}/boost/counting_iterator.hpp
-%{_includedir}/boost/crc.hpp
 %{_includedir}/boost/cstd*.hpp
 %{_includedir}/boost/current_function.hpp
-%{_includedir}/boost/date_time
 %dir %{_includedir}/boost/detail
 %{_includedir}/boost/detail/algorithm.hpp
 %{_includedir}/boost/detail/allocator.hpp
@@ -628,8 +714,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/spirit
 %{_includedir}/boost/spirit.hpp
 %{_includedir}/boost/test
-%{_includedir}/boost/thread
-%{_includedir}/boost/thread.hpp
 %{_includedir}/boost/throw_exception.hpp
 %{_includedir}/boost/timer.hpp
 %{_includedir}/boost/token*.hpp
@@ -643,9 +727,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libboost_date_time.a
+%{_libdir}/libboost_filesystem.a
 %{_libdir}/libboost_prg_exec_monitor.a
-%{_libdir}/libboost_regex.a
 %{_libdir}/libboost_signals.a
 %{_libdir}/libboost_test_exec_monitor.a
 %{_libdir}/libboost_unit_test_framework.a
@@ -677,6 +760,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/regex.h
 %{_includedir}/boost/regex*.hpp
 %{_includedir}/boost/regex
+
+%files regex-static
+%defattr(644,root,root,755)
+%{_libdir}/libboost_regex.a
 
 %files any-devel
 %defattr(644,root,root,755)
@@ -721,6 +808,23 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/cast.hpp
 %{_includedir}/boost/lexical_cast.hpp
 
+%files crc-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/crc.hpp
+
+%files date_time
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_date_time.so.*.*.*
+
+%files date_time-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_date_time.so
+%{_includedir}/boost/date_time
+
+%files date_time-static
+%defattr(644,root,root,755)
+%{_libdir}/libboost_date_time.a
+
 %files mem_fn-devel
 %defattr(644,root,root,755)
 %{_includedir}/boost/get_pointer.hpp
@@ -742,6 +846,17 @@ rm -rf $RPM_BUILD_ROOT
 %files static_assert-devel
 %defattr(644,root,root,755)
 %{_includedir}/boost/static_assert.hpp
+
+%files thread
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_thread.so.*.*.*
+
+%files thread-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_thread.so
+%{_includedir}/boost/thread
+%{_includedir}/boost/thread.hpp
+
 
 %files type_traits-devel
 %defattr(644,root,root,755)
