@@ -2,13 +2,11 @@
 # Conditional build:
 %bcond_without	python	# without boost-python support
 #
-%define _ver	1.32.0
-%define _fver 	%(echo %{_ver} | tr . _)
-
 Summary:	The Boost C++ Libraries
 Summary(pl):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	%{_ver}
+Version:	1.32.0
+%define	_fver	%(echo %{version} | tr . _)
 Release:	1
 License:	Boost Software License and others
 Group:		Libraries
@@ -443,7 +441,7 @@ conventional methods such as command line and config file.
 
 %description program_options -l pl
 Biblioteka program_options umo¿liwia uzyskanie od u¿ytkownika opcji
-programu, czyli par (nazwa, warto¶æ), za pomoc± typowych medod,
+programu, czyli par (nazwa, warto¶æ), za pomoc± typowych metod,
 takich jak linia poleceñ, czy plik konfiguracyjny.
 
 %package program_options-devel
