@@ -379,10 +379,12 @@ Summary(pl):	Przeno¶ne ¶cie¿ki, iteracje katalogów i inne u¿yteczne operacje na 
 Group:		Libraries
 
 %description filesystem
-The boost::filesystem library provides portable facilities to query and manipulate paths, files, and directories.
+The boost::filesystem library provides portable facilities to query
+and manipulate paths, files, and directories.
 
 %description filesystem -l pl
-Przeno¶na biblioteka boost::filesystem dostarcza u³atwienia w operacjach na ¶cie¿kach, plikach i katalogach.
+Przeno¶na biblioteka boost::filesystem dostarcza u³atwienia w
+operacjach na ¶cie¿kach, plikach i katalogach.
 
 %package filesystem-devel
 Summary:	Header files for boost::filesystem
@@ -709,6 +711,9 @@ rm -rf $RPM_BUILD_ROOT
 %post	date_time -p /sbin/ldconfig
 %postun	date_time -p /sbin/ldconfig
 
+%post	filesystem -p /sbin/ldconfig
+%postun	filesystem -p /sbin/ldconfig
+
 %post	python	-p /sbin/ldconfig
 %postun python	-p /sbin/ldconfig
 
@@ -720,9 +725,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	thread	-p /sbin/ldconfig
 %postun	thread	-p /sbin/ldconfig
-
-%post	filesystem -p /sbin/ldconfig
-%postun	filesystem -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
