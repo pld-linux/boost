@@ -302,6 +302,28 @@ Biblioteka boost::ref jest ma³± bibliotek± która jest u¿yteczna w
 przypadku przekazywania referencji do wzorców funkcji (algorytmów)
 które zazwyczaj bior± kopiê swoich argumentów.
 
+
+%package call_traits-devel
+Group:		Development/Libraries
+Summary:	Defines types for passing parameters.
+Summary(pl):	Definiuje typy dla przekazywania parametrów.
+Requires:	boost-devel = %{version}-%{release}
+Requires:	boost-type_traits-devel = %{version}-%{release}
+
+%description call_traits-devel
+boost::call_traits<T> encapsulates the "best" method to pass a
+parameter of some type T to or from a function. The purpose of
+call_traits is to ensure that problems like "references to references"
+never occur, and that parameters are passed in the most efficient
+manner possible.
+
+%description call_traits-devel -l pl
+boost::call_traits<T> zawiera "najlepsz±" metodê przekazywania
+parametrów jakiego¶ typu T do lub z funkcji. Celem call_traits jest
+zapewnienie ¿e problemy takie jak "referencja referencji" nigdy nie
+wyst±pi± i ¿e parametry s± przekazywane w mo¿liwie najbardziej
+efektywny sposób.
+
 %package doc
 Summary:	Boost C++ Library documentation
 Summary(pl):	Dokumentacja dla biblioteki Boost C++
@@ -454,6 +476,15 @@ egrep -v "$RFILES" devel.list >_devel.list
 mv {_,}devel.list
 
 
+#call_traits-devel
+RFILES="%{_includedir}/boost/call_traits.hpp"
+RFILES="$RFILES|%{_includedir}/detail/call_traits.hpp"
+RFILES="$RFILES|%{_includedir}/detail/ob_call_traits.hpp"
+egrep "$RFILES" devel.list > call_traits.list
+egrep -v "$RFILES" devel.list >_devel.list
+mv {_,}devel.list
+
+
 
 # documentation
 install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
@@ -526,7 +557,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_includedir}/boost/date_time
 %dir %{_includedir}/boost/date_time/gregorian
 %dir %{_includedir}/boost/date_time/posix_time
-%dir %{_includedir}/boost/detail
 %dir %{_includedir}/boost/filesystem
 %dir %{_includedir}/boost/format
 %dir %{_includedir}/boost/function
@@ -641,4 +671,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 
 %files ref-devel -f ref.list
+%defattr(644,root,root,755)
+
+%files call_traits-devel -f call_traits.list
 %defattr(644,root,root,755)
