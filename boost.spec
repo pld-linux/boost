@@ -9,7 +9,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	%{_ver}
-Release:	0.1
+Release:	0.2
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
@@ -510,10 +510,10 @@ Biblioteka statyczna dla boost::signals.
 Summary:	LL parser framework
 Summary(pl):	Szkielet parsera LL
 Group:		Development/Libraries
-Requires:	%{name}-regex-devel = %{version}-%{release}
-Requires:	%{name}-static_assert-devel = %{version}-%{release}
 Requires:	%{name}-compressed_pair-devel = %{version}-%{release}
 Requires:	%{name}-ref-devel = %{version}-%{release}
+Requires:	%{name}-regex-devel = %{version}-%{release}
+Requires:	%{name}-static_assert-devel = %{version}-%{release}
 Requires:	%{name}-thread-devel = %{version}-%{release}
 #TODO:
 #?Requires:	%{name}-smart_ptr-devel = %{version}-%{release}
@@ -531,7 +531,7 @@ bezpo¶rednio w kodzie C++.
 Summary:	Static assertions (compile time assertions)
 Summary(pl):	Statyczne asercje (asercje kompilacyjne)
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static_assert-devel
 The header <boost/static_assert.hpp> supplies a single macro
@@ -650,8 +650,8 @@ Summary:	Basic linear algebra for dense, packed and sparse matrices
 Summary(pl):	Prosta liniowa algebra dla gêstych, upakowanych i rzadkich macierzy
 Group:		Development/Libraries
 Requires:	%{name}-concept_check-devel = %{version}-%{release}
-Requires:	%{name}-utility-devel = %{version}-%{release}
 Requires:	%{name}-mpl-devel = %{version}-%{release}
+Requires:	%{name}-utility-devel = %{version}-%{release}
 
 %description uBLAS-devel
 uBLAS library provides templated C++ classes for dense, unit and
@@ -667,7 +667,7 @@ diagonalnych, symetrycznych, hermitowskich i rzadkich macierzy.
 Summary:	Useful utilities: classes and function templates
 Summary(pl):	U¿yteczne narzêdzia: klasy i wzorce funkcji
 Group:		Development/Libraries
-Requires:	%{name}-type_traits-devel = %{version}
+Requires:	%{name}-type_traits-devel = %{version}-%{release}
 
 %description utility-devel
 Class noncopyable plus checked_delete(), checked_array_delete(),
