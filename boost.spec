@@ -141,27 +141,6 @@ Boost C++ Regex static libraries.
 %description regex-static -l pl
 Biblioteki statyczne dla Boost C++ Regex.
 
-%package spirit-devel
-Summary:	LL parser framework
-Summary(pl):	Szkielet parsera LL
-Group:		Development/Libraries
-Requires:	%{name}-regex-devel = %{version}-%{release}
-Requires:	%{name}-static_assert-devel = %{version}-%{release}
-Requires:	%{name}-compressed_pair-devel = %{version}-%{release}
-Requires:	%{name}-ref-devel = %{version}-%{release}
-Requires:	%{name}-thread-devel = %{version}-%{release}
-#TODO:
-#?Requires:	%{name}-smart_ptr-devel = %{version}-%{release}
-#?Requires:	%{name}-iterators-devel = %{version}-%{release}
-
-%description spirit-devel
-LL parser framework represents parsers directly as EBNF grammars in
-inlined C++.
-
-%description spirit-devel -l pl
-Szkielet parsera LL reprezentuj±cy parsery jako gramatyki EBNF
-bezpo¶rednio w kodzie C++.
-
 %package any-devel
 Summary:	Header for Boost C++ "Any" Library
 Summary(pl):	Plik nag³ówkowy dla biblioteki Boost C++ "Any"
@@ -526,6 +505,27 @@ Static library for boost::signals.
 
 %description signals-static -l pl
 Biblioteka statyczna dla boost::signals.
+
+%package spirit-devel
+Summary:	LL parser framework
+Summary(pl):	Szkielet parsera LL
+Group:		Development/Libraries
+Requires:	%{name}-regex-devel = %{version}-%{release}
+Requires:	%{name}-static_assert-devel = %{version}-%{release}
+Requires:	%{name}-compressed_pair-devel = %{version}-%{release}
+Requires:	%{name}-ref-devel = %{version}-%{release}
+Requires:	%{name}-thread-devel = %{version}-%{release}
+#TODO:
+#?Requires:	%{name}-smart_ptr-devel = %{version}-%{release}
+#?Requires:	%{name}-iterators-devel = %{version}-%{release}
+
+%description spirit-devel
+LL parser framework represents parsers directly as EBNF grammars in
+inlined C++.
+
+%description spirit-devel -l pl
+Szkielet parsera LL reprezentuj±cy parsery jako gramatyki EBNF
+bezpo¶rednio w kodzie C++.
 
 %package static_assert-devel
 Summary:	Static assertions (compile time assertions)
