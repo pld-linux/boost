@@ -676,6 +676,13 @@ Dokumentacja dla biblioteki Boost C++.
 # due to oversophisticated build flags system
 %{__perl} -pi -e 's/ -O3 / %{rpmcflags} /' tools/build/v1/gcc-tools.jam
 
+%ifarch alpha
+# -pthread gcc parameter doesn't add _REENTRANT to cpp macros on alpha (only)
+# don't know, is it gcc bug or intentional omission?
+# anyway, boost check of -D_REENTRANT in its headers, so it's needed here
+%{__perl} -pi -e 's/(CFLAGS.*-pthread)/$1 -D_REENTRANT/' tools/build/v1/gcc-tools.jam
+%endif
+
 %build
 %if %{with python}
 PYTHON_VERSION=`python -V 2>&1 | sed 's,.* \([0-9]\.[0-9]\)\(\.[0-9]\)\?.*,\1,'`
