@@ -150,6 +150,18 @@ mo¿liwa zmiana ilo¶ci elementów. To skutkuje pewnym nadmiarem w przypadku kiedy
 tylko tablice o sta³ym rozmiarze s± potrzebne. Ta biblioteka dostarcza wsparcie
 dla takich w³a¶nie tablic o sta³ym rozmiarze.
 
+
+%package preprocessor-devel
+Group:		Libraries
+Summary: 		Preprocessor metaprogramming tools including repetition and recursion.
+Summary(pl):	Narzêdzia metaprogramowania preprocesora razem z repetycj± i rekursj±.
+%description preprocessor-devel
+This library provides preprocessor metaprogramming tools, including repetition
+and recursion. 
+%description preprocessor-devel -l pl
+Biblioteka udostêpnia narzêdzia metaprogramowania preprocesora, w³±czaj±c w to
+repetycje i rekursjê.  
+
 %package doc
 Summary:	Boost C++ Library documentation
 Summary(pl):	Dokumentacja dla biblioteki Boost C++
@@ -243,6 +255,13 @@ mv {_,}devel.list
 #array-devel library
 egrep '/boost/array.hpp$' devel.list >array.list
 egrep -v '/boost/array.hpp$' devel.list > _devel.list
+mv {_,}devel.list
+
+#preprocessor-devel
+RFILES="%{_includedir}/boost/preprocessor"
+
+egrep "$RFILES" devel.list > preprocessor.list
+egrep -v $RFILES devel.list > _devel.list
 mv {_,}devel.list
 
 # documentation
@@ -473,4 +492,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 
 %files array-devel -f array.list
+%defattr(644,root,root,755)
+
+%files preprocessor-devel -f preprocessor.list
 %defattr(644,root,root,755)
