@@ -46,7 +46,6 @@ Summary:	Boost C++ development libraries and headers
 Summary(pl):	Pliki nag³ówkowe i biblioteki statyczne Boost C++
 Group:		Development/Libraries
 # req'd by <boost/iterator_adaptors.hpp> (also included by <boost/signal.h>)
-Requires:	%{name}-compressed_pair-devel = %{version}-%{release}
 Requires:	%{name}-concept_check-devel = %{version}-%{release}
 Requires:	libstdc++-devel
 
@@ -85,6 +84,7 @@ Summary(pl):	Pliki nag³ówkowe dla Boost.Python
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-python = %{version}-%{release}
+Requires:	%{name}-compressed_pair-devel = %{version}-%{release}
 
 %description python-devel
 Headers for the Boost.Python library.
@@ -140,6 +140,27 @@ Boost C++ Regex static libraries.
 
 %description regex-static -l pl
 Biblioteki statyczne dla Boost C++ Regex.
+
+%package spirit-devel
+Summary:	LL parser framework
+Summary(pl):	Szkielet parsera LL
+Group:		Development/Libraries
+Requires:	%{name}-regex-devel = %{version}-%{release}
+Requires:	%{name}-static_assert-devel = %{version}-%{release}
+Requires:	%{name}-compressed_pair-devel = %{version}-%{release}
+Requires:	%{name}-ref-devel = %{version}-%{release}
+Requires:	%{name}-thread-devel = %{version}-%{release}
+#TODO:
+#?Requires:	%{name}-smart_ptr-devel = %{version}-%{release}
+#?Requires:	%{name}-iterators-devel = %{version}-%{release}
+
+%description spirit-devel
+LL parser framework represents parsers directly as EBNF grammars in
+inlined C++.
+
+%description spirit-devel -l pl
+Szkielet parsera LL reprezentuj±cy parsery jako gramatyki EBNF
+bezpo¶rednio w kodzie C++.
 
 %package any-devel
 Summary:	Header for Boost C++ "Any" Library
@@ -851,8 +872,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/scoped_*.hpp
 %{_includedir}/boost/shared_*.hpp
 %{_includedir}/boost/smart_ptr.hpp
-%{_includedir}/boost/spirit
-%{_includedir}/boost/spirit.hpp
 %{_includedir}/boost/throw_exception.hpp
 %{_includedir}/boost/timer.hpp
 %{_includedir}/boost/token*.hpp
@@ -1013,6 +1032,11 @@ rm -rf $RPM_BUILD_ROOT
 %files signals-static
 %defattr(644,root,root,755)
 %{_libdir}/libboost_signals-gcc-1_31.a
+
+%files spirit-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/spirit.hpp
+%{_includedir}/boost/spirit
 
 %files static_assert-devel
 %defattr(644,root,root,755)
