@@ -2,16 +2,18 @@
 # Conditional build:
 %bcond_without	python	# with boost-python support (not working now)
 #
+%define _ver	1.31.0
+%define _fver 	%(echo %{_ver}|sed 's/\\./_/g')
+
 Summary:	The Boost C++ Libraries
 Summary(pl):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.30.2
+Version:	%{_ver}
 Release:	0.1
-License:	Freely distributable
+License:	Boost Software License and others
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/boost/%{name}-%{version}.tar.bz2
-# Source0-md5:	4aed692a863bb4beaa0b70d6dc53bda5
-Patch0:		%{name}-python.patch
+Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
+# Source0-md5:	8cc183538eaa5cfc53d88d0e94bd2fd4
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.3
 BuildRequires:	libstdc++-devel
@@ -425,6 +427,50 @@ Biblioteka boost::ref jest ma³± bibliotek± która jest u¿yteczna w
 przypadku przekazywania referencji do wzorców funkcji (algorytmów)
 które zazwyczaj bior± kopiê swoich argumentów.
 
+%package signals
+Summary:	signals & slots callback implementation
+Summary(pl):	implementacja sygna³ów i slotów
+Group:		Libraries
+
+%description signals
+The boost::signals library is an implementation of a signals and slots
+system.
+
+%description signals -l pl
+Biblioteka boost::signals jest implementacj± systemu sygna³ów i
+slotów.
+
+%package signals-devel
+Summary:	Header files for boost::signals library
+Summary(pl):	Pliki nag³ówkowe dla biblioteki boost::signals
+Group:		Development/Libraries
+Requires:	%{name}-any-devel = %{version}-%{release}
+#TODO: separate smart_ptr or include to the main devel package
+#Requires:	%{name}-smart_ptr-devel = %{version}-%{release}
+#Requires:	%{name}-operators-devel = %{version}-%{release}
+#Requires:	%{name}-iterator_adaptors-devel = %{version}-%{release}
+Requires:	%{name}-utility-devel = %{version}-%{release}
+Requires:	%{name}-ref-devel = %{version}-%{release}
+Requires:	%{name}-type_traits-devel = %{version}-%{release}
+
+%description signals-devel
+Header files for boost::signals library.
+
+%description signals-devel -l pl
+Pliki nag³ówkowe dla biblioteki boost::signals.
+
+%package signals-static
+Summary:	Static library for boost::signals
+Summary(pl):	Biblioteka statyczna dla boost::signals
+Group:		Development/Libraries
+Requires:	%{name}-signals-devel = %{version}-%{release}
+
+%description signals-static
+Static library for boost::signals.
+
+%description signals-static -l pl
+Biblioteka statyczna dla boost::signals.
+
 %package static_assert-devel
 Summary:	Static assertions (compile time assertions)
 Summary(pl):	Statyczne asercje (asercje kompilacyjne)
@@ -539,8 +585,7 @@ Documentation for the Boost C++ Library.
 Dokumentacja dla biblioteki Boost C++.
 
 %prep
-%setup -q
-%patch0 -p1
+%setup -q -n %{name}_%{_fver}
 
 # don't know how to pass it through (b)jam -s (no way?)
 # due to oversophisticated build flags system
@@ -566,9 +611,11 @@ install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}}
 
 cp -rf boost $RPM_BUILD_ROOT%{_includedir}
 
-install libs/*/build/bin/*.a/*/*/*/lib*.a $RPM_BUILD_ROOT%{_libdir}
-install libs/*/build/bin/*.so/*/*/*/*/{,*/}lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
-cp -df libs/*/build/bin/*.so/*/*/*/*/{,*/}lib*.so $RPM_BUILD_ROOT%{_libdir}
+install bin/boost/libs/*/build/*.a/*/release/lib*.a $RPM_BUILD_ROOT%{_libdir}
+install bin/boost/libs/*/build/*.so/*/release/*/{*/,}lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
+install bin/boost/libs/*/build/*.so/*/release/*/{*/,}lib*.so $RPM_BUILD_ROOT%{_libdir}
+
+#cp -df libs/*/build/bin/*.so/*/*/*/*/{,*/}lib*.so $RPM_BUILD_ROOT%{_libdir}
 
 # documentation
 install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
@@ -631,24 +678,23 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_signals.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_unit_test_framework.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor-gcc-1_31.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor-gcc-1_31.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_unit_test_framework-gcc-1_31.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_filesystem-gcc-1_31.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so
-%attr(755,root,root) %{_libdir}/libboost_signals.so
-%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor.so
-%attr(755,root,root) %{_libdir}/libboost_unit_test_framework.so
-# static-only, so must be here
-%{_libdir}/libboost_filesystem.a
+%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor-gcc-1_31.so
+%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor-gcc-1_31.so
+%attr(755,root,root) %{_libdir}/libboost_unit_test_framework-gcc-1_31.so
+%attr(755,root,root) %{_libdir}/libboost_filesystem-gcc-1_31.so
 %dir %{_includedir}/boost
 %{_includedir}/boost/assert.hpp
+%{_includedir}/boost/blank_fwd.hpp
 %{_includedir}/boost/config
 %{_includedir}/boost/config.hpp
-%{_includedir}/boost/counting_iterator.hpp
+%{_includedir}/boost/iterator/counting_iterator.hpp
 %{_includedir}/boost/cstd*.hpp
 %{_includedir}/boost/current_function.hpp
 %dir %{_includedir}/boost/detail
@@ -658,12 +704,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/detail/binary_search.hpp
 %{_includedir}/boost/detail/catch_exceptions.hpp
 %{_includedir}/boost/detail/dynamic_bitset.hpp
+%{_includedir}/boost/detail/is_incrementable.hpp
 %{_includedir}/boost/detail/iterator.hpp
 %{_includedir}/boost/detail/lightweight_*.hpp
 %{_includedir}/boost/detail/limits.hpp
 %{_includedir}/boost/detail/lwm_*.hpp
 %{_includedir}/boost/detail/named_template_params.hpp
 %{_includedir}/boost/detail/numeric_traits.hpp
+%{_includedir}/boost/detail/reference_content.hpp
 %{_includedir}/boost/detail/quick_allocator.hpp
 %{_includedir}/boost/detail/select_type.hpp
 %{_includedir}/boost/detail/shared_*.hpp
@@ -680,27 +728,29 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/generator_iterator.hpp
 %{_includedir}/boost/graph
 %{_includedir}/boost/half_open_range.hpp
+%{_includedir}/boost/indirect_reference.hpp
 %{_includedir}/boost/integer
 %{_includedir}/boost/integer*.hpp
 %{_includedir}/boost/intrusive_ptr.hpp
 %{_includedir}/boost/io
 %{_includedir}/boost/io_fwd.hpp
 %{_includedir}/boost/iterator*.hpp
+%{_includedir}/boost/iterator
 %{_includedir}/boost/lambda
-%{_includedir}/boost/last_value.hpp
 %{_includedir}/boost/limits.hpp
 %{_includedir}/boost/math
 %{_includedir}/boost/math_fwd.hpp
-%{_includedir}/boost/min_rand.hpp
 %{_includedir}/boost/multi_array
 %{_includedir}/boost/multi_array.hpp
 %{_includedir}/boost/nondet_random.hpp
+%{_includedir}/boost/non_type.hpp
 %{_includedir}/boost/numeric
 %{_includedir}/boost/operators.hpp
 %{_includedir}/boost/optional.hpp
 %{_includedir}/boost/pending
-%{_includedir}/boost/permutation_iterator.hpp
+%{_includedir}/boost/iterator/permutation_iterator.hpp
 %{_includedir}/boost/pool
+%{_includedir}/boost/pointee.hpp
 %{_includedir}/boost/progress.hpp
 %{_includedir}/boost/property_map*.hpp
 %{_includedir}/boost/random
@@ -708,8 +758,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/rational.hpp
 %{_includedir}/boost/scoped_*.hpp
 %{_includedir}/boost/shared_*.hpp
-%{_includedir}/boost/signal.hpp
-%{_includedir}/boost/signals
 %{_includedir}/boost/smart_ptr.hpp
 %{_includedir}/boost/spirit
 %{_includedir}/boost/spirit.hpp
@@ -722,39 +770,53 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/type_traits
 %{_includedir}/boost/utility
 %{_includedir}/boost/version.hpp
-%{_includedir}/boost/visit_each.hpp
+%{_includedir}/boost/vector_property_map.hpp
 %{_includedir}/boost/weak_ptr.hpp
+#boost::enable_if
+%{_includedir}/boost/utility/enable_if.hpp
+#boost::variant
+%{_includedir}/boost/variant.hpp
+%{_includedir}/boost/variant
+%{_includedir}/boost/blank.hpp
+%{_includedir}/boost/detail/templated_streams.hpp
+#boost::optional
+%{_includedir}/boost/aligned_storage.hpp
+%{_includedir}/boost/detail/in_place_factory*.hpp
+%{_includedir}/boost/detail/none.hpp
+%{_includedir}/boost/detail/none_t.hpp
+%{_includedir}/boost/detail/typed_in_place_factory.hpp
+
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libboost_prg_exec_monitor.a
-%{_libdir}/libboost_signals.a
-%{_libdir}/libboost_test_exec_monitor.a
-%{_libdir}/libboost_unit_test_framework.a
+%{_libdir}/libboost_prg_exec_monitor-gcc-1_31.a
+%{_libdir}/libboost_test_exec_monitor-gcc-1_31.a
+%{_libdir}/libboost_unit_test_framework-gcc-1_31.a
+%{_libdir}/libboost_filesystem-gcc-1_31.a
 
 %if %{with python}
 %files python
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_python.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_python-gcc-1_31.so.*.*.*
 
 %files python-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_python.so
+%attr(755,root,root) %{_libdir}/libboost_python-gcc-1_31.so
 %{_includedir}/boost/python
 %{_includedir}/boost/python.hpp
 
 %files python-static
 %defattr(644,root,root,755)
-%{_libdir}/libboost_python.a
+%{_libdir}/libboost_python-gcc-1_31.a
 %endif
 
 %files regex
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_regex.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_regex-gcc-1_31.so.*.*.*
 
 %files regex-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_regex.so
+%attr(755,root,root) %{_libdir}/libboost_regex-gcc-1_31.so
 %{_includedir}/boost/cregex.hpp
 %{_includedir}/boost/regex.h
 %{_includedir}/boost/regex*.hpp
@@ -762,7 +824,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files regex-static
 %defattr(644,root,root,755)
-%{_libdir}/libboost_regex.a
+%{_libdir}/libboost_regex-gcc-1_31.a
 
 %files any-devel
 %defattr(644,root,root,755)
@@ -805,6 +867,7 @@ rm -rf $RPM_BUILD_ROOT
 %files conversion-devel
 %defattr(644,root,root,755)
 %{_includedir}/boost/cast.hpp
+%{_includedir}/boost/implicit_cast.hpp
 %{_includedir}/boost/lexical_cast.hpp
 
 %files crc-devel
@@ -813,16 +876,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %files date_time
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_date_time.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_date_time-gcc-1_31.so.*.*.*
 
 %files date_time-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_date_time.so
+%attr(755,root,root) %{_libdir}/libboost_date_time-gcc-1_31.so
 %{_includedir}/boost/date_time
 
 %files date_time-static
 %defattr(644,root,root,755)
-%{_libdir}/libboost_date_time.a
+%{_libdir}/libboost_date_time-gcc-1_31.a
 
 %files mem_fn-devel
 %defattr(644,root,root,755)
@@ -842,17 +905,33 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_includedir}/boost/ref.hpp
 
+%files signals
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_signals-gcc-1_31.so.*.*.*
+
+%files signals-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_signals-gcc-1_31.so
+%{_includedir}/boost/signal*.hpp
+%{_includedir}/boost/signals
+%{_includedir}/boost/last_value.hpp
+%{_includedir}/boost/visit_each.hpp
+
+%files signals-static
+%defattr(644,root,root,755)
+%{_libdir}/libboost_signals-gcc-1_31.a
+
 %files static_assert-devel
 %defattr(644,root,root,755)
 %{_includedir}/boost/static_assert.hpp
 
 %files thread
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_thread.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_thread-gcc-mt-1_31.so.*.*.*
 
 %files thread-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_thread.so
+%attr(755,root,root) %{_libdir}/libboost_thread-gcc-mt-1_31.so
 %{_includedir}/boost/thread
 %{_includedir}/boost/thread.hpp
 
