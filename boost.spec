@@ -43,6 +43,13 @@ Summary:	Boost C++ development libraries and headers
 Summary(pl):	Pliki nag³ówkowe i biblioteki statyczne Boost C++
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+# req'd by <boost/signal.hpp>
+Requires:	%{name}-any-devel = %{version}-%{release}
+Requires:	%{name}-mem_fn-devel = %{version}-%{release}
+Requires:	%{name}-ref-devel = %{version}-%{release}
+# req'd by <boost/iterator_adaptors.hpp> (also included by <boost/signal.h>)
+Requires:	%{name}-compressed_pair-devel = %{version}-%{release}
+Requires:	%{name}-concept_check-devel = %{version}-%{release}
 Requires:	libstdc++-devel
 
 %description devel
