@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_with	python	# with boost-python support (not working now)
+%bcond_without	python	# with boost-python support (not working now)
 #
 Summary:	The Boost C++ Libraries
 Summary(pl):	Biblioteki C++ "Boost"
@@ -11,11 +11,12 @@ License:	Freely distributable
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}-%{version}.tar.bz2
 # Source0-md5:	4aed692a863bb4beaa0b70d6dc53bda5
+Patch0:		%{name}-python.patch
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.3
 BuildRequires:	libstdc++-devel
 BuildRequires:	perl-base
-%{?with_python:BuildRequires:	python-devel}
+%{?with_python:BuildRequires:	python-devel >= 2.2}
 BuildConflicts:	gcc = 5:3.3.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -50,15 +51,12 @@ Headers and static libraries for the Boost C++ libraries.
 %description devel -l pl
 Pliki nag³ówkowe i biblioteki statyczne bibliotek Boost C++.
 
-#according to ldd (and automatically generated RPM dependencies) it
-#doesn't strictly require python, but IMHO it's cleaner to split it
-#this way
 %package python
 Summary:	Boost.Python library
 Summary(pl):	biblioteka Boost.Python
 Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	python
+%pyrequires_eq	python
 
 %description python
 Use the Boost Python Library to quickly and easily export a C++
@@ -82,12 +80,25 @@ Summary:	Boost.Python development headers
 Summary(pl):	Pliki nag³ówkowe dla Boost.Python
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-python = %{version}-%{release}
 
 %description python-devel
 Headers for the Boost.Python library.
 
 %description python-devel -l pl
 Pliki nag³ówkowe dla biblioteki Boost.Python.
+
+%package python-static
+Summary:	Static version of Boost.Python library
+Summary(pl):	Statyczna wersja biblioteki Boost.Python
+Group:		Development/Libraries
+Requires:	%{name}-python-devel = %{version}-%{release}
+
+%description python-static
+Static version of Boost.Python library.
+
+%description python-static -l pl
+Statyczna wersja biblioteki Boost.Python.
 
 %package regex
 Summary:	Boost C++ regular expressions library
@@ -430,6 +441,7 @@ Dokumentacja dla biblioteki Boost C++.
 
 %prep
 %setup -q
+%patch0 -p1
 
 # don't know how to pass it through (b)jam -s (no way?)
 # due to oversophisticated build flags system
@@ -641,10 +653,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/python
 %{_includedir}/boost/python.hpp
 
-# ?
-#%files python-static
-#%defattr(644,root,root,755)
-#%{_libdir}/libboost_python.a
+%files python-static
+%defattr(644,root,root,755)
+%{_libdir}/libboost_python.a
 %endif
 
 %files regex
