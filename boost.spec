@@ -481,6 +481,7 @@ slotów.
 Summary:	Header files for boost::signals library
 Summary(pl):	Pliki nag³ówkowe dla biblioteki boost::signals
 Group:		Development/Libraries
+Requires:	%{name}-signals = %{version}-%{release}
 Requires:	%{name}-any-devel = %{version}-%{release}
 #TODO: separate smart_ptr or include to the main devel package
 #Requires:	%{name}-iterator_adaptors-devel = %{version}-%{release}
