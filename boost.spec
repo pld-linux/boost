@@ -341,6 +341,24 @@ standardu C++, pozwalaj±ce na u¿ywanie bibliotek Boost na tych
 platformach.
 
 
+%package compose-devel
+Group:		Development/Libraries
+Summary:	Functional composition adapters for the STL.
+Summary(pl):	Funkcjonalne adaptery kompozycji dla STL.
+
+%description compose-devel
+The boost::compose provides compose function object adapter extensions
+for use with the Standard Template Library (STL) portion of the C++
+Standard Library. If you aren't currently using the STL, this library
+won't be of any interest, but hard-core STL users will appreciate it's
+usefulness
+
+%description compose-devel -l pl
+boost::compose dostarcza rozszerzenie adaptera obiektu funkcji compose
+do u¿ytku z STLow± czê¶ci± Standardu C++. Je¿eli nie u¿ywasz STL,
+biblioteka bêdzie poza twoim zainteresowaniem, lecz hardkorowi
+u¿ytkownicy STLa doceni± jej u¿yteczno¶æ.
+
 %package doc
 Summary:	Boost C++ Library documentation
 Summary(pl):	Dokumentacja dla biblioteki Boost C++
@@ -506,6 +524,12 @@ mv {_,}devel.list
 RFILES="%{_includedir}/boost/limits.hpp"
 RFILES="$RFILES|%{_includedir}/boost/compatibility/"
 egrep "$RFILES" devel.list > compat.list
+egrep -v "$RFILES" devel.list >_devel.list
+mv {_,}devel.list
+
+#compose-devel
+RFILES="%{_includedir}/boost/compose.hpp"
+egrep "$RFILES" devel.list > compose.list
 egrep -v "$RFILES" devel.list >_devel.list
 mv {_,}devel.list
 
@@ -700,4 +724,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 
 %files compatibility-devel -f compat.list
+%defattr(644,root,root,755)
+
+%files compose-devel -f compose.list
 %defattr(644,root,root,755)
