@@ -120,8 +120,8 @@ Shared library for Boost C++ regular expressions.
 Biblioteka wyra¿eñ regularnych dla C++, biblioteki dzielone.
 
 %package regex-devel
-Summary:	Boost C++ Regex library headers.
-Summary(pl):	Pliki nag³ówkowe Boost C++ Regex.
+Summary:	Boost C++ Regex library headers
+Summary(pl):	Pliki nag³ówkowe Boost C++ Regex
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-regex = %{version}-%{release}
@@ -133,8 +133,8 @@ Boost C++ Regex headers.
 Pliki nag³ówkowe dla Boost C++ Regex.
 
 %package regex-static
-Summary:	Boost C++ Regex static libraries.
-Summary(pl):	Biblioteki statyczne Boost C++ Regex.
+Summary:	Boost C++ Regex static libraries
+Summary(pl):	Biblioteki statyczne Boost C++ Regex
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-regex = %{version}-%{release}
@@ -309,8 +309,8 @@ Biblioteka zawiera "rzutopodobne" wzorce funkcji uzupe³niaj±ce
 wbudowane w Standard C++ rzutowania.
 
 %package crc-devel
-Summary:	CRC computing library.
-Summary(pl):	Biblioteka obliczaj±ca CRC.
+Summary:	CRC computing library
+Summary(pl):	Biblioteka obliczaj±ca CRC
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -323,8 +323,8 @@ Bibliteka boost::crc dostarcza dwie implementacje obiektów i funkcji
 obliczaj±cych CRC. Implementacje s± oparte na wzorcach.
 
 %package date_time
-Summary:	Date-Time library.
-Summary(pl):	Biblioteka daty-czasu.
+Summary:	Date-Time library
+Summary(pl):	Biblioteka daty-czasu
 Group:		Libraries
 
 %description date_time
@@ -334,8 +334,8 @@ A set of date-time libraries.
 Zbiór bibliotek daty-czasu.
 
 %package date_time-devel
-Summary:	Header files for boost::date_time library.
-Summary(pl):	Pliki nag³ówkowe dla biblioteki boost::date_time.
+Summary:	Header files for boost::date_time library
+Summary(pl):	Pliki nag³ówkowe dla biblioteki boost::date_time
 Group:		Development/Libraries
 Requires:	%{name}-date_time = %{version}-%{release}
 #TODO: make decision if do separate packages include it to main devel package
@@ -351,8 +351,8 @@ Header files for boost::date_time library.
 Pliki nag³ówkowe dla biblioteki boost::date_time
 
 %package date_time-static
-Summary:	Static boost::date_time library.
-Summary(pl):	Statyczna biblioteka boost::date_time.
+Summary:	Static boost::date_time library
+Summary(pl):	Statyczna biblioteka boost::date_time
 Group:		Development/Libraries
 Requires:	%{name}-date_time-devel = %{version}-%{release}
 
@@ -361,7 +361,6 @@ Static boost::date_time library.
 
 %description date_time-devel -l pl
 Statyczna biblioteka boost::date_time.
-
 
 %package mem_fn-devel
 Summary:	Generalized binders for member functions
@@ -454,10 +453,9 @@ Jednym z celów BOOST_STATIC_ASSERT jest generowanie czytelnych
 komunikatów o b³êdach. One b³yskawicznie powiedz± u¿ytkownikowi ¿e
 biblioteka zosta³a u¿yta w sposób który nie jest zalecany.
 
-
 %package thread
-Summary:	Portable C++ threads library.
-Summary(pl):	Przeno¶na biblioteka w±tków C++.
+Summary:	Portable C++ threads library
+Summary(pl):	Przeno¶na biblioteka w±tków C++
 Group:		Libraries
 
 %description thread
@@ -467,8 +465,8 @@ Portable C++ threads library. Shared libraries.
 Przeno¶na biblioteka w±tków dla C++. Biblioteki dzielone.
 
 %package thread-devel
-Summary:	Header files for boost::thread library.
-Summary(pl):	Pliki nag³ówkowe dla biblioteki boost::thread.
+Summary:	Header files for boost::thread library
+Summary(pl):	Pliki nag³ówkowe dla biblioteki boost::thread
 Group:		Development/Libraries
 Requires:	%{name}-thread = %{version}-%{release}
 Requires:	%{name}-utility-devel = %{version}-%{release}
@@ -606,7 +604,7 @@ for i in `find -type f -name '*.htm*'`; do
 				$in_link and s/^\s*"([^"> ]*)"/'"' . rewrite_link($1) . '"'/e;
 				s/(href|src)="([^"> ]*)"/"$1=\"" . rewrite_link($2) . '"'/eig;
 				print OUT;
-  				$in_link = /href|src=\s*$/;
+				$in_link = /href|src=\s*$/;
 			}
 EOT`; do
 			TARGET=`dirname $i`/$LINKED
@@ -856,7 +854,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_thread.so
 %{_includedir}/boost/thread
 %{_includedir}/boost/thread.hpp
-
 
 %files type_traits-devel
 %defattr(644,root,root,755)
