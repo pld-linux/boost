@@ -478,8 +478,8 @@ mv {_,}devel.list
 
 #call_traits-devel
 RFILES="%{_includedir}/boost/call_traits.hpp"
-RFILES="$RFILES|%{_includedir}/detail/call_traits.hpp"
-RFILES="$RFILES|%{_includedir}/detail/ob_call_traits.hpp"
+RFILES="$RFILES|%{_includedir}/boost/detail/call_traits.hpp"
+RFILES="$RFILES|%{_includedir}/boost/detail/ob_call_traits.hpp"
 egrep "$RFILES" devel.list > call_traits.list
 egrep -v "$RFILES" devel.list >_devel.list
 mv {_,}devel.list
