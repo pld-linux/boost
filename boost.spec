@@ -642,6 +642,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_signals.so
 %attr(755,root,root) %{_libdir}/libboost_test_exec_monitor.so
 %attr(755,root,root) %{_libdir}/libboost_unit_test_framework.so
+# static-only, so must be here
+%{_libdir}/libboost_filesystem.a
 %dir %{_includedir}/boost
 %{_includedir}/boost/assert.hpp
 %{_includedir}/boost/config
@@ -725,7 +727,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libboost_filesystem.a
 %{_libdir}/libboost_prg_exec_monitor.a
 %{_libdir}/libboost_signals.a
 %{_libdir}/libboost_test_exec_monitor.a
