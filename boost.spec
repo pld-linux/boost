@@ -833,7 +833,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/token*.hpp
 %{_includedir}/boost/tuple
 %{_includedir}/boost/type.hpp
-%{_includedir}/boost/type_traits
 %{_includedir}/boost/utility
 %{_includedir}/boost/version.hpp
 %{_includedir}/boost/vector_property_map.hpp
