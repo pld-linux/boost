@@ -9,7 +9,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	%{_ver}
-Release:	0.2
+Release:	0.9
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
@@ -132,8 +132,7 @@ Pliki nag³ówkowe dla Boost C++ Regex.
 Summary:	Boost C++ Regex static libraries
 Summary(pl):	Biblioteki statyczne Boost C++ Regex
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-Requires:	%{name}-regex = %{version}-%{release}
+Requires:	%{name}-regex-devel = %{version}-%{release}
 
 %description regex-static
 Boost C++ Regex static libraries.
@@ -322,6 +321,7 @@ obliczaj±cych CRC. Implementacje s± oparte na wzorcach.
 Summary:	Date-Time library
 Summary(pl):	Biblioteka daty-czasu
 Group:		Libraries
+Obsoletes:	boost
 
 %description date_time
 A set of date-time libraries.
@@ -362,6 +362,7 @@ Statyczna biblioteka boost::date_time.
 Summary:	Portable paths, iteration over directories, and other useful filesystem operations
 Summary(pl):	Przeno¶ne ¶cie¿ki, iteracje katalogów i inne u¿yteczne operacje na systemie plików
 Group:		Libraries
+Obsoletes:	boost
 
 %description filesystem
 The boost::filesystem library provides portable facilities to query
@@ -391,6 +392,7 @@ Summary:	Static boost::filesystem library
 Summary(pl):	Biblioteka statyczna boost::filesystem
 Group:		Development/Libraries
 Requires:	%{name}-filesystem-devel = %{version}-%{release}
+Obsoletes:	boost-static
 
 %description filesystem-static
 Static boost::filesystem library.
@@ -462,9 +464,10 @@ przypadku przekazywania referencji do wzorców funkcji (algorytmów)
 które zazwyczaj bior± kopiê swoich argumentów.
 
 %package signals
-Summary:	signals & slots callback implementation
-Summary(pl):	implementacja sygna³ów i slotów
+Summary:	Signals & slots callback implementation
+Summary(pl):	Implementacja sygna³ów i slotów
 Group:		Libraries
+Obsoletes:	boost
 
 %description signals
 The boost::signals library is an implementation of a signals and slots
@@ -559,6 +562,7 @@ biblioteka zosta³a u¿yta w sposób który nie jest zalecany.
 Summary:	Support for program testing and  execution monitoring
 Summary(pl):	Wsparcie dla testowania i monitorowania programu
 Group:		Libraries
+Obsoletes:	boost
 
 %description test
 Support for simple program testing, full unit testing, and for program
@@ -587,21 +591,23 @@ Header files for boost::test.
 Pliki nag³ówkowe dla boost::test
 
 %package test-static
-Summary:	Static libraries for boost::test
-Summary(pl):	Biblioteki statyczne dla boost::test
+Summary:	Static boost::test libraries
+Summary(pl):	Biblioteki statyczne boost::test
 Group:		Development/Libraries
 Requires:	%{name}-test-devel = %{version}-%{release}
+Obsoletes:	boost-static
 
 %description test-static
-Static libraries for boost::test.
+Static boost::test libraries.
 
 %description test-static -l pl
-Biblioteki statyczne dla boost::test.
+Biblioteki statyczne boost::test.
 
 %package thread
 Summary:	Portable C++ threads library
 Summary(pl):	Przeno¶na biblioteka w±tków C++
 Group:		Libraries
+Obsoletes:	boost
 
 %description thread
 Portable C++ threads library - shared library.
@@ -778,9 +784,6 @@ done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
 
 %post	date_time -p /sbin/ldconfig
 %postun	date_time -p /sbin/ldconfig
@@ -1090,4 +1093,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files doc
 %defattr(644,root,root,755)
-%{_docdir}/boost-%{version}
+%{_docdir}/%{name}-%{version}
