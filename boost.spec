@@ -132,6 +132,24 @@ dok³adnie tego samego typu.
 Np. 5 jest trzymane jako int i nie jest niejawnie konwertowne ani jako
 "5" ani jako 5.0.
 
+%package array-devel
+Group:		Libraries
+Summary:		STL compliant container wrapper for arrays of constant size
+Summary(pl):	Wrapper na STLowe kontenery dla tablic o sta³ym rozmiarze
+Requires:		%{name}-devel = %{version}
+%description array-devel
+As replacement for ordinary arrays, the STL provides class vector<>. However,
+vector<> provides the semantics of dynamic arrays. Thus, it manages data to be
+able to change the number of elements. This results in some overhead in case
+only arrays with static size are needed. This library provides support for such
+static size arrays. 
+%description array-devel -l pl
+STL dostarcza klasê vector<> jako zamiennik zwyk³ej tablicy. Jednak vector<>
+dostarcza semantykê dynamicznych tablic. Zatem zarz±dza danymi tak, by by³a
+mo¿liwa zmiana ilo¶ci elementów. To skutkuje pewnym nadmiarem w przypadku kiedy
+tylko tablice o sta³ym rozmiarze s± potrzebne. Ta biblioteka dostarcza wsparcie
+dla takich w³a¶nie tablic o sta³ym rozmiarze.
+
 %package doc
 Summary:	Boost C++ Library documentation
 Summary(pl):	Dokumentacja dla biblioteki Boost C++
@@ -220,6 +238,11 @@ mv {_,}devel.list
 #any-devel library
 grep any.hpp devel.list > any.list
 grep -v any.hpp devel.list > _devel.list
+mv {_,}devel.list
+
+#array-devel library
+egrep '/boost/array.hpp$' devel.list >array.list
+egrep -v '/boost/array.hpp$' devel.list > _devel.list
 mv {_,}devel.list
 
 # documentation
@@ -447,4 +470,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 
 %files any-devel -f any.list
+%defattr(644,root,root,755)
+
+%files array-devel -f array.list
 %defattr(644,root,root,755)
