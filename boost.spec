@@ -14,6 +14,7 @@ License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
 # Source0-md5:	8cc183538eaa5cfc53d88d0e94bd2fd4
+Patch0:		%{name}-python.patch
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.3
 BuildRequires:	libstdc++-devel
@@ -583,10 +584,11 @@ Dokumentacja dla biblioteki Boost C++.
 
 %prep
 %setup -q -n %{name}_%{_fver}
+%patch0 -p1
 
 # don't know how to pass it through (b)jam -s (no way?)
 # due to oversophisticated build flags system
-%{__perl} -pi -e 's/ -O3 / %{rpmcflags} /' tools/build/gcc-tools.jam
+%{__perl} -pi -e 's/ -O3 / %{rpmcflags} /' tools/build/v1/gcc-tools.jam
 
 %build
 %if %{with python}
@@ -610,9 +612,8 @@ cp -rf boost $RPM_BUILD_ROOT%{_includedir}
 
 install bin/boost/libs/*/build/*.a/*/release/lib*.a $RPM_BUILD_ROOT%{_libdir}
 install bin/boost/libs/*/build/*.so/*/release/*/{*/,}lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
-install bin/boost/libs/*/build/*.so/*/release/*/{*/,}lib*.so $RPM_BUILD_ROOT%{_libdir}
-
-#cp -df libs/*/build/bin/*.so/*/*/*/*/{,*/}lib*.so $RPM_BUILD_ROOT%{_libdir}
+# use cp -d, install follows symlinks instead of preserving them!
+cp -df bin/boost/libs/*/build/*.so/*/release/*/{*/,}lib*.so $RPM_BUILD_ROOT%{_libdir}
 
 # documentation
 install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
@@ -667,11 +668,20 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
+%post	date_time -p /sbin/ldconfig
+%postun	date_time -p /sbin/ldconfig
+
 %post	python	-p /sbin/ldconfig
 %postun python	-p /sbin/ldconfig
 
 %post	regex	-p /sbin/ldconfig
 %postun regex	-p /sbin/ldconfig
+
+%post	signals	-p /sbin/ldconfig
+%postun	signals	-p /sbin/ldconfig
+
+%post	thread	-p /sbin/ldconfig
+%postun	thread	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
