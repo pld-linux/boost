@@ -2,18 +2,18 @@
 # Conditional build:
 %bcond_without	python	# without boost-python support
 #
-%define _ver	1.31.0
+%define _ver	1.32.0
 %define _fver 	%(echo %{_ver} | tr . _)
 
 Summary:	The Boost C++ Libraries
 Summary(pl):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	%{_ver}
-Release:	2
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
-# Source0-md5:	8cc183538eaa5cfc53d88d0e94bd2fd4
+# Source0-md5:	e1d1fc7b8fc8c51df4564c2188ca51cb
 Patch0:		%{name}-python.patch
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.3
@@ -431,6 +431,47 @@ compile-time algorithms, sequences and metafunction classes.
 Biblioteka boost-mpl jest szkieletem wzorców C++ dla algorytmów czasu
 kompilacji, sekwencji i klas metafunkcji.
 
+%package program_options
+Summary:	Access to program options, via conventional methods such as command line and config file
+Summary(pl):	Dostêp do opcji programu za pomoc± typowych metod, jak linia poleceñ i plik konfiguracyjny
+Group:		Libraries
+
+%description program_options
+The program_options library allows program developers to obtain
+program options, that is (name, value) pairs from the user, via
+conventional methods such as command line and config file.
+
+%description program_options -l pl
+Biblioteka program_options umo¿liwia uzyskanie od u¿ytkownika opcji
+programu, czyli par (nazwa, warto¶æ), za pomoc± typowych medod,
+takich jak linia poleceñ, czy plik konfiguracyjny.
+
+%package program_options-devel
+Summary:	Header files for boost::program_options
+Summary(pl):	Pliki nag³ówkowe dla boost::program_options
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-program_options = %{version}-%{release}
+
+%description program_options-devel
+Header files for boost::program_options library.
+
+%description program_options-devel -l pl
+Pliki nag³ówkowe dla biblioteki boost::program_options.
+
+%package program_options-static
+Summary:	Static boost::program_options library
+Summary(pl):	Biblioteka statyczna boost::program_options
+Group:		Development/Libraries
+Requires:	%{name}-program_options-devel = %{version}-%{release}
+Obsoletes:	boost-static
+
+%description program_options-static
+Static boost::program_options library.
+
+%description program_options-static -l pl
+Biblioteka statyczna boost::program_options.
+
 %package preprocessor-devel
 Summary:	Preprocessor metaprogramming tools including repetition and recursion
 Summary(pl):	Narzêdzia metaprogramowania preprocesora razem z repetycj± i rekursj±
@@ -826,7 +867,11 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %dir %{_includedir}/boost
+%{_includedir}/boost/algorithm
+%{_includedir}/boost/archive
 %{_includedir}/boost/assert.hpp
+%{_includedir}/boost/assign
+%{_includedir}/boost/assign.hpp
 %{_includedir}/boost/blank_fwd.hpp
 %{_includedir}/boost/config
 %{_includedir}/boost/config.hpp
@@ -834,34 +879,40 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/current_function.hpp
 %dir %{_includedir}/boost/detail
 %{_includedir}/boost/detail/algorithm.hpp
-%{_includedir}/boost/detail/allocator.hpp
+%{_includedir}/boost/detail/allocator_utilities.hpp
 %{_includedir}/boost/detail/atomic_count*.hpp
 %{_includedir}/boost/detail/binary_search.hpp
 %{_includedir}/boost/detail/catch_exceptions.hpp
 %{_includedir}/boost/detail/dynamic_bitset.hpp
+%{_includedir}/boost/detail/indirect_traits.hpp
+%{_includedir}/boost/detail/is_function_ref_tester.hpp
 %{_includedir}/boost/detail/is_incrementable.hpp
 %{_includedir}/boost/detail/iterator.hpp
 %{_includedir}/boost/detail/lightweight_*.hpp
 %{_includedir}/boost/detail/limits.hpp
 %{_includedir}/boost/detail/lwm_*.hpp
 %{_includedir}/boost/detail/named_template_params.hpp
+%{_includedir}/boost/detail/no_exceptions_support.hpp
 %{_includedir}/boost/detail/numeric_traits.hpp
-%{_includedir}/boost/detail/reference_content.hpp
 %{_includedir}/boost/detail/quick_allocator.hpp
+%{_includedir}/boost/detail/reference_content.hpp
 %{_includedir}/boost/detail/select_type.hpp
 %{_includedir}/boost/detail/shared_*.hpp
 %{_includedir}/boost/detail/workaround.hpp
-%{_includedir}/boost/dynamic_bitset*.hpp
+%{_includedir}/boost/dynamic_bitset
+%{_includedir}/boost/dynamic_bitset.hpp
+%{_includedir}/boost/dynamic_bitset_fwd.hpp
 %{_includedir}/boost/enable_shared_from_this.hpp
 %{_includedir}/boost/format
 %{_includedir}/boost/format.hpp
 %{_includedir}/boost/function
 %{_includedir}/boost/function.hpp
+%{_includedir}/boost/function_equal.hpp
 %{_includedir}/boost/function_output_iterator.hpp
 %{_includedir}/boost/functional.hpp
 %{_includedir}/boost/generator_iterator.hpp
 %{_includedir}/boost/graph
-%{_includedir}/boost/half_open_range.hpp
+#%{_includedir}/boost/half_open_range.hpp
 %{_includedir}/boost/indirect_reference.hpp
 %{_includedir}/boost/integer
 %{_includedir}/boost/integer*.hpp
@@ -872,32 +923,48 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/iterator
 %{_includedir}/boost/lambda
 %{_includedir}/boost/limits.hpp
+%{_includedir}/boost/logic
 %{_includedir}/boost/math
 %{_includedir}/boost/math_fwd.hpp
 %{_includedir}/boost/multi_array
 %{_includedir}/boost/multi_array.hpp
+%{_includedir}/boost/multi_index
+%{_includedir}/boost/multi_index_container.hpp
+%{_includedir}/boost/multi_index_container_fwd.hpp
 %{_includedir}/boost/nondet_random.hpp
+%{_includedir}/boost/none.hpp
 %{_includedir}/boost/non_type.hpp
 %{_includedir}/boost/numeric/interval*
+%{_includedir}/boost/numeric/conversion
 %{_includedir}/boost/operators.hpp
+%{_includedir}/boost/optional
 %{_includedir}/boost/optional.hpp
 %{_includedir}/boost/pending
+%{_includedir}/boost/pfto.hpp
 %{_includedir}/boost/pool
 %{_includedir}/boost/pointee.hpp
 %{_includedir}/boost/progress.hpp
 %{_includedir}/boost/property_map*.hpp
 %{_includedir}/boost/random
 %{_includedir}/boost/random.hpp
+%{_includedir}/boost/range
+%{_includedir}/boost/range.hpp
 %{_includedir}/boost/rational.hpp
 %{_includedir}/boost/scoped_*.hpp
+%{_includedir}/boost/serialization
 %{_includedir}/boost/shared_*.hpp
+%{_includedir}/boost/smart_cast.hpp
 %{_includedir}/boost/smart_ptr.hpp
+%{_includedir}/boost/state_saver.hpp
+%{_includedir}/boost/static_warning.hpp
+%{_includedir}/boost/strong_typedef.hpp
 %{_includedir}/boost/throw_exception.hpp
 %{_includedir}/boost/timer.hpp
 %{_includedir}/boost/token*.hpp
 %{_includedir}/boost/tuple
 %{_includedir}/boost/type.hpp
 %{_includedir}/boost/utility
+%{_includedir}/boost/utf8_codecvt_facet.hpp
 %{_includedir}/boost/version.hpp
 %{_includedir}/boost/vector_property_map.hpp
 %{_includedir}/boost/weak_ptr.hpp
@@ -908,10 +975,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/detail/templated_streams.hpp
 #boost::optional
 %{_includedir}/boost/aligned_storage.hpp
-%{_includedir}/boost/detail/in_place_factory*.hpp
-%{_includedir}/boost/detail/none.hpp
+#%{_includedir}/boost/detail/in_place_factory*.hpp
+#%{_includedir}/boost/detail/none.hpp
 %{_includedir}/boost/detail/none_t.hpp
-%{_includedir}/boost/detail/typed_in_place_factory.hpp
+#%{_includedir}/boost/detail/typed_in_place_factory.hpp
+
+%{_libdir}/libboost_serialization*.a
+%{_libdir}/libboost_wserialization*.a
 
 %if %{with python}
 %files python
@@ -970,7 +1040,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files compose-devel
 %defattr(644,root,root,755)
-%{_includedir}/boost/compose.hpp
+#%{_includedir}/boost/compose.hpp
 
 %files compressed_pair-devel
 %defattr(644,root,root,755)
@@ -1032,6 +1102,19 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_includedir}/boost/preprocessor
 %{_includedir}/boost/preprocessor.hpp
+
+%files program_options
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_program_options*.so.*.*.*
+
+%files program_options-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/program_options
+%{_includedir}/boost/program_options.hpp
+
+%files program_options-static
+%defattr(644,root,root,755)
+%{_libdir}/libboost_program_options*.a
 
 %files ref-devel
 %defattr(644,root,root,755)
