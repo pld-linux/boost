@@ -7,7 +7,7 @@ Summary(pl):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.32.0
 %define	_fver	%(echo %{version} | tr . _)
-Release:	2
+Release:	3
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
@@ -616,10 +616,13 @@ monitorowania wykonania programu.
 Summary:	Header files for boost::test
 Summary(pl):	Pliki nag³ówkowe dla boost::test
 Group:		Development/Libraries
+Requires:	%{name}-call_traits-devel = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-mpl-devel = %{version}-%{release}
 Requires:	%{name}-preprocessor-devel = %{version}-%{release}
 Requires:	%{name}-test = %{version}-%{release}
+Requires:	%{name}-type_traits-devel = %{version}-%{release}
+Requires:	%{name}-utility-devel = %{version}-%{release}
 #TODO:
 #Requires:	%{name}-smart_ptr = %{version}-%{release}
 #?Requires?:	%{name}-function-devel = %{version}-%{release}
@@ -962,7 +965,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/token*.hpp
 %{_includedir}/boost/tuple
 %{_includedir}/boost/type.hpp
-%{_includedir}/boost/utility
 %{_includedir}/boost/utf8_codecvt_facet.hpp
 %{_includedir}/boost/version.hpp
 %{_includedir}/boost/vector_property_map.hpp
