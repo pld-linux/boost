@@ -631,7 +631,7 @@ Requires:	%{name}-utility-devel = %{version}-%{release}
 Header files for boost::test.
 
 %description test-devel -l pl
-Pliki nag³ówkowe dla boost::test
+Pliki nag³ówkowe dla boost::test.
 
 %package test-static
 Summary:	Static boost::test libraries
