@@ -45,6 +45,8 @@ Summary(pl):	Pliki nag³ówkowe i biblioteki statyczne Boost C++
 Group:		Development/Libraries
 # req'd by <boost/iterator_adaptors.hpp> (also included by <boost/signal.h>)
 Requires:	%{name}-concept_check-devel = %{version}-%{release}
+# <boost/implicit_cast.hpp> req'd by <boost/graph/graph_utility.hpp>
+Requires:	%{name}-conversion-devel = %{version}-%{release}
 Requires:	libstdc++-devel
 
 %description devel
