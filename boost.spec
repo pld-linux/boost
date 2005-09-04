@@ -93,7 +93,6 @@ Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Obsoletes:	boost-date_time-static
 Obsoletes:	boost-filesystem-static
-Obsoletes:	boost-program_options
 Obsoletes:	boost-regex-static
 Obsoletes:	boost-signals-static
 Obsoletes:	boost-static_assert
