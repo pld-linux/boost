@@ -8,7 +8,7 @@ Summary(pl):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.33.0
 %define	_fver	%(echo %{version} | tr . _)
-Release:	0.1
+Release:	0.2
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.gz
@@ -27,6 +27,13 @@ Obsoletes:	boost-regex
 Obsoletes:	boost-signals
 Obsoletes:	boost-test
 Obsoletes:	boost-thread
+Provides:	boost-date_time
+Provides:	boost-filesystem
+Provides:	boost-program_options
+Provides:	boost-regex
+Provides:	boost-signals
+Provides:	boost-test
+Provides:	boost-thread
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -79,6 +86,32 @@ Obsoletes:	boost-thread-devel
 Obsoletes:	boost-type_traits-devel
 Obsoletes:	boost-uBLAS-devel
 Obsoletes:	boost-utility-devel
+Provides:	boost-any-devel
+Provides:	boost-array-devel
+Provides:	boost-bind-devel
+Provides:	boost-call_traits-devel
+Provides:	boost-compatibility-devel
+Provides:	boost-compose-devel
+Provides:	boost-compressed_pair-devel
+Provides:	boost-concept_check-devel
+Provides:	boost-conversion-devel
+Provides:	boost-crc-devel
+Provides:	boost-date_time-devel
+Provides:	boost-filesystem-devel
+Provides:	boost-mem_fn-devel
+Provides:	boost-mpl-devel
+Provides:	boost-preprocessor-devel
+Provides:	boost-program_options-devel
+Provides:	boost-ref-devel
+Provides:	boost-regex-devel
+Provides:	boost-signals-devel
+Provides:	boost-spirit-devel
+Provides:	boost-static_assert-devel
+Provides:	boost-test-devel
+Provides:	boost-thread-devel
+Provides:	boost-type_traits-devel
+Provides:	boost-uBLAS-devel
+Provides:	boost-utility-devel
 
 %description devel
 Headers for the Boost C++ libraries.
@@ -97,6 +130,12 @@ Obsoletes:	boost-regex-static
 Obsoletes:	boost-signals-static
 Obsoletes:	boost-static_assert
 Obsoletes:	boost-test-static
+Provides:	boost-date_time-static
+Provides:	boost-filesystem-static
+Provides:	boost-regex-static
+Provides:	boost-signals-static
+Provides:	boost-static_assert
+Provides:	boost-test-static
 
 %description static
 Boost C++ static libraries.
