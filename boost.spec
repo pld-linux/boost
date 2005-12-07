@@ -7,7 +7,7 @@ Summary(pl):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.33.1
 %define	_fver	%(echo %{version} | tr . _)
-Release:	0.1
+Release:	0.2
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
@@ -45,11 +45,22 @@ Summary:	Boost C++ development headers
 Summary(pl):	Pliki nag³ówkowe bibliotek C++ Boost
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-# req'd by <boost/iterator_adaptors.hpp> (also included by <boost/signal.h>)
-Requires:	%{name}-concept_check-devel = %{version}-%{release}
-# <boost/implicit_cast.hpp> req'd by <boost/graph/graph_utility.hpp>
-Requires:	%{name}-conversion-devel = %{version}-%{release}
 Requires:	libstdc++-devel
+# temporary Provides (until CVS HEAD stops using it)?
+Provides:	boost-concept_check-devel = %{version}-%{release}
+Provides:	boost-conversion-devel = %{version}-%{release}
+Provides:	boost-mpl-devel = %{version}-%{release}
+Provides:	boost-preprocessor-devel = %{version}-%{release}
+Provides:	boost-static_assert-devel = %{version}-%{release}
+Provides:	boost-type_traits-devel = %{version}-%{release}
+Provides:	boost-utility-devel = %{version}-%{release}
+Obsoletes:	boost-concept_check-devel
+Obsoletes:	boost-conversion-devel
+Obsoletes:	boost-mpl-devel
+Obsoletes:	boost-preprocessor-devel
+Obsoletes:	boost-static_assert-devel
+Obsoletes:	boost-type_traits-devel
+Obsoletes:	boost-utility-devel
 
 %description devel
 Header files for the Boost C++ libraries.
@@ -198,26 +209,29 @@ potrzebne. Ta biblioteka dostarcza wsparcie dla takich w³a¶nie tablic
 o sta³ym rozmiarze.
 
 %package bind-devel
-Summary:	Generalized binders for function/object/pointers
-Summary(pl):	Uogólnione bindery dla funkcji/obiektów/wska¼ników
+Summary:	Generalized binders for function/object/pointers and member functions
+Summary(pl):	Uogólnione bindery dla funkcji/obiektów/wska¼ników oraz metod
 Group:		Development/Libraries
-Requires:	%{name}-mem_fn-devel = %{version}-%{release}
 Requires:	%{name}-ref-devel = %{version}-%{release}
+Provides:	boost-mem_fn-devel = %{version}-%{release}
+Obsoletes:	boost-mem_fn-devel
 
 %description bind-devel
 boost::bind is a generalization of the standard functions std::bind1st
-and std::bind2nd.
+and std::bind2nd. This package contains also boost::mem_fn which is a
+generalization of the standard functions std::mem_fun and
+std::mem_fun_ref.
 
 %description bind-devel -l pl
 boost::bind jest uogólnieniem standardowych funkcji std::bind1st i
-std::bind2nd.
+std::bind2nd. Ten pakiet zawiera tak¿e boost::mem_fn, który jest
+uogólnieniem standardowych funkcji std::mem_fun i std::mem_fun_ref.
 
 %package call_traits-devel
 Summary:	Defines types for passing parameters
 Summary(pl):	Definiowanie typów dla przekazywania parametrów
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
-Requires:	%{name}-type_traits-devel = %{version}-%{release}
 
 %description call_traits-devel
 boost::call_traits<T> encapsulates the "best" method to pass a
@@ -284,39 +298,6 @@ Klasa boost::compressed_pair jest bardzo podobna do std::pair, ale
 je¿eli który¶ z argumentów wzorca jest pust± klas±, wtedy stosowana
 jest "optymalizacja pustej klasy bazowej" do kompresji pary.
 
-%package concept_check-devel
-Summary:	Tools for generic programming
-Summary(pl):	Narzêdzia dla programowania generycznego
-Group:		Development/Libraries
-Requires:	%{name}-static_assert-devel = %{version}-%{release}
-Requires:	%{name}-type_traits-devel = %{version}-%{release}
-
-%description concept_check-devel
-The boost::concept_check library provides various tools for generic
-programming.
-
-%description concept_check-devel -l pl
-Biblioteka boost::concept_check dostarcza ró¿ne narzêdzia dla
-programowania generycznego.
-
-%package conversion-devel
-Summary:	Numeric, polymorphic, and lexical casts
-Summary(pl):	Numeryczne, polimorficzne i leksykalne rzutowania
-Group:		Development/Libraries
-Requires:	%{name}-type_traits-devel = %{version}-%{release}
-
-%description conversion-devel
-The boost::conversion library improves program safety and clarity by
-performing otherwise messy conversions. It includes cast-style
-function templates designed to complement the C++ Standard's built-in
-casts.
-
-%description conversion-devel -l pl
-Biblioteka boost::conversion zwiêksza bezpieczeñstwo i klarowno¶æ
-programu dokonuj±c konwersji które s± w innych przypadkach niechlujne.
-Biblioteka zawiera "rzutopodobne" wzorce funkcji uzupe³niaj±ce
-wbudowane w Standard C++ rzutowania.
-
 %package crc-devel
 Summary:	CRC computing library
 Summary(pl):	Biblioteka obliczaj±ca CRC
@@ -348,11 +329,11 @@ Summary:	Header files for boost::date_time library
 Summary(pl):	Pliki nag³ówkowe dla biblioteki boost::date_time
 Group:		Development/Libraries
 Requires:	%{name}-date_time = %{version}-%{release}
+Requires:	%{name}-devel = %{version}-%{release}
 #TODO: make decision if do separate packages include it to main devel package
 #Requires:	%{name}-operators-devel = %{version}-%{release}
 #Requires:	%{name}-integer-devel = %{version}-%{release}
 #Requires:	%{name}-tokenizer-devel = %{version}-%{release}
-Requires:	%{name}-conversion-devel = %{version}-%{release}
 
 %description date_time-devel
 Header files for boost::date_time library.
@@ -414,37 +395,6 @@ Static boost::filesystem library.
 %description filesystem-static -l pl
 Biblioteka statyczna boost::filesystem.
 
-%package mem_fn-devel
-Summary:	Generalized binders for member functions
-Summary(pl):	Uogólnione bindery dla metod
-Group:		Development/Libraries
-Requires:	%{name}-bind-devel = %{version}-%{release}
-
-%description mem_fn-devel
-boost::mem_fn is a generalization of the standard functions
-std::mem_fun and std::mem_fun_ref.
-
-%description mem_fn-devel -l pl
-boost::mem_fn jest uogólnieniem standardowych funkcji std::mem_fun i
-std::mem_fun_ref.
-
-%package mpl-devel
-Summary:	Compile-time algorithms, sequences and metafunction classes
-Summary(pl):	Algorytmy czasu kompilacji, sekwencji i klas metafunkcji
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-Requires:	%{name}-preprocessor-devel = %{version}-%{release}
-Requires:	%{name}-type_traits-devel = %{version}-%{release}
-Requires:	%{name}-utility-devel = %{version}-%{release}
-
-%description mpl-devel
-The boost-mpl library is a C++ template metaprogramming framework of
-compile-time algorithms, sequences and metafunction classes.
-
-%description mpl-devel -l pl
-Biblioteka boost-mpl jest szkieletem wzorców C++ dla algorytmów czasu
-kompilacji, sekwencji i klas metafunkcji.
-
 %package program_options
 Summary:	Access to program options, via conventional methods such as command line and config file
 Summary(pl):	Dostêp do opcji programu za pomoc± typowych metod, jak linia poleceñ i plik konfiguracyjny
@@ -486,27 +436,11 @@ Static boost::program_options library.
 %description program_options-static -l pl
 Biblioteka statyczna boost::program_options.
 
-%package preprocessor-devel
-Summary:	Preprocessor metaprogramming tools including repetition and recursion
-Summary(pl):	Narzêdzia metaprogramowania preprocesora razem z repetycj± i rekursj±
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-
-%description preprocessor-devel
-This library provides preprocessor metaprogramming tools, including
-repetition and recursion.
-
-%description preprocessor-devel -l pl
-Biblioteka udostêpnia narzêdzia metaprogramowania preprocesora,
-w³±czaj±c w to repetycje i rekursjê.
-
 %package ref-devel
 Summary:	Small library useful for passing references to function templates
 Summary(pl):	Ma³a biblioteka u¿yteczna przy przekazywaniu referencji do wzorców funkcji
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
-Requires:	%{name}-mpl-devel = %{version}-%{release}
-Requires:	%{name}-utility-devel = %{version}-%{release}
 
 %description ref-devel
 boost::ref library is a small library that is useful for passing
@@ -536,16 +470,15 @@ slotów.
 Summary:	Header files for boost::signals library
 Summary(pl):	Pliki nag³ówkowe dla biblioteki boost::signals
 Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-signals = %{version}-%{release}
 Requires:	%{name}-any-devel = %{version}-%{release}
 #TODO: separate smart_ptr or include to the main devel package
 #Requires:	%{name}-iterator_adaptors-devel = %{version}-%{release}
 #Requires:	%{name}-operators-devel = %{version}-%{release}
 #Requires:	%{name}-smart_ptr-devel = %{version}-%{release}
-Requires:	%{name}-mem_fn-devel = %{version}-%{release}
+Requires:	%{name}-bind-devel = %{version}-%{release}
 Requires:	%{name}-ref-devel = %{version}-%{release}
-Requires:	%{name}-type_traits-devel = %{version}-%{release}
-Requires:	%{name}-utility-devel = %{version}-%{release}
 
 %description signals-devel
 Header files for boost::signals library.
@@ -572,7 +505,6 @@ Group:		Development/Libraries
 Requires:	%{name}-compressed_pair-devel = %{version}-%{release}
 Requires:	%{name}-ref-devel = %{version}-%{release}
 Requires:	%{name}-regex-devel = %{version}-%{release}
-Requires:	%{name}-static_assert-devel = %{version}-%{release}
 Requires:	%{name}-thread-devel = %{version}-%{release}
 #TODO:
 #?Requires:	%{name}-smart_ptr-devel = %{version}-%{release}
@@ -585,34 +517,6 @@ inlined C++.
 %description spirit-devel -l pl
 Szkielet parsera LL reprezentuj±cy parsery jako gramatyki EBNF
 bezpo¶rednio w kodzie C++.
-
-%package static_assert-devel
-Summary:	Static assertions (compile time assertions)
-Summary(pl):	Statyczne asercje (asercje kompilacyjne)
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-
-%description static_assert-devel
-The header <boost/static_assert.hpp> supplies a single macro
-BOOST_STATIC_ASSERT(x), which generates a compile time error message
-if the integral-constant-expression x is not true. In other words it
-is the compile time equivalent of the assert macro; this is sometimes
-known as a "compile-time-assertion"
-
-One of the aims of BOOST_STATIC_ASSERT is to generate readable error
-messages. These immediately tell the user that a library is being used
-in a manner that is not supported.
-
-%description static_assert-devel -l pl
-Plik nag³ówkowy <boost/static_assert.hpp> dostarcza pojedyncze makro
-BOOST_STATIC_ASSERT(x), które generuje komunikat b³êdu kompilacji
-je¿eli sta³e wyra¿enie x nie jest prawdziwe. Innymi s³owy jest to
-kompilacyjny ekwiwalent makra 'assert'; czasami znane jest jako
-"asercja czasu kompilacji"
-
-Jednym z celów BOOST_STATIC_ASSERT jest generowanie czytelnych
-komunikatów o b³êdach. One b³yskawicznie powiedz± u¿ytkownikowi ¿e
-biblioteka zosta³a u¿yta w sposób który nie jest zalecany.
 
 %package test
 Summary:	Support for program testing and  execution monitoring
@@ -634,11 +538,7 @@ Summary(pl):	Pliki nag³ówkowe dla boost::test
 Group:		Development/Libraries
 Requires:	%{name}-call_traits-devel = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
-Requires:	%{name}-mpl-devel = %{version}-%{release}
-Requires:	%{name}-preprocessor-devel = %{version}-%{release}
 Requires:	%{name}-test = %{version}-%{release}
-Requires:	%{name}-type_traits-devel = %{version}-%{release}
-Requires:	%{name}-utility-devel = %{version}-%{release}
 #TODO:
 #Requires:	%{name}-smart_ptr = %{version}-%{release}
 #?Requires?:	%{name}-function-devel = %{version}-%{release}
@@ -678,8 +578,8 @@ Przeno¶na biblioteka w±tków dla C++ - biblioteka dzielona.
 Summary:	Header files for boost::thread library
 Summary(pl):	Pliki nag³ówkowe dla biblioteki boost::thread
 Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-thread = %{version}-%{release}
-Requires:	%{name}-utility-devel = %{version}-%{release}
 #TODO:requires boost::function or boost::function to boost-devel
 
 %description thread-devel
@@ -701,35 +601,11 @@ Portable C++ threads library - static library.
 %description thread-static -l pl
 Przeno¶na biblioteka w±tków dla C++ - biblioteka statyczna.
 
-%package type_traits-devel
-Summary:	Templates for fundamental properties of types
-Summary(pl):	Wzorce dla fundamentalnych w³a¶ciwo¶ci typów
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-Requires:	%{name}-mpl-devel = %{version}-%{release}
-Requires:	%{name}-preprocessor-devel = %{version}-%{release}
-Requires:	%{name}-static_assert-devel = %{version}-%{release}
-Requires:	%{name}-utility-devel = %{version}-%{release}
-
-%description type_traits-devel
-The boost-type_traits library defines three kinds of type trait:
- 1. The properties of a specific type.
- 2. The relationship between two types.
- 3. A transformation from one type to another.
-
-%description type_traits-devel -l pl
-Biblioteka boost-type_traits definiuje trzy rodzaje cech typów:
- 1. w³a¶ciwo¶ci konkretnego typu.
- 2. powi±zania miêdzy dwoma typami.
- 3. transformacjê z jednego typu do drugiego.
-
 %package uBLAS-devel
 Summary:	Basic linear algebra for dense, packed and sparse matrices
 Summary(pl):	Prosta liniowa algebra dla gêstych, upakowanych i rzadkich macierzy
 Group:		Development/Libraries
-Requires:	%{name}-concept_check-devel = %{version}-%{release}
-Requires:	%{name}-mpl-devel = %{version}-%{release}
-Requires:	%{name}-utility-devel = %{version}-%{release}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description uBLAS-devel
 uBLAS library provides templated C++ classes for dense, unit and
@@ -740,20 +616,6 @@ hermitian and sparse matrices.
 Biblioteka uBLAS dostarcza wzorce klas C++ dla gêstych, jednostkowych
 i rzadkich wektorów oraz gêstych, jednostkowych, trójk±tnych,
 diagonalnych, symetrycznych, hermitowskich i rzadkich macierzy.
-
-%package utility-devel
-Summary:	Useful utilities: classes and function templates
-Summary(pl):	U¿yteczne narzêdzia: klasy i wzorce funkcji
-Group:		Development/Libraries
-Requires:	%{name}-type_traits-devel = %{version}-%{release}
-
-%description utility-devel
-Class noncopyable plus checked_delete(), checked_array_delete(),
-next(), prior() function templates, plus base-from-member idiom.
-
-%description utility-devel -l pl
-Klasy noncopyable i checked_delete, funkcje checked_array_delete(),
-next(), prior() oraz idiom base-from-member.
 
 %package wave-devel
 Summary:	Boost.Wave - a standard compliant C++ preprocessor library
@@ -927,6 +789,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/assign
 %{_includedir}/boost/assign.hpp
 %{_includedir}/boost/blank_fwd.hpp
+%{_includedir}/boost/cast.hpp
+%{_includedir}/boost/checked_delete.hpp
+%{_includedir}/boost/concept_archetype.hpp
+%{_includedir}/boost/concept_check.hpp
 %{_includedir}/boost/config
 %{_includedir}/boost/config.hpp
 %{_includedir}/boost/cstd*.hpp
@@ -974,7 +840,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/functional.hpp
 %{_includedir}/boost/generator_iterator.hpp
 %{_includedir}/boost/graph
-#%{_includedir}/boost/half_open_range.hpp
+%{_includedir}/boost/implicit_cast.hpp
 %{_includedir}/boost/indirect_reference.hpp
 %{_includedir}/boost/integer
 %{_includedir}/boost/integer*.hpp
@@ -985,15 +851,19 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/iterator*.hpp
 %{_includedir}/boost/iterator
 %{_includedir}/boost/lambda
+%{_includedir}/boost/lexical_cast.hpp
 %{_includedir}/boost/limits.hpp
 %{_includedir}/boost/logic
 %{_includedir}/boost/math
 %{_includedir}/boost/math_fwd.hpp
+%{_includedir}/boost/mpl
 %{_includedir}/boost/multi_array
 %{_includedir}/boost/multi_array.hpp
 %{_includedir}/boost/multi_index
 %{_includedir}/boost/multi_index_container.hpp
 %{_includedir}/boost/multi_index_container_fwd.hpp
+%{_includedir}/boost/next_prior.hpp
+%{_includedir}/boost/noncopyable.hpp
 %{_includedir}/boost/nondet_random.hpp
 %{_includedir}/boost/none.hpp
 %{_includedir}/boost/none_t.hpp
@@ -1010,6 +880,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/pfto.hpp
 %{_includedir}/boost/pool
 %{_includedir}/boost/pointee.hpp
+%{_includedir}/boost/preprocessor
+%{_includedir}/boost/preprocessor.hpp
 %{_includedir}/boost/progress.hpp
 %{_includedir}/boost/property_map*.hpp
 %{_includedir}/boost/ptr_container
@@ -1024,6 +896,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/smart_cast.hpp
 %{_includedir}/boost/smart_ptr.hpp
 %{_includedir}/boost/state_saver.hpp
+%{_includedir}/boost/static_assert.hpp
 %{_includedir}/boost/static_warning.hpp
 %{_includedir}/boost/strong_typedef.hpp
 %{_includedir}/boost/throw_exception.hpp
@@ -1031,6 +904,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/token*.hpp
 %{_includedir}/boost/tuple
 %{_includedir}/boost/type.hpp
+%{_includedir}/boost/type_traits.hpp
+%{_includedir}/boost/type_traits
+%{_includedir}/boost/utility*.hpp
+%{_includedir}/boost/utility
 %{_includedir}/boost/version.hpp
 %{_includedir}/boost/vector_property_map.hpp
 %{_includedir}/boost/weak_ptr.hpp
@@ -1041,10 +918,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/detail/templated_streams.hpp
 #boost::optional
 %{_includedir}/boost/aligned_storage.hpp
-#%{_includedir}/boost/detail/in_place_factory*.hpp
-#%{_includedir}/boost/detail/none.hpp
 %{_includedir}/boost/detail/none_t.hpp
-#%{_includedir}/boost/detail/typed_in_place_factory.hpp
 
 %files static
 %defattr(644,root,root,755)
@@ -1096,6 +970,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_includedir}/boost/bind
 %{_includedir}/boost/bind.hpp
+%{_includedir}/boost/get_pointer.hpp
+%{_includedir}/boost/mem_fn.hpp
 
 %files call_traits-devel
 %defattr(644,root,root,755)
@@ -1116,17 +992,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/compressed_pair.hpp
 %{_includedir}/boost/detail/compressed_pair.hpp
 %{_includedir}/boost/detail/ob_compressed_pair.hpp
-
-%files concept_check-devel
-%defattr(644,root,root,755)
-%{_includedir}/boost/concept_archetype.hpp
-%{_includedir}/boost/concept_check.hpp
-
-%files conversion-devel
-%defattr(644,root,root,755)
-%{_includedir}/boost/cast.hpp
-%{_includedir}/boost/implicit_cast.hpp
-%{_includedir}/boost/lexical_cast.hpp
 
 %files crc-devel
 %defattr(644,root,root,755)
@@ -1157,20 +1022,6 @@ rm -rf $RPM_BUILD_ROOT
 %files filesystem-static
 %defattr(644,root,root,755)
 %{_libdir}/libboost_filesystem*.a
-
-%files mem_fn-devel
-%defattr(644,root,root,755)
-%{_includedir}/boost/get_pointer.hpp
-%{_includedir}/boost/mem_fn.hpp
-
-%files mpl-devel
-%defattr(644,root,root,755)
-%{_includedir}/boost/mpl
-
-%files preprocessor-devel
-%defattr(644,root,root,755)
-%{_includedir}/boost/preprocessor
-%{_includedir}/boost/preprocessor.hpp
 
 %files program_options
 %defattr(644,root,root,755)
@@ -1210,10 +1061,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/spirit.hpp
 %{_includedir}/boost/spirit
 
-%files static_assert-devel
-%defattr(644,root,root,755)
-%{_includedir}/boost/static_assert.hpp
-
 %files test
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor*.so.*.*.*
@@ -1247,22 +1094,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_thread*.a
 
-%files type_traits-devel
-%defattr(644,root,root,755)
-%{_includedir}/boost/type_traits.hpp
-%{_includedir}/boost/type_traits
-
 %files uBLAS-devel
 %defattr(644,root,root,755)
 %{_includedir}/boost/numeric/ublas
-
-%files utility-devel
-%defattr(644,root,root,755)
-%{_includedir}/boost/checked_delete.hpp
-%{_includedir}/boost/next_prior.hpp
-%{_includedir}/boost/noncopyable.hpp
-%{_includedir}/boost/utility*.hpp
-%{_includedir}/boost/utility
 
 %files wave-devel
 %defattr(644,root,root,755)
