@@ -5,13 +5,13 @@
 Summary:	The Boost C++ Libraries
 Summary(pl):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.32.0
+Version:	1.33.1
 %define	_fver	%(echo %{version} | tr . _)
-Release:	4
+Release:	0.1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
-# Source0-md5:	e1d1fc7b8fc8c51df4564c2188ca51cb
+# Source0-md5:	2b999b2fb7798e1737d1fff8fac602ef
 Patch0:		%{name}-python.patch
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.3
@@ -41,9 +41,10 @@ ju¿ zosta³y zg³oszone do komitetu standaryzacyjnego C++ w nadchodz±cym
 Raporcie Technicznym Biblioteki Standardowej C++
 
 %package devel
-Summary:	Boost C++ development libraries and headers
-Summary(pl):	Pliki nag³ówkowe i biblioteki statyczne Boost C++
+Summary:	Boost C++ development headers
+Summary(pl):	Pliki nag³ówkowe bibliotek C++ Boost
 Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
 # req'd by <boost/iterator_adaptors.hpp> (also included by <boost/signal.h>)
 Requires:	%{name}-concept_check-devel = %{version}-%{release}
 # <boost/implicit_cast.hpp> req'd by <boost/graph/graph_utility.hpp>
@@ -51,10 +52,22 @@ Requires:	%{name}-conversion-devel = %{version}-%{release}
 Requires:	libstdc++-devel
 
 %description devel
-Headers and static libraries for the Boost C++ libraries.
+Header files for the Boost C++ libraries.
 
 %description devel -l pl
-Pliki nag³ówkowe i biblioteki statyczne bibliotek Boost C++.
+Pliki nag³ówkowe bibliotek C++ Boost.
+
+%package static
+Summary:	Static version of base Boost C++ libraries
+Summary(pl):	Statyczne wersje podstawowych bibliotek C++ Boost
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description static
+Static version of base Boost C++ libraries.
+
+%description static -l pl
+Statyczne wersje podstawowych bibliotek C++ Boost.
 
 %package python
 Summary:	Boost.Python library
@@ -322,7 +335,7 @@ obliczaj±cych CRC. Implementacje s± oparte na wzorcach.
 Summary:	Date-Time library
 Summary(pl):	Biblioteka daty-czasu
 Group:		Libraries
-Obsoletes:	boost
+Obsoletes:	boost < 1.33
 
 %description date_time
 A set of date-time libraries.
@@ -363,7 +376,7 @@ Statyczna biblioteka boost::date_time.
 Summary:	Portable paths, iteration over directories, and other useful filesystem operations
 Summary(pl):	Przeno¶ne ¶cie¿ki, iteracje katalogów i inne u¿yteczne operacje na systemie plików
 Group:		Libraries
-Obsoletes:	boost
+Obsoletes:	boost < 1.33
 
 %description filesystem
 The boost::filesystem library provides portable facilities to query
@@ -393,7 +406,7 @@ Summary:	Static boost::filesystem library
 Summary(pl):	Biblioteka statyczna boost::filesystem
 Group:		Development/Libraries
 Requires:	%{name}-filesystem-devel = %{version}-%{release}
-Obsoletes:	boost-static
+Obsoletes:	boost-static < 1.33
 
 %description filesystem-static
 Static boost::filesystem library.
@@ -465,7 +478,7 @@ Summary:	Static boost::program_options library
 Summary(pl):	Biblioteka statyczna boost::program_options
 Group:		Development/Libraries
 Requires:	%{name}-program_options-devel = %{version}-%{release}
-Obsoletes:	boost-static
+Obsoletes:	boost-static < 1.33
 
 %description program_options-static
 Static boost::program_options library.
@@ -509,7 +522,7 @@ które zazwyczaj bior± kopiê swoich argumentów.
 Summary:	Signals & slots callback implementation
 Summary(pl):	Implementacja sygna³ów i slotów
 Group:		Libraries
-Obsoletes:	boost
+Obsoletes:	boost < 1.33
 
 %description signals
 The boost::signals library is an implementation of a signals and slots
@@ -605,7 +618,7 @@ biblioteka zosta³a u¿yta w sposób który nie jest zalecany.
 Summary:	Support for program testing and  execution monitoring
 Summary(pl):	Wsparcie dla testowania i monitorowania programu
 Group:		Libraries
-Obsoletes:	boost
+Obsoletes:	boost < 1.33
 
 %description test
 Support for simple program testing, full unit testing, and for program
@@ -641,7 +654,7 @@ Summary:	Static boost::test libraries
 Summary(pl):	Biblioteki statyczne boost::test
 Group:		Development/Libraries
 Requires:	%{name}-test-devel = %{version}-%{release}
-Obsoletes:	boost-static
+Obsoletes:	boost-static < 1.33
 
 %description test-static
 Static boost::test libraries.
@@ -653,7 +666,7 @@ Biblioteki statyczne boost::test.
 Summary:	Portable C++ threads library
 Summary(pl):	Przeno¶na biblioteka w±tków C++
 Group:		Libraries
-Obsoletes:	boost
+Obsoletes:	boost < 1.33
 
 %description thread
 Portable C++ threads library - shared library.
@@ -674,6 +687,19 @@ Header files for boost::thread library.
 
 %description thread-devel -l pl
 Pliki nag³ówkowe dla biblioteki boost::thread.
+
+%package thread-static
+Summary:	Portable C++ threads library - static version
+Summary(pl):	Przeno¶na biblioteka w±tków C++ - wersja statyczna
+Group:		Libraries
+Requires:	%{name}-thread-devel = %{version}-%{release}
+Obsoletes:	boost < 1.33
+
+%description thread-static
+Portable C++ threads library - static library.
+
+%description thread-static -l pl
+Przeno¶na biblioteka w±tków dla C++ - biblioteka statyczna.
 
 %package type_traits-devel
 Summary:	Templates for fundamental properties of types
@@ -728,6 +754,18 @@ next(), prior() function templates, plus base-from-member idiom.
 %description utility-devel -l pl
 Klasy noncopyable i checked_delete, funkcje checked_array_delete(),
 next(), prior() oraz idiom base-from-member.
+
+%package wave-devel
+Summary:	Boost.Wave - a standard compliant C++ preprocessor library
+Summary(pl):	Boost.Wave - zgodna ze standardem biblioteka preprocesora C++
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description wave-devel
+Boost.Wave - a standard compliant C++ preprocessor library.
+
+%description wave-devel -l pl
+Boost.Wave - zgodna ze standardem biblioteka preprocesora C++.
 
 %package doc
 Summary:	Boost C++ Library documentation
@@ -847,6 +885,9 @@ done
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+
 %post	date_time -p /sbin/ldconfig
 %postun	date_time -p /sbin/ldconfig
 
@@ -868,8 +909,17 @@ rm -rf $RPM_BUILD_ROOT
 %post	thread	-p /sbin/ldconfig
 %postun	thread	-p /sbin/ldconfig
 
+%files
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_iostreams*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_serialization*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_wserialization*.so.*.*.*
+
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_iostreams*.so
+%attr(755,root,root) %{_libdir}/libboost_serialization*.so
+%attr(755,root,root) %{_libdir}/libboost_wserialization*.so
 %dir %{_includedir}/boost
 %{_includedir}/boost/algorithm
 %{_includedir}/boost/archive
@@ -885,12 +935,16 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/detail/algorithm.hpp
 %{_includedir}/boost/detail/allocator_utilities.hpp
 %{_includedir}/boost/detail/atomic_count*.hpp
+%{_includedir}/boost/detail/bad_weak_ptr.hpp
 %{_includedir}/boost/detail/binary_search.hpp
 %{_includedir}/boost/detail/catch_exceptions.hpp
 %{_includedir}/boost/detail/dynamic_bitset.hpp
+%{_includedir}/boost/detail/endian.hpp
 %{_includedir}/boost/detail/indirect_traits.hpp
+%{_includedir}/boost/detail/interlocked.hpp
 %{_includedir}/boost/detail/is_function_ref_tester.hpp
 %{_includedir}/boost/detail/is_incrementable.hpp
+%{_includedir}/boost/detail/is_xxx.hpp
 %{_includedir}/boost/detail/iterator.hpp
 %{_includedir}/boost/detail/lightweight_*.hpp
 %{_includedir}/boost/detail/limits.hpp
@@ -902,10 +956,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/detail/reference_content.hpp
 %{_includedir}/boost/detail/select_type.hpp
 %{_includedir}/boost/detail/shared_*.hpp
+%{_includedir}/boost/detail/sp_counted_*.hpp
+%{_includedir}/boost/detail/utf8_codecvt_facet.hpp
 %{_includedir}/boost/detail/workaround.hpp
 %{_includedir}/boost/dynamic_bitset
 %{_includedir}/boost/dynamic_bitset.hpp
 %{_includedir}/boost/dynamic_bitset_fwd.hpp
+%{_includedir}/boost/dynamic_property_map.hpp
 %{_includedir}/boost/enable_shared_from_this.hpp
 %{_includedir}/boost/format
 %{_includedir}/boost/format.hpp
@@ -913,6 +970,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/function.hpp
 %{_includedir}/boost/function_equal.hpp
 %{_includedir}/boost/function_output_iterator.hpp
+%{_includedir}/boost/functional
 %{_includedir}/boost/functional.hpp
 %{_includedir}/boost/generator_iterator.hpp
 %{_includedir}/boost/graph
@@ -922,6 +980,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/integer*.hpp
 %{_includedir}/boost/intrusive_ptr.hpp
 %{_includedir}/boost/io
+%{_includedir}/boost/iostreams
 %{_includedir}/boost/io_fwd.hpp
 %{_includedir}/boost/iterator*.hpp
 %{_includedir}/boost/iterator
@@ -937,6 +996,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/multi_index_container_fwd.hpp
 %{_includedir}/boost/nondet_random.hpp
 %{_includedir}/boost/none.hpp
+%{_includedir}/boost/none_t.hpp
 %{_includedir}/boost/non_type.hpp
 %dir %{_includedir}/boost/numeric
 %{_includedir}/boost/numeric/interval*
@@ -944,12 +1004,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/operators.hpp
 %{_includedir}/boost/optional
 %{_includedir}/boost/optional.hpp
+%{_includedir}/boost/parameter
+%{_includedir}/boost/parameter.hpp
 %{_includedir}/boost/pending
 %{_includedir}/boost/pfto.hpp
 %{_includedir}/boost/pool
 %{_includedir}/boost/pointee.hpp
 %{_includedir}/boost/progress.hpp
 %{_includedir}/boost/property_map*.hpp
+%{_includedir}/boost/ptr_container
 %{_includedir}/boost/random
 %{_includedir}/boost/random.hpp
 %{_includedir}/boost/range
@@ -968,7 +1031,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/token*.hpp
 %{_includedir}/boost/tuple
 %{_includedir}/boost/type.hpp
-%{_includedir}/boost/utf8_codecvt_facet.hpp
 %{_includedir}/boost/version.hpp
 %{_includedir}/boost/vector_property_map.hpp
 %{_includedir}/boost/weak_ptr.hpp
@@ -984,6 +1046,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/detail/none_t.hpp
 #%{_includedir}/boost/detail/typed_in_place_factory.hpp
 
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/libboost_iostreams*.a
 %{_libdir}/libboost_serialization*.a
 %{_libdir}/libboost_wserialization*.a
 
@@ -1178,6 +1243,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/thread
 %{_includedir}/boost/thread.hpp
 
+%files thread-static
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_thread*.a
+
 %files type_traits-devel
 %defattr(644,root,root,755)
 %{_includedir}/boost/type_traits.hpp
@@ -1194,6 +1263,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/noncopyable.hpp
 %{_includedir}/boost/utility*.hpp
 %{_includedir}/boost/utility
+
+%files wave-devel
+%defattr(644,root,root,755)
+%{_libdir}/libboost_wave*.a
+%{_includedir}/boost/wave
+%{_includedir}/boost/wave.hpp
 
 %files doc
 %defattr(644,root,root,755)
