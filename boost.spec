@@ -6,19 +6,19 @@
 Summary:	The Boost C++ Libraries
 Summary(pl):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.33.0
+Version:	1.33.1
 %define	_fver	%(echo %{version} | tr . _)
-Release:	0.2
+Release:	0.1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.gz
-# Source0-md5:	6105340ccdb0e77e684c1cfe40f11056
+# Source0-md5:	a0be7261bfdc8a6c98a25f964766c7a5
 Patch0:		%{name}-python.patch
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.3
 BuildRequires:	libstdc++-devel
 BuildRequires:	perl-base
-%{?with_python:BuildRequires:	python-devel >= 2.2}
+%{?with_python:BuildRequires:	python-devel >= 2.4}
 BuildConflicts:	gcc = 5:3.3.1
 Obsoletes:	boost-date_time
 Obsoletes:	boost-filesystem
