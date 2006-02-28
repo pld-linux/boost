@@ -2,11 +2,11 @@
 # Conditional build:
 %bcond_without	python	# without boost-python support
 #
+%define	_fver	%(echo %{version} | tr . _)
 Summary:	The Boost C++ Libraries
 Summary(pl):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.33.1
-%define	_fver	%(echo %{version} | tr . _)
 Release:	0.2
 License:	Boost Software License and others
 Group:		Libraries
@@ -107,9 +107,9 @@ klasy C++ i funkcje do Pythona.
 Summary:	Boost.Python development headers
 Summary(pl):	Pliki nag³ówkowe dla Boost.Python
 Group:		Development/Libraries
+Requires:	%{name}-compressed_pair-devel = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-python = %{version}-%{release}
-Requires:	%{name}-compressed_pair-devel = %{version}-%{release}
 
 %description python-devel
 Headers for the Boost.Python library.
@@ -331,8 +331,8 @@ Group:		Development/Libraries
 Requires:	%{name}-date_time = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
 #TODO: make decision if do separate packages include it to main devel package
-#Requires:	%{name}-operators-devel = %{version}-%{release}
 #Requires:	%{name}-integer-devel = %{version}-%{release}
+#Requires:	%{name}-operators-devel = %{version}-%{release}
 #Requires:	%{name}-tokenizer-devel = %{version}-%{release}
 
 %description date_time-devel
@@ -470,15 +470,15 @@ slotów.
 Summary:	Header files for boost::signals library
 Summary(pl):	Pliki nag³ówkowe dla biblioteki boost::signals
 Group:		Development/Libraries
+Requires:	%{name}-any-devel = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-signals = %{version}-%{release}
-Requires:	%{name}-any-devel = %{version}-%{release}
 #TODO: separate smart_ptr or include to the main devel package
+Requires:	%{name}-bind-devel = %{version}-%{release}
 #Requires:	%{name}-iterator_adaptors-devel = %{version}-%{release}
 #Requires:	%{name}-operators-devel = %{version}-%{release}
-#Requires:	%{name}-smart_ptr-devel = %{version}-%{release}
-Requires:	%{name}-bind-devel = %{version}-%{release}
 Requires:	%{name}-ref-devel = %{version}-%{release}
+#Requires:	%{name}-smart_ptr-devel = %{version}-%{release}
 
 %description signals-devel
 Header files for boost::signals library.
@@ -507,8 +507,8 @@ Requires:	%{name}-ref-devel = %{version}-%{release}
 Requires:	%{name}-regex-devel = %{version}-%{release}
 Requires:	%{name}-thread-devel = %{version}-%{release}
 #TODO:
-#?Requires:	%{name}-smart_ptr-devel = %{version}-%{release}
 #?Requires:	%{name}-iterators-devel = %{version}-%{release}
+#?Requires:	%{name}-smart_ptr-devel = %{version}-%{release}
 
 %description spirit-devel
 LL parser framework represents parsers directly as EBNF grammars in
@@ -540,8 +540,8 @@ Requires:	%{name}-call_traits-devel = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-test = %{version}-%{release}
 #TODO:
-#Requires:	%{name}-smart_ptr = %{version}-%{release}
 #?Requires?:	%{name}-function-devel = %{version}-%{release}
+#Requires:	%{name}-smart_ptr = %{version}-%{release}
 
 %description test-devel
 Header files for boost::test.
@@ -683,14 +683,14 @@ cp -df bin/boost/libs/*/build/*.so/*/release/*/*/lib*.so $RPM_BUILD_ROOT%{_libdi
 
 # create symlinks without -gcc-mt-* things in names
 for f in $RPM_BUILD_ROOT%{_libdir}/*.so.*; do
-	[ -f "$f" ] || continue	
+	[ -f "$f" ] || continue
 	f=$(basename "$f")
 	soname=$(basename "$f" | sed -e 's#-gcc-mt-.*#.so#g')
 
 	ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/${soname}"
 done
 for f in $RPM_BUILD_ROOT%{_libdir}/*.a; do
-	[ -f "$f" ] || continue	
+	[ -f "$f" ] || continue
 	f=$(basename "$f")
 	soname=$(basename "$f" | sed -e 's#-gcc-mt-.*#.a#g')
 
