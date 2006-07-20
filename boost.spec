@@ -7,12 +7,13 @@ Summary:	The Boost C++ Libraries
 Summary(pl):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.33.1
-Release:	0.2
+Release:	0.3
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
 # Source0-md5:	2b999b2fb7798e1737d1fff8fac602ef
 Patch0:		%{name}-python.patch
+Patch1:		%{name}-archive_iterator_segv.patch
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.3
 BuildRequires:	libstdc++-devel
@@ -644,6 +645,7 @@ Dokumentacja dla biblioteki Boost C++.
 %prep
 %setup -q -n %{name}_%{_fver}
 %patch0 -p1
+%patch1 -p1
 
 # don't know how to pass it through (b)jam -s (no way?)
 # due to oversophisticated build flags system
@@ -666,7 +668,7 @@ PYTHON_VERSION=
 %endif
 bjam \
 	-d2 \
-	-sBUILD="release <threading>multi" \
+	-sBUILD="release <threading>multi <shared-linkable>true" \
 	-sPYTHON_ROOT=$PYTHON_ROOT \
 	-sPYTHON_VERSION=$PYTHON_VERSION
 
