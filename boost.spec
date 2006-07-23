@@ -7,7 +7,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.33.1
-Release:	0.3
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
@@ -678,10 +678,10 @@ install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}}
 
 cp -rf boost $RPM_BUILD_ROOT%{_includedir}
 
-install bin/boost/libs/*/build/*.a/*/release/*/lib*.a $RPM_BUILD_ROOT%{_libdir}
-install bin/boost/libs/*/build/*.so/*/release/*/*/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
+install bin/boost/libs/*/build/*.a/*/release/shared-linkable-true/*/lib*.a $RPM_BUILD_ROOT%{_libdir}
+install bin/boost/libs/*/build/*.so/*/release/shared-linkable-true/*/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
 # use cp -d, install follows symlinks instead of preserving them!
-cp -df bin/boost/libs/*/build/*.so/*/release/*/*/lib*.so $RPM_BUILD_ROOT%{_libdir}
+cp -df bin/boost/libs/*/build/*.so/*/release/shared-linkable-true/*/lib*.so $RPM_BUILD_ROOT%{_libdir}
 
 # create symlinks without -gcc-mt-* things in names
 for f in $RPM_BUILD_ROOT%{_libdir}/*.so.*; do
