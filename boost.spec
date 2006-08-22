@@ -16,10 +16,12 @@ Patch0:		%{name}-python.patch
 Patch1:		%{name}-archive_iterator_segv.patch
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.3
+BuildRequires:	bzip2-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	perl-base
 %{?with_python:BuildRequires:	python-devel >= 2.2}
 BuildRequires:	rpm-pythonprov
+BuildRequires:	zlib-devel
 BuildConflicts:	gcc = 5:3.3.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
