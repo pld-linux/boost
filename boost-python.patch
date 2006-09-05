@@ -1,10 +1,39 @@
 --- boost_1_31_0/libs/python/build/Jamfile.orig	2003-11-04 19:30:37.000000000 +0100
 +++ boost_1_31_0/libs/python/build/Jamfile	2004-02-19 00:07:10.072772224 +0100
-@@ -58,6 +58,7 @@
+@@ -60,6 +60,8 @@
      : ../src/$(sources)
      : $(BOOST_PYTHON_V2_PROPERTIES)
        <define>BOOST_PYTHON_SOURCE
++      <cxxflags>-fno-strict-aliaising
 +      <find-library>python$(PYTHON_VERSION)
        $(bpl-linkflags)
          <msvc-stlport><release>$(msvc-stlport-workarounds)
          <darwin><*><linkflags>-bind_at_load
+@@ -79,6 +81,7 @@
+       $(BOOST_PYTHON_V2_PROPERTIES)
+       <define>BOOST_PYTHON_SOURCE
+       <define>BOOST_STATIC_LIB
++      <cxxflags>-fno-strict-aliasing
+       $(bpl-linkflags)
+         <msvc-stlport><release>$(msvc-stlport-workarounds)
+       ;
+--- boost_1_33_1/libs/python/src/object_protocol.cpp.orig	2004-07-26 02:32:11.000000000 +0200
++++ boost_1_33_1/libs/python/src/object_protocol.cpp	2006-09-06 00:46:35.567981500 +0200
+@@ -106,7 +106,7 @@
+       PySequenceMethods *sq = tp->tp_as_sequence;
+ 
+       if (sq && sq->sq_slice && ISINT(v) && ISINT(w)) {
+-          int ilow = 0, ihigh = INT_MAX;
++          Py_ssize_t ilow = 0, ihigh = INT_MAX;
+           if (!_PyEval_SliceIndex(v, &ilow))
+               return NULL;
+           if (!_PyEval_SliceIndex(w, &ihigh))
+@@ -133,7 +133,7 @@
+       PySequenceMethods *sq = tp->tp_as_sequence;
+ 
+       if (sq && sq->sq_slice && ISINT(v) && ISINT(w)) {
+-          int ilow = 0, ihigh = INT_MAX;
++          Py_ssize_t ilow = 0, ihigh = INT_MAX;
+           if (!_PyEval_SliceIndex(v, &ilow))
+               return -1;
+           if (!_PyEval_SliceIndex(w, &ihigh))
