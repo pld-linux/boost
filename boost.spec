@@ -7,7 +7,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.33.1
-Release:	1.1
+Release:	2
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
@@ -788,7 +788,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_wserialization*.so
 %dir %{_includedir}/boost
 %{_includedir}/boost/algorithm
-%{_includedir}/boost/any.hpp
 %{_includedir}/boost/archive
 %{_includedir}/boost/assert.hpp
 %{_includedir}/boost/assign
