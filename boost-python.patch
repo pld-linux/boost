@@ -4,7 +4,7 @@
      : ../src/$(sources)
      : $(BOOST_PYTHON_V2_PROPERTIES)
        <define>BOOST_PYTHON_SOURCE
-+      <cxxflags>-fno-strict-aliaising
++      <cxxflags>-fno-strict-aliasing
 +      <find-library>python$(PYTHON_VERSION)
        $(bpl-linkflags)
          <msvc-stlport><release>$(msvc-stlport-workarounds)
