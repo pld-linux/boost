@@ -7,7 +7,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.33.1
-Release:	3
+Release:	4
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
@@ -764,6 +764,9 @@ rm -rf $RPM_BUILD_ROOT
 %post	python	-p /sbin/ldconfig
 %postun python	-p /sbin/ldconfig
 
+%post	program_options	-p /sbin/ldconfig
+%postun program_options	-p /sbin/ldconfig
+
 %post	regex	-p /sbin/ldconfig
 %postun regex	-p /sbin/ldconfig
 
@@ -988,9 +991,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_includedir}/boost/compatibility
 
+%if 0
 %files compose-devel
 %defattr(644,root,root,755)
 #%{_includedir}/boost/compose.hpp
+%endif
 
 %files compressed_pair-devel
 %defattr(644,root,root,755)
@@ -1034,6 +1039,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files program_options-devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_program_options*.so
 %{_includedir}/boost/program_options
 %{_includedir}/boost/program_options.hpp
 
