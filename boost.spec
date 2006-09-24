@@ -57,6 +57,7 @@ Provides:	boost-preprocessor-devel = %{version}-%{release}
 Provides:	boost-static_assert-devel = %{version}-%{release}
 Provides:	boost-type_traits-devel = %{version}-%{release}
 Provides:	boost-utility-devel = %{version}-%{release}
+Obsoletes:	boost-compose-devel
 Obsoletes:	boost-concept_check-devel
 Obsoletes:	boost-conversion-devel
 Obsoletes:	boost-mpl-devel
@@ -217,6 +218,7 @@ Summary(pl):	Uogólnione bindery dla funkcji/obiektów/wska¼ników oraz metod
 Group:		Development/Libraries
 Requires:	%{name}-ref-devel = %{version}-%{release}
 Provides:	boost-mem_fn-devel = %{version}-%{release}
+Obsoletes:	boost-compose-devel
 Obsoletes:	boost-mem_fn-devel
 
 %description bind-devel
@@ -652,7 +654,7 @@ Dokumentacja dla biblioteki Boost C++.
 
 # don't know how to pass it through (b)jam -s (no way?)
 # due to oversophisticated build flags system
-%{__perl} -pi -e 's/ -O3 / %{rpmcflags} /' tools/build/v1/gcc-tools.jam
+%{__perl} -pi -e 's/ -O3 / %{rpmcxxflags} /' tools/build/v1/gcc-tools.jam
 
 %ifarch alpha
 # -pthread gcc parameter doesn't add _REENTRANT to cpp macros on alpha (only)
@@ -671,7 +673,7 @@ PYTHON_VERSION=
 %endif
 bjam \
 	-d2 \
-	-sBUILD="release <threading>multi <shared-linkable>true" \
+	-sBUILD="release <threading>multi <shared-linkable>true <inlining>on" \
 	-sPYTHON_ROOT=$PYTHON_ROOT \
 	-sPYTHON_VERSION=$PYTHON_VERSION
 
@@ -681,10 +683,10 @@ install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}}
 
 cp -rf boost $RPM_BUILD_ROOT%{_includedir}
 
-install bin/boost/libs/*/build/*.a/*/release/shared-linkable-true/*/lib*.a $RPM_BUILD_ROOT%{_libdir}
-install bin/boost/libs/*/build/*.so/*/release/shared-linkable-true/*/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
+install bin/boost/libs/*/build/*.a/*/release/inlining-on/shared-linkable-true/*/lib*.a $RPM_BUILD_ROOT%{_libdir}
+install bin/boost/libs/*/build/*.so/*/release/inlining-on/shared-linkable-true/*/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
 # use cp -d, install follows symlinks instead of preserving them!
-cp -df bin/boost/libs/*/build/*.so/*/release/shared-linkable-true/*/lib*.so $RPM_BUILD_ROOT%{_libdir}
+cp -df bin/boost/libs/*/build/*.so/*/release/inlining-on/shared-linkable-true/*/lib*.so $RPM_BUILD_ROOT%{_libdir}
 
 # create symlinks without -gcc-mt-* things in names
 for f in $RPM_BUILD_ROOT%{_libdir}/*.so.*; do
@@ -990,12 +992,6 @@ rm -rf $RPM_BUILD_ROOT
 %files compatibility-devel
 %defattr(644,root,root,755)
 %{_includedir}/boost/compatibility
-
-%if 0
-%files compose-devel
-%defattr(644,root,root,755)
-#%{_includedir}/boost/compose.hpp
-%endif
 
 %files compressed_pair-devel
 %defattr(644,root,root,755)
