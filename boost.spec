@@ -417,6 +417,7 @@ takich jak linia poleceñ, czy plik konfiguracyjny.
 Summary:	Header files for boost::program_options
 Summary(pl):	Pliki nag³ówkowe dla boost::program_options
 Group:		Development/Libraries
+Requires:	%{name}-any-devel = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-program_options = %{version}-%{release}
 
