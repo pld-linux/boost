@@ -48,6 +48,7 @@ Summary:	Boost C++ development headers
 Summary(pl):	Pliki nag³ówkowe bibliotek C++ Boost
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-ref-devel = %{version}-%{release}
 Requires:	libstdc++-devel
 # temporary Provides (until CVS HEAD stops using it)?
 Provides:	boost-concept_check-devel = %{version}-%{release}
