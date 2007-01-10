@@ -37,3 +37,16 @@
            if (!_PyEval_SliceIndex(v, &ilow))
                return -1;
            if (!_PyEval_SliceIndex(w, &ihigh))
+--- boost_1_33_1/libs/python/src/object_protocol.cpp~	2007-01-11 01:41:12.236117736 +0200
++++ boost_1_33_1/libs/python/src/object_protocol.cpp	2007-01-11 01:41:13.476145496 +0200
+@@ -7,6 +7,10 @@
+ #include <boost/python/errors.hpp>
+ #include <boost/python/object.hpp>
+ 
++#if (PY_VERSION_HEX < 0x02050000)
++typedef ssize_t     Py_ssize_t;
++#endif
++
+ namespace boost { namespace python { namespace api {
+ 
+ BOOST_PYTHON_DECL object getattr(object const& target, object const& key)
