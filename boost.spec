@@ -17,6 +17,7 @@ Patch1:		%{name}-archive_iterator_segv.patch
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.3
 BuildRequires:	bzip2-devel
+BuildRequires:	libicu-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	perl-base
 %{?with_python:BuildRequires:	python-devel >= 2.2}
@@ -413,8 +414,8 @@ conventional methods such as command line and config file.
 
 %description program_options -l pl
 Biblioteka program_options umo¿liwia uzyskanie od u¿ytkownika opcji
-programu, czyli par (nazwa, warto¶æ), za pomoc± typowych metod,
-takich jak linia poleceñ, czy plik konfiguracyjny.
+programu, czyli par (nazwa, warto¶æ), za pomoc± typowych metod, takich
+jak linia poleceñ, czy plik konfiguracyjny.
 
 %package program_options-devel
 Summary:	Header files for boost::program_options
@@ -666,7 +667,7 @@ Dokumentacja dla biblioteki Boost C++.
 
 %build
 %if %{with python}
-PYTHON_VERSION=`python -V 2>&1 | sed 's,.* \([0-9]\.[0-9]\)\(\.[0-9]\)\?.*,\1,'`
+PYTHON_VERSION=$(%{__python} -c 'import sys; print sys.version[0:3]')
 PYTHON_ROOT=%{_prefix}
 %else
 PYTHON_ROOT=
@@ -674,6 +675,9 @@ PYTHON_VERSION=
 %endif
 bjam \
 	-d2 \
+	-sGXX="%{__cc}" \
+	-sGCC="%{__cxx}" \
+	-sHAVE_ICU=1 -sICU_PATH=/usr \
 	-sBUILD="release <threading>multi <shared-linkable>true <inlining>on" \
 	-sPYTHON_ROOT=$PYTHON_ROOT \
 	-sPYTHON_VERSION=$PYTHON_VERSION
@@ -713,10 +717,11 @@ install README $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
 # own, we need to find out ourselves... this looks for HTML files and
 # then collects everything linked from those.  this is certainly quite
 # unoptimized wrt mkdir calls, but does it really matter?
-for i in `find -type f -name '*.htm*'`; do
+installdocs() {
+for i in $(find -type f -name '*.htm*'); do
 	# bjam docu is included in the boost-jam RPM
 	if test "`echo $i | sed 's,jam_src,,'`" = "$i"; then
-		install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/`dirname $i`
+		install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/${i%/*}
 		for LINKED in `%{__perl} - $i $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/$i <<'EOT'
 			sub rewrite_link
 			{
@@ -742,15 +747,15 @@ for i in `find -type f -name '*.htm*'`; do
 				$in_link = /href|src=\s*$/;
 			}
 EOT`; do
-			TARGET=`dirname $i`/$LINKED
+			TARGET=${i%/*}/$LINKED
 			# ignore non-existant linked files
 			if test -f $TARGET; then
-				install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/`dirname $TARGET`
-				install -m 644 $TARGET $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/$TARGET
+				install -D -m 644 $TARGET $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/$TARGET
 			fi
 		done
 	fi
 done
+}; installdocs
 
 %clean
 rm -rf $RPM_BUILD_ROOT
