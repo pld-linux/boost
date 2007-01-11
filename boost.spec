@@ -675,8 +675,8 @@ PYTHON_VERSION=
 %endif
 bjam \
 	-d2 \
-	-sGXX="%{__cc}" \
-	-sGCC="%{__cxx}" \
+	-sGXX="%{__cxx}" \
+	-sGCC="%{__cc}" \
 	-sHAVE_ICU=1 -sICU_PATH=/usr \
 	-sBUILD="release <threading>multi <shared-linkable>true <inlining>on" \
 	-sPYTHON_ROOT=$PYTHON_ROOT \
