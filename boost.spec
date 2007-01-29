@@ -18,6 +18,7 @@ BuildRequires:	boost-jam >= 3.1.3
 BuildRequires:	libstdc++-devel
 BuildRequires:	perl-base
 %{?with_python:BuildRequires:	python-devel >= 2.2}
+%{?with_python:BuildRequires:	rpm-pythonprov}
 BuildConflicts:	gcc = 5:3.3.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
