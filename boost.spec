@@ -4,7 +4,7 @@
 %bcond_without	python	# without boost-python support
 #
 Summary:	The Boost C++ Libraries
-Summary(pl):	Biblioteki C++ "Boost"
+Summary(pl.UTF-8):   Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.33.1
 %define	_fver	%(echo %{version} | tr . _)
@@ -45,18 +45,18 @@ suitable for eventual standardization. Some of the libraries have
 already been proposed for inclusion in the C++ Standards Committee's
 upcoming C++ Standard Library Technical Report.
 
-%description -l pl
+%description -l pl.UTF-8
 Strona http://www.boost.org/ dostarcza darmowe biblioteki C++ wraz z
-kodem ¼ród³owym. Nacisk po³o¿ono na biblioteki, które dobrze
-wspó³pracuj± ze standardow± bibliotek± C++. Celem jest ustanowienie
-"istniej±cej praktyki" i dostarczenie implementacji, tak ¿e biblioteki
-"Boost" nadaj± siê do ewentualnej standaryzacji. Niektóre z bibliotek
-ju¿ zosta³y zg³oszone do komitetu standaryzacyjnego C++ w nadchodz±cym
+kodem ÅºrÃ³dÅ‚owym. Nacisk poÅ‚oÅ¼ono na biblioteki, ktÃ³re dobrze
+wspÃ³Å‚pracujÄ… ze standardowÄ… bibliotekÄ… C++. Celem jest ustanowienie
+"istniejÄ…cej praktyki" i dostarczenie implementacji, tak Å¼e biblioteki
+"Boost" nadajÄ… siÄ™ do ewentualnej standaryzacji. NiektÃ³re z bibliotek
+juÅ¼ zostaÅ‚y zgÅ‚oszone do komitetu standaryzacyjnego C++ w nadchodzÄ…cym
 Raporcie Technicznym Biblioteki Standardowej C++
 
 %package devel
 Summary:	Boost C++ development libraries and headers
-Summary(pl):	Pliki nag³ówkowe i biblioteki statyczne Boost C++
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe i biblioteki statyczne Boost C++
 Group:		Development/Libraries
 Requires:	libstdc++-devel
 Requires:	%{name} = %{version}-%{release}
@@ -116,12 +116,12 @@ Provides:	boost-utility-devel
 %description devel
 Headers for the Boost C++ libraries.
 
-%description devel -l pl
-Pliki nag³ówkowe bibliotek Boost C++.
+%description devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe bibliotek Boost C++.
 
 %package static
 Summary:	Boost C++ static libraries
-Summary(pl):	Biblioteki statyczne Boost C++
+Summary(pl.UTF-8):   Biblioteki statyczne Boost C++
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Obsoletes:	boost-date_time-static
@@ -140,12 +140,12 @@ Provides:	boost-test-static
 %description static
 Boost C++ static libraries.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Biblioteki statyczne Boost C++.
 
 %package python
 Summary:	Boost.Python library
-Summary(pl):	biblioteka Boost.Python
+Summary(pl.UTF-8):   biblioteka Boost.Python
 Group:		Libraries
 %pyrequires_eq	python
 
@@ -157,18 +157,18 @@ C++ design. In most cases, you should not have to alter your C++
 classes in any way in order to use them with Boost.Python. The system
 should simply ``reflect'' your C++ classes and functions into Python.
 
-%description python -l pl
-Biblioteka Boost Python s³u¿y do szybkiego i prostego eksportu
-biblioteki C++ do Pythona, tak ¿e interfejs Pythona jest bardzo
-podobny do interfejsu C++. Biblioteka jest zaprojektowana tak, ¿eby
-narzucaæ jak najmniej wymagañ dotycz±cych konstrukcjii C++. W
-wiêkszo¶ci przypadków nie trzeba w ogóle zmieniaæ w³asnych klas C++,
-¿eby u¿ywaæ ich z Boost.Python. System powinien po prostu ,,odbiæ''
+%description python -l pl.UTF-8
+Biblioteka Boost Python sÅ‚uÅ¼y do szybkiego i prostego eksportu
+biblioteki C++ do Pythona, tak Å¼e interfejs Pythona jest bardzo
+podobny do interfejsu C++. Biblioteka jest zaprojektowana tak, Å¼eby
+narzucaÄ‡ jak najmniej wymagaÅ„ dotyczÄ…cych konstrukcjii C++. W
+wiÄ™kszoÅ›ci przypadkÃ³w nie trzeba w ogÃ³le zmieniaÄ‡ wÅ‚asnych klas C++,
+Å¼eby uÅ¼ywaÄ‡ ich z Boost.Python. System powinien po prostu ,,odbiÄ‡''
 klasy C++ i funkcje do Pythona.
 
 %package python-devel
 Summary:	Boost.Python development headers
-Summary(pl):	Pliki nag³ówkowe dla Boost.Python
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe dla Boost.Python
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-python = %{version}-%{release}
@@ -176,31 +176,31 @@ Requires:	%{name}-python = %{version}-%{release}
 %description python-devel
 Headers for the Boost.Python library.
 
-%description python-devel -l pl
-Pliki nag³ówkowe dla biblioteki Boost.Python.
+%description python-devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe dla biblioteki Boost.Python.
 
 %package python-static
 Summary:	Static version of Boost.Python library
-Summary(pl):	Statyczna wersja biblioteki Boost.Python
+Summary(pl.UTF-8):   Statyczna wersja biblioteki Boost.Python
 Group:		Development/Libraries
 Requires:	%{name}-python-devel = %{version}-%{release}
 
 %description python-static
 Static version of Boost.Python library.
 
-%description python-static -l pl
+%description python-static -l pl.UTF-8
 Statyczna wersja biblioteki Boost.Python.
 
 %package doc
 Summary:	Boost C++ Library documentation
-Summary(pl):	Dokumentacja dla biblioteki Boost C++
+Summary(pl.UTF-8):   Dokumentacja dla biblioteki Boost C++
 Group:		Documentation
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description doc
 Documentation for the Boost C++ Library.
 
-%description doc -l pl
+%description doc -l pl.UTF-8
 Dokumentacja dla biblioteki Boost C++.
 
 %prep
