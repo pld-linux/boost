@@ -4,7 +4,7 @@
 #
 %define	_fver	%(echo %{version} | tr . _)
 Summary:	The Boost C++ Libraries
-Summary(pl.UTF-8):   Biblioteki C++ "Boost"
+Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.33.1
 Release:	6
@@ -46,7 +46,7 @@ Raporcie Technicznym Biblioteki Standardowej C++
 
 %package devel
 Summary:	Boost C++ development headers
-Summary(pl.UTF-8):   Pliki nagłówkowe bibliotek C++ Boost
+Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek C++ Boost
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-ref-devel = %{version}-%{release}
@@ -76,7 +76,7 @@ Pliki nagłówkowe bibliotek C++ Boost.
 
 %package static
 Summary:	Static version of base Boost C++ libraries
-Summary(pl.UTF-8):   Statyczne wersje podstawowych bibliotek C++ Boost
+Summary(pl.UTF-8):	Statyczne wersje podstawowych bibliotek C++ Boost
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -88,7 +88,7 @@ Statyczne wersje podstawowych bibliotek C++ Boost.
 
 %package python
 Summary:	Boost.Python library
-Summary(pl.UTF-8):   biblioteka Boost.Python
+Summary(pl.UTF-8):	biblioteka Boost.Python
 Group:		Libraries
 %pyrequires_eq	python
 
@@ -111,7 +111,7 @@ klasy C++ i funkcje do Pythona.
 
 %package python-devel
 Summary:	Boost.Python development headers
-Summary(pl.UTF-8):   Pliki nagłówkowe dla Boost.Python
+Summary(pl.UTF-8):	Pliki nagłówkowe dla Boost.Python
 Group:		Development/Libraries
 Requires:	%{name}-compressed_pair-devel = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
@@ -125,7 +125,7 @@ Pliki nagłówkowe dla biblioteki Boost.Python.
 
 %package python-static
 Summary:	Static version of Boost.Python library
-Summary(pl.UTF-8):   Statyczna wersja biblioteki Boost.Python
+Summary(pl.UTF-8):	Statyczna wersja biblioteki Boost.Python
 Group:		Development/Libraries
 Requires:	%{name}-python-devel = %{version}-%{release}
 
@@ -137,7 +137,7 @@ Statyczna wersja biblioteki Boost.Python.
 
 %package regex
 Summary:	Boost C++ regular expressions library
-Summary(pl.UTF-8):   Biblioteka wyrażeń regularnych Boost C++
+Summary(pl.UTF-8):	Biblioteka wyrażeń regularnych Boost C++
 Group:		Libraries
 
 %description regex
@@ -148,7 +148,7 @@ Biblioteka wyrażeń regularnych dla C++, biblioteki dzielone.
 
 %package regex-devel
 Summary:	Boost C++ Regex library headers
-Summary(pl.UTF-8):   Pliki nagłówkowe Boost C++ Regex
+Summary(pl.UTF-8):	Pliki nagłówkowe Boost C++ Regex
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-regex = %{version}-%{release}
@@ -161,7 +161,7 @@ Pliki nagłówkowe dla Boost C++ Regex.
 
 %package regex-static
 Summary:	Boost C++ Regex static libraries
-Summary(pl.UTF-8):   Biblioteki statyczne Boost C++ Regex
+Summary(pl.UTF-8):	Biblioteki statyczne Boost C++ Regex
 Group:		Development/Libraries
 Requires:	%{name}-regex-devel = %{version}-%{release}
 
@@ -173,7 +173,7 @@ Biblioteki statyczne dla Boost C++ Regex.
 
 %package any-devel
 Summary:	Header for Boost C++ "Any" Library
-Summary(pl.UTF-8):   Plik nagłówkowy dla biblioteki Boost C++ "Any"
+Summary(pl.UTF-8):	Plik nagłówkowy dla biblioteki Boost C++ "Any"
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -195,7 +195,7 @@ Np. 5 jest trzymane jako int i nie jest niejawnie konwertowalne ani do
 
 %package array-devel
 Summary:	STL compliant container wrapper for arrays of constant size
-Summary(pl.UTF-8):   Wrapper na STLowe kontenery dla tablic o stałym rozmiarze
+Summary(pl.UTF-8):	Wrapper na STLowe kontenery dla tablic o stałym rozmiarze
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -216,7 +216,7 @@ o stałym rozmiarze.
 
 %package bind-devel
 Summary:	Generalized binders for function/object/pointers and member functions
-Summary(pl.UTF-8):   Uogólnione bindery dla funkcji/obiektów/wskaźników oraz metod
+Summary(pl.UTF-8):	Uogólnione bindery dla funkcji/obiektów/wskaźników oraz metod
 Group:		Development/Libraries
 Requires:	%{name}-ref-devel = %{version}-%{release}
 Provides:	boost-mem_fn-devel = %{version}-%{release}
@@ -236,7 +236,7 @@ uogólnieniem standardowych funkcji std::mem_fun i std::mem_fun_ref.
 
 %package call_traits-devel
 Summary:	Defines types for passing parameters
-Summary(pl.UTF-8):   Definiowanie typów dla przekazywania parametrów
+Summary(pl.UTF-8):	Definiowanie typów dla przekazywania parametrów
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -256,7 +256,7 @@ efektywny sposób.
 
 %package compatibility-devel
 Summary:	Help for non-conforming standard libraries
-Summary(pl.UTF-8):   Pomoc dla nie trzymających standardu bibliotek
+Summary(pl.UTF-8):	Pomoc dla nie trzymających standardu bibliotek
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -271,7 +271,7 @@ platformach.
 
 %package compose-devel
 Summary:	Functional composition adapters for the STL
-Summary(pl.UTF-8):   Funkcjonalne adaptery kompozycji dla STL
+Summary(pl.UTF-8):	Funkcjonalne adaptery kompozycji dla STL
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -290,7 +290,7 @@ użytkownicy STL-a docenią jej użyteczność.
 
 %package compressed_pair-devel
 Summary:	Empty member optimization
-Summary(pl.UTF-8):   Optymalizacja pustego elementu
+Summary(pl.UTF-8):	Optymalizacja pustego elementu
 Group:		Development/Libraries
 Requires:	%{name}-call_traits-devel = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
@@ -307,7 +307,7 @@ jest "optymalizacja pustej klasy bazowej" do kompresji pary.
 
 %package crc-devel
 Summary:	CRC computing library
-Summary(pl.UTF-8):   Biblioteka obliczająca CRC
+Summary(pl.UTF-8):	Biblioteka obliczająca CRC
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -321,7 +321,7 @@ obliczających CRC. Implementacje są oparte na wzorcach.
 
 %package date_time
 Summary:	Date-Time library
-Summary(pl.UTF-8):   Biblioteka daty-czasu
+Summary(pl.UTF-8):	Biblioteka daty-czasu
 Group:		Libraries
 Obsoletes:	boost < 1.33
 
@@ -333,7 +333,7 @@ Zbiór bibliotek daty-czasu.
 
 %package date_time-devel
 Summary:	Header files for boost::date_time library
-Summary(pl.UTF-8):   Pliki nagłówkowe dla biblioteki boost::date_time
+Summary(pl.UTF-8):	Pliki nagłówkowe dla biblioteki boost::date_time
 Group:		Development/Libraries
 Requires:	%{name}-date_time = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
@@ -350,7 +350,7 @@ Pliki nagłówkowe dla biblioteki boost::date_time
 
 %package date_time-static
 Summary:	Static boost::date_time library
-Summary(pl.UTF-8):   Statyczna biblioteka boost::date_time
+Summary(pl.UTF-8):	Statyczna biblioteka boost::date_time
 Group:		Development/Libraries
 Requires:	%{name}-date_time-devel = %{version}-%{release}
 
@@ -362,7 +362,7 @@ Statyczna biblioteka boost::date_time.
 
 %package filesystem
 Summary:	Portable paths, iteration over directories, and other useful filesystem operations
-Summary(pl.UTF-8):   Przenośne ścieżki, iteracje katalogów i inne użyteczne operacje na systemie plików
+Summary(pl.UTF-8):	Przenośne ścieżki, iteracje katalogów i inne użyteczne operacje na systemie plików
 Group:		Libraries
 Obsoletes:	boost < 1.33
 
@@ -376,7 +376,7 @@ operacjach na ścieżkach, plikach i katalogach.
 
 %package filesystem-devel
 Summary:	Header files for boost::filesystem
-Summary(pl.UTF-8):   Pliki nagłówkowe dla boost::filesystem
+Summary(pl.UTF-8):	Pliki nagłówkowe dla boost::filesystem
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-filesystem = %{version}-%{release}
@@ -391,7 +391,7 @@ Pliki nagłówkowe dla biblioteki boost::filesystem.
 
 %package filesystem-static
 Summary:	Static boost::filesystem library
-Summary(pl.UTF-8):   Biblioteka statyczna boost::filesystem
+Summary(pl.UTF-8):	Biblioteka statyczna boost::filesystem
 Group:		Development/Libraries
 Requires:	%{name}-filesystem-devel = %{version}-%{release}
 Obsoletes:	boost-static < 1.33
@@ -404,7 +404,7 @@ Biblioteka statyczna boost::filesystem.
 
 %package program_options
 Summary:	Access to program options, via conventional methods such as command line and config file
-Summary(pl.UTF-8):   Dostęp do opcji programu za pomocą typowych metod, jak linia poleceń i plik konfiguracyjny
+Summary(pl.UTF-8):	Dostęp do opcji programu za pomocą typowych metod, jak linia poleceń i plik konfiguracyjny
 Group:		Libraries
 
 %description program_options
@@ -419,7 +419,7 @@ jak linia poleceń, czy plik konfiguracyjny.
 
 %package program_options-devel
 Summary:	Header files for boost::program_options
-Summary(pl.UTF-8):   Pliki nagłówkowe dla boost::program_options
+Summary(pl.UTF-8):	Pliki nagłówkowe dla boost::program_options
 Group:		Development/Libraries
 Requires:	%{name}-any-devel = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
@@ -433,7 +433,7 @@ Pliki nagłówkowe dla biblioteki boost::program_options.
 
 %package program_options-static
 Summary:	Static boost::program_options library
-Summary(pl.UTF-8):   Biblioteka statyczna boost::program_options
+Summary(pl.UTF-8):	Biblioteka statyczna boost::program_options
 Group:		Development/Libraries
 Requires:	%{name}-program_options-devel = %{version}-%{release}
 Obsoletes:	boost-static < 1.33
@@ -446,7 +446,7 @@ Biblioteka statyczna boost::program_options.
 
 %package ref-devel
 Summary:	Small library useful for passing references to function templates
-Summary(pl.UTF-8):   Mała biblioteka użyteczna przy przekazywaniu referencji do wzorców funkcji
+Summary(pl.UTF-8):	Mała biblioteka użyteczna przy przekazywaniu referencji do wzorców funkcji
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -462,7 +462,7 @@ które zazwyczaj biorą kopię swoich argumentów.
 
 %package signals
 Summary:	Signals & slots callback implementation
-Summary(pl.UTF-8):   Implementacja sygnałów i slotów
+Summary(pl.UTF-8):	Implementacja sygnałów i slotów
 Group:		Libraries
 Obsoletes:	boost < 1.33
 
@@ -476,7 +476,7 @@ slotów.
 
 %package signals-devel
 Summary:	Header files for boost::signals library
-Summary(pl.UTF-8):   Pliki nagłówkowe dla biblioteki boost::signals
+Summary(pl.UTF-8):	Pliki nagłówkowe dla biblioteki boost::signals
 Group:		Development/Libraries
 Requires:	%{name}-any-devel = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
@@ -496,7 +496,7 @@ Pliki nagłówkowe dla biblioteki boost::signals.
 
 %package signals-static
 Summary:	Static library for boost::signals
-Summary(pl.UTF-8):   Biblioteka statyczna dla boost::signals
+Summary(pl.UTF-8):	Biblioteka statyczna dla boost::signals
 Group:		Development/Libraries
 Requires:	%{name}-signals-devel = %{version}-%{release}
 
@@ -508,7 +508,7 @@ Biblioteka statyczna dla boost::signals.
 
 %package spirit-devel
 Summary:	LL parser framework
-Summary(pl.UTF-8):   Szkielet parsera LL
+Summary(pl.UTF-8):	Szkielet parsera LL
 Group:		Development/Libraries
 Requires:	%{name}-compressed_pair-devel = %{version}-%{release}
 Requires:	%{name}-ref-devel = %{version}-%{release}
@@ -528,7 +528,7 @@ bezpośrednio w kodzie C++.
 
 %package test
 Summary:	Support for program testing and  execution monitoring
-Summary(pl.UTF-8):   Wsparcie dla testowania i monitorowania programu
+Summary(pl.UTF-8):	Wsparcie dla testowania i monitorowania programu
 Group:		Libraries
 Obsoletes:	boost < 1.33
 
@@ -542,7 +542,7 @@ monitorowania wykonania programu.
 
 %package test-devel
 Summary:	Header files for boost::test
-Summary(pl.UTF-8):   Pliki nagłówkowe dla boost::test
+Summary(pl.UTF-8):	Pliki nagłówkowe dla boost::test
 Group:		Development/Libraries
 Requires:	%{name}-call_traits-devel = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
@@ -559,7 +559,7 @@ Pliki nagłówkowe dla boost::test.
 
 %package test-static
 Summary:	Static boost::test libraries
-Summary(pl.UTF-8):   Biblioteki statyczne boost::test
+Summary(pl.UTF-8):	Biblioteki statyczne boost::test
 Group:		Development/Libraries
 Requires:	%{name}-test-devel = %{version}-%{release}
 Obsoletes:	boost-static < 1.33
@@ -572,7 +572,7 @@ Biblioteki statyczne boost::test.
 
 %package thread
 Summary:	Portable C++ threads library
-Summary(pl.UTF-8):   Przenośna biblioteka wątków C++
+Summary(pl.UTF-8):	Przenośna biblioteka wątków C++
 Group:		Libraries
 Obsoletes:	boost < 1.33
 
@@ -584,7 +584,7 @@ Przenośna biblioteka wątków dla C++ - biblioteka dzielona.
 
 %package thread-devel
 Summary:	Header files for boost::thread library
-Summary(pl.UTF-8):   Pliki nagłówkowe dla biblioteki boost::thread
+Summary(pl.UTF-8):	Pliki nagłówkowe dla biblioteki boost::thread
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-thread = %{version}-%{release}
@@ -598,7 +598,7 @@ Pliki nagłówkowe dla biblioteki boost::thread.
 
 %package thread-static
 Summary:	Portable C++ threads library - static version
-Summary(pl.UTF-8):   Przenośna biblioteka wątków C++ - wersja statyczna
+Summary(pl.UTF-8):	Przenośna biblioteka wątków C++ - wersja statyczna
 Group:		Libraries
 Requires:	%{name}-thread-devel = %{version}-%{release}
 Obsoletes:	boost < 1.33
@@ -611,7 +611,7 @@ Przenośna biblioteka wątków dla C++ - biblioteka statyczna.
 
 %package uBLAS-devel
 Summary:	Basic linear algebra for dense, packed and sparse matrices
-Summary(pl.UTF-8):   Prosta liniowa algebra dla gęstych, upakowanych i rzadkich macierzy
+Summary(pl.UTF-8):	Prosta liniowa algebra dla gęstych, upakowanych i rzadkich macierzy
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -627,7 +627,7 @@ diagonalnych, symetrycznych, hermitowskich i rzadkich macierzy.
 
 %package wave-devel
 Summary:	Boost.Wave - a standard compliant C++ preprocessor library
-Summary(pl.UTF-8):   Boost.Wave - zgodna ze standardem biblioteka preprocesora C++
+Summary(pl.UTF-8):	Boost.Wave - zgodna ze standardem biblioteka preprocesora C++
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -639,7 +639,7 @@ Boost.Wave - zgodna ze standardem biblioteka preprocesora C++.
 
 %package doc
 Summary:	Boost C++ Library documentation
-Summary(pl.UTF-8):   Dokumentacja dla biblioteki Boost C++
+Summary(pl.UTF-8):	Dokumentacja dla biblioteki Boost C++
 Group:		Documentation
 Requires:	%{name}-devel = %{version}-%{release}
 
