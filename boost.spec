@@ -422,6 +422,7 @@ Summary:	Header files for boost::program_options
 Summary(pl.UTF-8):	Pliki nagłówkowe dla boost::program_options
 Group:		Development/Libraries
 Requires:	%{name}-any-devel = %{version}-%{release}
+Requires:	%{name}-bind-devel = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-program_options = %{version}-%{release}
 
