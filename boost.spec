@@ -1,4 +1,8 @@
 #
+# TODO:
+# - /usr/include/boost/detail/atomic_cont_gcc.hpp includes bits/atomicity.h
+#   but new libstdc++ has ext/atomicity.h
+#
 # Conditional build:
 %bcond_without	python	# without boost-python support
 #
