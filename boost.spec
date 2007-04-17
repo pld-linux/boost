@@ -683,7 +683,7 @@ bjam \
 	-sGXX="%{__cxx}" \
 	-sGCC="%{__cc}" \
 	-sHAVE_ICU=1 -sICU_PATH=/usr \
-	-sBUILD="release <threading>multi <shared-linkable>true <inlining>on" \
+	-sBUILD="release <threading>multi <shared-linkable>true <inlining>on <debug-symbols>on" \
 	-sPYTHON_ROOT=$PYTHON_ROOT \
 	-sPYTHON_VERSION=$PYTHON_VERSION
 
