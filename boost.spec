@@ -18,6 +18,7 @@ Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
 # Source0-md5:	2b999b2fb7798e1737d1fff8fac602ef
 Patch0:		%{name}-python.patch
 Patch1:		%{name}-archive_iterator_segv.patch
+Patch2:		%{name}-atomicity.patch
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.3
 BuildRequires:	bzip2-devel
@@ -658,6 +659,7 @@ Dokumentacja dla biblioteki Boost C++.
 %setup -q -n %{name}_%{_fver}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p0
 
 # don't know how to pass it through (b)jam -s (no way?)
 # due to oversophisticated build flags system
