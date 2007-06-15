@@ -1,7 +1,7 @@
 #
 # TODO:
-# - /usr/include/boost/detail/atomic_cont_gcc.hpp includes bits/atomicity.h
-#   but new libstdc++ has ext/atomicity.h
+# - review python fixes.
+# - add new subpackages and update files.
 #
 # Conditional build:
 %bcond_without	python	# without boost-python support
@@ -10,15 +10,14 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.33.1
-Release:	10
+Version:	1.34.0
+Release:	0.1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
-# Source0-md5:	2b999b2fb7798e1737d1fff8fac602ef
-Patch0:		%{name}-python.patch
-Patch1:		%{name}-archive_iterator_segv.patch
-Patch2:		%{name}-atomicity.patch
+# Source0-md5:	ed5b9291ffad776f8757a916e1726ad0
+Patch0:		%{name}-atomicity.patch
+#Patch1:		%{name}-python.patch
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.3
 BuildRequires:	bzip2-devel
@@ -657,13 +656,15 @@ Dokumentacja dla biblioteki Boost C++.
 
 %prep
 %setup -q -n %{name}_%{_fver}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p0
+%patch0 -p0
+#patch1 -p1
 
-# don't know how to pass it through (b)jam -s (no way?)
-# due to oversophisticated build flags system
-%{__perl} -pi -e 's/ -O3 / %{rpmcxxflags} /' tools/build/v1/gcc-tools.jam
+# - don't know how to pass it through (b)jam -s (no way?)
+#   due to oversophisticated build flags system.
+# - pass -fPIC due to <shared-linkable> removal.
+%{__perl} -pi -e 's/ -O3 / %{rpmcxxflags} -fPIC /' tools/build/v2/tools/gcc.jam
+# - we pass debug flags in cxxflags, so remove hardcoded -g.
+%{__perl} -pi -e 's/ -g / -gdwarf-2 -g2 /' tools/build/v2/tools/gcc.jam
 
 %ifarch alpha
 # -pthread gcc parameter doesn't add _REENTRANT to cpp macros on alpha (only)
@@ -681,13 +682,11 @@ PYTHON_ROOT=
 PYTHON_VERSION=
 %endif
 bjam \
-	-d2 \
-	-sGXX="%{__cxx}" \
-	-sGCC="%{__cc}" \
-	-sHAVE_ICU=1 -sICU_PATH=/usr \
-	-sBUILD="release <threading>multi <shared-linkable>true <inlining>on <debug-symbols>on" \
-	-sPYTHON_ROOT=$PYTHON_ROOT \
-	-sPYTHON_VERSION=$PYTHON_VERSION
+	-d2 --toolset=gcc \
+	variant=release threading=multi inlining=on debug-symbols=on
+
+#	-sPYTHON_ROOT=$PYTHON_ROOT \
+#	-sPYTHON_VERSION=$PYTHON_VERSION
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -695,25 +694,21 @@ install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}}
 
 cp -rf boost $RPM_BUILD_ROOT%{_includedir}
 
-install bin/boost/libs/*/build/*.a/*/release/inlining-on/shared-linkable-true/*/lib*.a $RPM_BUILD_ROOT%{_libdir}
-install bin/boost/libs/*/build/*.so/*/release/inlining-on/shared-linkable-true/*/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
-# use cp -d, install follows symlinks instead of preserving them!
-cp -df bin/boost/libs/*/build/*.so/*/release/inlining-on/shared-linkable-true/*/lib*.so $RPM_BUILD_ROOT%{_libdir}
+install bin.v2/libs/*/build/gcc-*/release/debug-symbols-on/inlining-on/link-static/threading-multi/lib*.a $RPM_BUILD_ROOT%{_libdir}
+install bin.v2/libs/*/build/gcc-*/release/debug-symbols-on/inlining-on/threading-multi/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
 
-# create symlinks without -gcc-mt-* things in names
-for f in $RPM_BUILD_ROOT%{_libdir}/*.so.*; do
+# create symlinks without -gcc42-mt-* things in names
+for f in $RPM_BUILD_ROOT%{_libdir}/*.so.*.*.*; do
 	[ -f "$f" ] || continue
 	f=$(basename "$f")
-	soname=$(basename "$f" | sed -e 's#-gcc-mt-.*#.so#g')
-
-	ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/${soname}"
+	soname=$(basename "$f" | sed -e 's#-gcc42-mt-.*#.so#g')
+	ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/$soname"
 done
 for f in $RPM_BUILD_ROOT%{_libdir}/*.a; do
 	[ -f "$f" ] || continue
 	f=$(basename "$f")
-	soname=$(basename "$f" | sed -e 's#-gcc-mt-.*#.a#g')
-
-	ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/${soname}"
+	soname=$(basename "$f" | sed -e 's#-gcc42-mt-.*#.a#g')
+	ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/$soname"
 done
 
 # documentation
@@ -889,7 +884,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/noncopyable.hpp
 %{_includedir}/boost/nondet_random.hpp
 %{_includedir}/boost/none.hpp
-%{_includedir}/boost/none_t.hpp
 %{_includedir}/boost/non_type.hpp
 %dir %{_includedir}/boost/numeric
 %{_includedir}/boost/numeric/interval*
@@ -1084,13 +1078,11 @@ rm -rf $RPM_BUILD_ROOT
 %files test
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor*.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_unit_test_framework*.so.*.*.*
 
 %files test-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor*.so
-%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor*.so
 %attr(755,root,root) %{_libdir}/libboost_unit_test_framework*.so
 %{_includedir}/boost/test
 
