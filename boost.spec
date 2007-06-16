@@ -663,8 +663,6 @@ Dokumentacja dla biblioteki Boost C++.
 #   due to oversophisticated build flags system.
 # - pass -fPIC due to <shared-linkable> removal.
 %{__perl} -pi -e 's/ -O3 / %{rpmcxxflags} -fPIC /' tools/build/v2/tools/gcc.jam
-# - we pass debug flags in cxxflags, so remove hardcoded -g.
-%{__perl} -pi -e 's/ -g / -gdwarf-2 -g2 /' tools/build/v2/tools/gcc.jam
 
 %ifarch alpha
 # -pthread gcc parameter doesn't add _REENTRANT to cpp macros on alpha (only)
