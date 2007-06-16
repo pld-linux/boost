@@ -1,5 +1,6 @@
 #
 # TODO:
+# - pass %{__cxx}
 # - review python fixes.
 # - add new subpackages and update files.
 #
@@ -17,7 +18,7 @@ Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
 # Source0-md5:	ed5b9291ffad776f8757a916e1726ad0
 Patch0:		%{name}-atomicity.patch
-#Patch1:		%{name}-python.patch
+Patch1:		%{name}-python.patch
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.3
 BuildRequires:	bzip2-devel
@@ -657,7 +658,7 @@ Dokumentacja dla biblioteki Boost C++.
 %prep
 %setup -q -n %{name}_%{_fver}
 %patch0 -p0
-#patch1 -p1
+%patch1 -p1
 
 # - don't know how to pass it through (b)jam -s (no way?)
 #   due to oversophisticated build flags system.
@@ -682,9 +683,6 @@ PYTHON_VERSION=
 bjam \
 	-d2 --toolset=gcc \
 	variant=release threading=multi inlining=on debug-symbols=on
-
-#	-sPYTHON_ROOT=$PYTHON_ROOT \
-#	-sPYTHON_VERSION=$PYTHON_VERSION
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -1015,6 +1013,7 @@ rm -rf $RPM_BUILD_ROOT
 %files date_time-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_date_time*.so
+%{_includedir}/boost/date_time.hpp
 %{_includedir}/boost/date_time
 
 %files date_time-static
@@ -1028,6 +1027,7 @@ rm -rf $RPM_BUILD_ROOT
 %files filesystem-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_filesystem*.so
+%{_includedir}/boost/filesystem.hpp
 %{_includedir}/boost/filesystem
 
 %files filesystem-static
