@@ -697,17 +697,17 @@ cp -rf boost $RPM_BUILD_ROOT%{_includedir}
 install bin.v2/libs/*/build/gcc-*/release/debug-symbols-on/inlining-on/link-static/threading-multi/lib*.a $RPM_BUILD_ROOT%{_libdir}
 install bin.v2/libs/*/build/gcc-*/release/debug-symbols-on/inlining-on/threading-multi/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
 
-# create symlinks without -gcc42-mt-* things in names
+# create symlinks without -gccXX-mt-* things in names
 for f in $RPM_BUILD_ROOT%{_libdir}/*.so.*.*.*; do
 	[ -f "$f" ] || continue
 	f=$(basename "$f")
-	soname=$(basename "$f" | sed -e 's#-gcc42-mt-.*#.so#g')
+	soname=$(basename "$f" | sed -e 's#-gcc..-mt-.*#.so#g')
 	ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/$soname"
 done
 for f in $RPM_BUILD_ROOT%{_libdir}/*.a; do
 	[ -f "$f" ] || continue
 	f=$(basename "$f")
-	soname=$(basename "$f" | sed -e 's#-gcc42-mt-.*#.a#g')
+	soname=$(basename "$f" | sed -e 's#-gcc..-mt-.*#.a#g')
 	ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/$soname"
 done
 
