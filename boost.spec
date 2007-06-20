@@ -2,7 +2,6 @@
 # TODO:
 # - pass %{__cxx}
 # - review python fixes.
-# - add new subpackages and update files.
 #
 # Conditional build:
 %bcond_without	python	# without boost-python support
@@ -12,7 +11,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.34.0
-Release:	0.1
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
@@ -407,6 +406,44 @@ Static boost::filesystem library.
 %description filesystem-static -l pl.UTF-8
 Biblioteka statyczna boost::filesystem.
 
+%package graph
+Summary:	General purpose, generic C++ library for graph data structures and graph algorithms
+Summary(pl.UTF-8):	Biblioteka ogólnego przeznaczenia w C++ dla struktur danych typu grafy oraz algorytmów związanych z grafami
+Group:		Libraries
+
+%description graph
+The boost::graph library provides portable facilities to operate on
+graph data structures using graph algorithms.
+
+%description graph -l pl.UTF-8
+Przenośna biblioteka boost::graph dostarcza ułatwienia w operacjach na
+strukturach danych typu graf za pomocą algorytmów związanych z
+grafami.
+
+%package graph-devel
+Summary:	Header files for boost::graph
+Summary(pl.UTF-8):	Pliki nagłówkowe dla boost::graph
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description graph-devel
+Header files for boost::graph library.
+
+%description graph-devel -l pl.UTF-8
+Pliki nagłówkowe dla biblioteki boost::graph.
+
+%package graph-static
+Summary:	Static boost::graph library
+Summary(pl.UTF-8):	Biblioteka statyczna boost::graph
+Group:		Development/Libraries
+Requires:	%{name}-graph-devel = %{version}-%{release}
+
+%description graph-static
+Static boost::graph library.
+
+%description graph-static -l pl.UTF-8
+Biblioteka statyczna boost::graph.
+
 %package program_options
 Summary:	Access to program options, via conventional methods such as command line and config file
 Summary(pl.UTF-8):	Dostęp do opcji programu za pomocą typowych metod, jak linia poleceń i plik konfiguracyjny
@@ -532,6 +569,14 @@ inlined C++.
 Szkielet parsera LL reprezentujący parsery jako gramatyki EBNF
 bezpośrednio w kodzie C++.
 
+%package statechart-devel
+Summary:	C++ library for finite state machines
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description statechart-devel
+C++ library for finite state machines.
+
 %package test
 Summary:	Support for program testing and  execution monitoring
 Summary(pl.UTF-8):	Wsparcie dla testowania i monitorowania programu
@@ -615,6 +660,35 @@ Portable C++ threads library - static library.
 %description thread-static -l pl.UTF-8
 Przenośna biblioteka wątków dla C++ - biblioteka statyczna.
 
+%package tr1-devel
+Summary:	An implementation of the C++ Technical Report on Standard Library Extensions
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description tr1-devel
+The TR1 library provides an implementation of the C++ Technical Report
+on Standard Library Extensions. This library does not itself implement
+the TR1 components, rather it's a thin wrapper that will include your
+standard library's TR1 implementation (if it has one), otherwise it
+will include the Boost Library equivalents, and import them into
+namespace std::tr1.
+
+%package typeof
+Summary:	Emulates C++ typeid()
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description typeof
+Emulates C++ typeid().
+
+%package typeof-devel
+Summary:	Emulates C++ typeid()
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description typeof-devel
+Emulates C++ typeid().
+
 %package uBLAS-devel
 Summary:	Basic linear algebra for dense, packed and sparse matrices
 Summary(pl.UTF-8):	Prosta liniowa algebra dla gęstych, upakowanych i rzadkich macierzy
@@ -631,6 +705,18 @@ Biblioteka uBLAS dostarcza wzorce klas C++ dla gęstych, jednostkowych
 i rzadkich wektorów oraz gęstych, jednostkowych, trójkątnych,
 diagonalnych, symetrycznych, hermitowskich i rzadkich macierzy.
 
+%package wave
+Summary:	Boost.Wave - a standard compliant C++ preprocessor library
+Summary(pl.UTF-8):	Boost.Wave - zgodna ze standardem biblioteka preprocesora C++
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description wave
+Boost.Wave - a standard compliant C++ preprocessor library.
+
+%description wave -l pl.UTF-8
+Boost.Wave - zgodna ze standardem biblioteka preprocesora C++.
+
 %package wave-devel
 Summary:	Boost.Wave - a standard compliant C++ preprocessor library
 Summary(pl.UTF-8):	Boost.Wave - zgodna ze standardem biblioteka preprocesora C++
@@ -639,9 +725,38 @@ Requires:	%{name}-devel = %{version}-%{release}
 
 %description wave-devel
 Boost.Wave - a standard compliant C++ preprocessor library.
+Development files.
 
 %description wave-devel -l pl.UTF-8
+Boost.Wave - zgodna ze standardem biblioteka preprocesora C++. Pliki
+dla developera.
+
+%package wave-static
+Summary:	Boost.Wave - a standard compliant C++ preprocessor library
+Summary(pl.UTF-8):	Boost.Wave - zgodna ze standardem biblioteka preprocesora C++
+Group:		Development/Libraries
+Requires:	%{name}-wave-devel = %{version}-%{release}
+
+%description wave-static
+Boost.Wave - a standard compliant C++ preprocessor library. Static
+library.
+
+%description wave-static -l pl.UTF-8
 Boost.Wave - zgodna ze standardem biblioteka preprocesora C++.
+Biblioteka statyczna.
+
+%package xpressive-devel
+Summary:	Object-oriented regular expression template library for C++
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description xpressive-devel
+xpressive is an advanced, object-oriented regular expression template
+library for C++. Regular expressions can be written as strings that
+are parsed at run-time, or as expression templates that are parsed at
+compile-time. Regular expressions can refer to each other and to
+themselves recursively, allowing you to build arbitrarily complicated
+grammars out of them.
 
 %package doc
 Summary:	Boost C++ Library documentation
@@ -767,6 +882,9 @@ rm -rf $RPM_BUILD_ROOT
 %post	filesystem -p /sbin/ldconfig
 %postun	filesystem -p /sbin/ldconfig
 
+%post	graph -p /sbin/ldconfig
+%postun	graph -p /sbin/ldconfig
+
 %post	python	-p /sbin/ldconfig
 %postun python	-p /sbin/ldconfig
 
@@ -781,6 +899,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	test	-p /sbin/ldconfig
 %postun	test	-p /sbin/ldconfig
+
+%post	typeof	-p /sbin/ldconfig
+%postun	typeof	-p /sbin/ldconfig
+
+%post   wave    -p /sbin/ldconfig
+%postun wave    -p /sbin/ldconfig
 
 %post	thread	-p /sbin/ldconfig
 %postun	thread	-p /sbin/ldconfig
@@ -844,6 +968,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/dynamic_bitset_fwd.hpp
 %{_includedir}/boost/dynamic_property_map.hpp
 %{_includedir}/boost/enable_shared_from_this.hpp
+%{_includedir}/boost/foreach.hpp
 %{_includedir}/boost/format
 %{_includedir}/boost/format.hpp
 %{_includedir}/boost/function
@@ -853,7 +978,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/functional
 %{_includedir}/boost/functional.hpp
 %{_includedir}/boost/generator_iterator.hpp
-%{_includedir}/boost/graph
 %{_includedir}/boost/implicit_cast.hpp
 %{_includedir}/boost/indirect_reference.hpp
 %{_includedir}/boost/integer
@@ -893,6 +1017,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/pfto.hpp
 %{_includedir}/boost/pool
 %{_includedir}/boost/pointee.hpp
+%{_includedir}/boost/pointer_cast.hpp
+%{_includedir}/boost/pointer_to_other.hpp
 %{_includedir}/boost/preprocessor
 %{_includedir}/boost/preprocessor.hpp
 %{_includedir}/boost/progress.hpp
@@ -1034,6 +1160,19 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libboost_filesystem*.a
 
+%files graph
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_graph*.so.*.*.*
+
+%files graph-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_graph*.so
+%{_includedir}/boost/graph
+
+%files graph-static
+%defattr(644,root,root,755)
+%{_libdir}/libboost_grap*.a
+
 %files program_options
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_program_options*.so.*.*.*
@@ -1073,6 +1212,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/spirit.hpp
 %{_includedir}/boost/spirit
 
+%files statechart-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/statechart
+
+%files tr1-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/tr1
+
 %files test
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor*.so.*.*.*
@@ -1104,15 +1251,31 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_thread*.a
 
+%files typeof
+%defattr(644,root,root,755)
+%{_includedir}/boost/typeof
+
 %files uBLAS-devel
 %defattr(644,root,root,755)
 %{_includedir}/boost/numeric/ublas
 
+%files wave
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_wave*.so.*.*.*
+
 %files wave-devel
 %defattr(644,root,root,755)
-%{_libdir}/libboost_wave*.a
+%attr(755,root,root) %{_libdir}/libboost_wave*.so
 %{_includedir}/boost/wave
 %{_includedir}/boost/wave.hpp
+
+%files wave-static
+%defattr(644,root,root,755)
+%{_libdir}/libboost_wave*.a
+
+%files xpressive-devel
+%defattr(644,root,root,755)
+%{_includedir}/boost/xpressive
 
 %files doc
 %defattr(644,root,root,755)
