@@ -571,11 +571,15 @@ bezpośrednio w kodzie C++.
 
 %package statechart-devel
 Summary:	C++ library for finite state machines
+Summary(pl.UTF-8):	Biblioteka C++ do automatów skończonych
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description statechart-devel
 C++ library for finite state machines.
+
+%description statechart-devel -l pl.UTF-8
+Biblioteka C++ do automatów skończonych.
 
 %package test
 Summary:	Support for program testing and  execution monitoring
@@ -662,6 +666,7 @@ Przenośna biblioteka wątków dla C++ - biblioteka statyczna.
 
 %package tr1-devel
 Summary:	An implementation of the C++ Technical Report on Standard Library Extensions
+Summary(pl.UTF-8):	Implementacja C++ TR dla rozszerzeń biblioteki standardowej
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -673,21 +678,26 @@ standard library's TR1 implementation (if it has one), otherwise it
 will include the Boost Library equivalents, and import them into
 namespace std::tr1.
 
-%package typeof
-Summary:	Emulates C++ typeid()
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-
-%description typeof
-Emulates C++ typeid().
+%description tr1-devel -l pl.UTF-8
+Biblioteka TR1 udostępnia implementację C++ Technical Report on
+Standard Library Extensions (raporto technicznego dotyczącego
+rozszerzeń biblioteki standardowej C++). Biblioteka jako taka nie
+implementuje komponentów TR1, lecz jest cienkim opakowaniem
+zawierającym implementację TR1 z zainstalowanej biblioteki
+standardowej (jeśli taka jest) lub zawiera odpowiedniki z biblioteki
+Boost zaimportowane do przestrzeni nazw std::tr1.
 
 %package typeof-devel
 Summary:	Emulates C++ typeid()
+Summary(pl.UTF-8):	Emulacja typeid() z C++
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description typeof-devel
 Emulates C++ typeid().
+
+%description typeof-devel -l pl.UTF-8
+Emulacja typeid() z C++.
 
 %package uBLAS-devel
 Summary:	Basic linear algebra for dense, packed and sparse matrices
@@ -747,6 +757,7 @@ Biblioteka statyczna.
 
 %package xpressive-devel
 Summary:	Object-oriented regular expression template library for C++
+Summary(pl.UTF-8):	Zorientowana obiektowo biblioteka szablonów wyrażeń regularnych dla C++
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -757,6 +768,14 @@ are parsed at run-time, or as expression templates that are parsed at
 compile-time. Regular expressions can refer to each other and to
 themselves recursively, allowing you to build arbitrarily complicated
 grammars out of them.
+
+%description xpressive-devel -l pl.UTF-8
+xpressive to zaawansowana, zorientowana obiektowo biblioteka szablonów
+wyrażeń regularnych dla C++. Wyrażenia regularne mogą być pisane jako
+łańcuchy znaków analizowane w czasie działania lub szablony wyrażeń
+analizowane w czasie kompilacji. Wyrażenia regularne mogą odwoływać
+się do siebie nawzajem i rekurencyjnie do siebie samych, co pozwala na
+tworzenie z nich dowolnie złożonych gramatyk.
 
 %package doc
 Summary:	Boost C++ Library documentation
@@ -899,9 +918,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	test	-p /sbin/ldconfig
 %postun	test	-p /sbin/ldconfig
-
-%post	typeof	-p /sbin/ldconfig
-%postun	typeof	-p /sbin/ldconfig
 
 %post   wave    -p /sbin/ldconfig
 %postun wave    -p /sbin/ldconfig
@@ -1251,7 +1267,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_thread*.a
 
-%files typeof
+%files typeof-devel
 %defattr(644,root,root,755)
 %{_includedir}/boost/typeof
 
