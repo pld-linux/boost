@@ -223,6 +223,7 @@ Summary:	Generalized binders for function/object/pointers and member functions
 Summary(pl.UTF-8):	Uogólnione bindery dla funkcji/obiektów/wskaźników oraz metod
 Group:		Development/Libraries
 Requires:	%{name}-ref-devel = %{version}-%{release}
+Requires:	%{name}-signals-devel = %{version}-%{release}
 Provides:	boost-mem_fn-devel = %{version}-%{release}
 Obsoletes:	boost-compose-devel
 Obsoletes:	boost-mem_fn-devel
