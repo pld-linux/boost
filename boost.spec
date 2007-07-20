@@ -19,7 +19,7 @@ Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
 Patch0:		%{name}-atomicity.patch
 Patch1:		%{name}-python.patch
 URL:		http://www.boost.org/
-BuildRequires:	boost-jam >= 3.1.3
+BuildRequires:	boost-jam >= 3.1.12
 BuildRequires:	bzip2-devel
 BuildRequires:	libicu-devel
 BuildRequires:	libstdc++-devel
