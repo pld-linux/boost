@@ -1,7 +1,6 @@
 #
 # TODO:
 # - pass %{__cxx}
-# - review python fixes.
 #
 # Conditional build:
 %bcond_without	python	# without boost-python support
@@ -10,14 +9,12 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.34.0
-Release:	2
+Version:	1.34.1
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
-# Source0-md5:	ed5b9291ffad776f8757a916e1726ad0
-Patch0:		%{name}-atomicity.patch
-Patch1:		%{name}-python.patch
+# Source0-md5:	2d938467e8a448a2c9763e0a9f8ca7e5
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.12
 BuildRequires:	bzip2-devel
@@ -792,8 +789,6 @@ Dokumentacja dla biblioteki Boost C++.
 
 %prep
 %setup -q -n %{name}_%{_fver}
-%patch0 -p0
-%patch1 -p1
 
 # - don't know how to pass it through (b)jam -s (no way?)
 #   due to oversophisticated build flags system.
