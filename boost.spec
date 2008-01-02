@@ -50,6 +50,7 @@ Summary:	Boost C++ development headers
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek C++ Boost
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-call_traits-devel = %{version}-%{release}
 Requires:	%{name}-ref-devel = %{version}-%{release}
 Requires:	libstdc++-devel
 # temporary Provides (until CVS HEAD stops using it)?
