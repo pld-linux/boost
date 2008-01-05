@@ -10,7 +10,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.34.1
-Release:	1
+Release:	2
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
@@ -50,10 +50,10 @@ Summary:	Boost C++ development headers
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek C++ Boost
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	%{name}-call_traits-devel = %{version}-%{release}
 Requires:	%{name}-ref-devel = %{version}-%{release}
 Requires:	libstdc++-devel
 # temporary Provides (until CVS HEAD stops using it)?
+Provides:	boost-call_traits-devel = %{version}-%{release}
 Provides:	boost-concept_check-devel = %{version}-%{release}
 Provides:	boost-conversion-devel = %{version}-%{release}
 Provides:	boost-mpl-devel = %{version}-%{release}
@@ -61,6 +61,7 @@ Provides:	boost-preprocessor-devel = %{version}-%{release}
 Provides:	boost-static_assert-devel = %{version}-%{release}
 Provides:	boost-type_traits-devel = %{version}-%{release}
 Provides:	boost-utility-devel = %{version}-%{release}
+Obsoletes:	boost-call_traits-devel
 Obsoletes:	boost-compose-devel
 Obsoletes:	boost-concept_check-devel
 Obsoletes:	boost-conversion-devel
@@ -237,26 +238,6 @@ boost::bind jest uogólnieniem standardowych funkcji std::bind1st i
 std::bind2nd. Ten pakiet zawiera także boost::mem_fn, który jest
 uogólnieniem standardowych funkcji std::mem_fun i std::mem_fun_ref.
 
-%package call_traits-devel
-Summary:	Defines types for passing parameters
-Summary(pl.UTF-8):	Definiowanie typów dla przekazywania parametrów
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-
-%description call_traits-devel
-boost::call_traits<T> encapsulates the "best" method to pass a
-parameter of some type T to or from a function. The purpose of
-call_traits is to ensure that problems like "references to references"
-never occur, and that parameters are passed in the most efficient
-manner possible.
-
-%description call_traits-devel -l pl.UTF-8
-boost::call_traits<T> zawiera "najlepszą" metodę przekazywania
-parametrów jakiegoś typu T do lub z funkcji. Celem call_traits jest
-zapewnienie że problemy takie jak "referencja referencji" nigdy nie
-wystąpią i że parametry są przekazywane w możliwie najbardziej
-efektywny sposób.
-
 %package compatibility-devel
 Summary:	Help for non-conforming standard libraries
 Summary(pl.UTF-8):	Pomoc dla nie trzymających standardu bibliotek
@@ -295,7 +276,6 @@ użytkownicy STL-a docenią jej użyteczność.
 Summary:	Empty member optimization
 Summary(pl.UTF-8):	Optymalizacja pustego elementu
 Group:		Development/Libraries
-Requires:	%{name}-call_traits-devel = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description compressed_pair-devel
@@ -598,7 +578,6 @@ monitorowania wykonania programu.
 Summary:	Header files for boost::test
 Summary(pl.UTF-8):	Pliki nagłówkowe dla boost::test
 Group:		Development/Libraries
-Requires:	%{name}-call_traits-devel = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-test = %{version}-%{release}
 #TODO:
@@ -940,6 +919,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/assign
 %{_includedir}/boost/assign.hpp
 %{_includedir}/boost/blank_fwd.hpp
+%{_includedir}/boost/call_traits.hpp
 %{_includedir}/boost/cast.hpp
 %{_includedir}/boost/checked_delete.hpp
 %{_includedir}/boost/concept_archetype.hpp
@@ -954,6 +934,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/detail/atomic_count*.hpp
 %{_includedir}/boost/detail/bad_weak_ptr.hpp
 %{_includedir}/boost/detail/binary_search.hpp
+%{_includedir}/boost/detail/call_traits.hpp
 %{_includedir}/boost/detail/catch_exceptions.hpp
 %{_includedir}/boost/detail/dynamic_bitset.hpp
 %{_includedir}/boost/detail/endian.hpp
@@ -969,6 +950,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/detail/named_template_params.hpp
 %{_includedir}/boost/detail/no_exceptions_support.hpp
 %{_includedir}/boost/detail/numeric_traits.hpp
+%{_includedir}/boost/detail/ob_call_traits.hpp
 %{_includedir}/boost/detail/quick_allocator.hpp
 %{_includedir}/boost/detail/reference_content.hpp
 %{_includedir}/boost/detail/select_type.hpp
@@ -1124,12 +1106,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/bind.hpp
 %{_includedir}/boost/get_pointer.hpp
 %{_includedir}/boost/mem_fn.hpp
-
-%files call_traits-devel
-%defattr(644,root,root,755)
-%{_includedir}/boost/call_traits.hpp
-%{_includedir}/boost/detail/call_traits.hpp
-%{_includedir}/boost/detail/ob_call_traits.hpp
 
 %files compatibility-devel
 %defattr(644,root,root,755)
