@@ -50,7 +50,6 @@ Summary:	Boost C++ development headers
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek C++ Boost
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	%{name}-ref-devel = %{version}-%{release}
 Requires:	libstdc++-devel
 # temporary Provides (until CVS HEAD stops using it)?
 Provides:	boost-call_traits-devel = %{version}-%{release}
@@ -58,6 +57,7 @@ Provides:	boost-concept_check-devel = %{version}-%{release}
 Provides:	boost-conversion-devel = %{version}-%{release}
 Provides:	boost-mpl-devel = %{version}-%{release}
 Provides:	boost-preprocessor-devel = %{version}-%{release}
+Provides:	boost-ref-devel = %{version}-%{release}
 Provides:	boost-static_assert-devel = %{version}-%{release}
 Provides:	boost-type_traits-devel = %{version}-%{release}
 Provides:	boost-utility-devel = %{version}-%{release}
@@ -67,6 +67,7 @@ Obsoletes:	boost-concept_check-devel
 Obsoletes:	boost-conversion-devel
 Obsoletes:	boost-mpl-devel
 Obsoletes:	boost-preprocessor-devel
+Obsoletes:	boost-ref-devel
 Obsoletes:	boost-static_assert-devel
 Obsoletes:	boost-type_traits-devel
 Obsoletes:	boost-utility-devel
@@ -221,7 +222,6 @@ o stałym rozmiarze.
 Summary:	Generalized binders for function/object/pointers and member functions
 Summary(pl.UTF-8):	Uogólnione bindery dla funkcji/obiektów/wskaźników oraz metod
 Group:		Development/Libraries
-Requires:	%{name}-ref-devel = %{version}-%{release}
 Requires:	%{name}-signals-devel = %{version}-%{release}
 Provides:	boost-mem_fn-devel = %{version}-%{release}
 Obsoletes:	boost-compose-devel
@@ -466,22 +466,6 @@ Static boost::program_options library.
 %description program_options-static -l pl.UTF-8
 Biblioteka statyczna boost::program_options.
 
-%package ref-devel
-Summary:	Small library useful for passing references to function templates
-Summary(pl.UTF-8):	Mała biblioteka użyteczna przy przekazywaniu referencji do wzorców funkcji
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-
-%description ref-devel
-boost::ref library is a small library that is useful for passing
-references to function templates (algorithms) that would usually take
-copies of their arguments.
-
-%description ref-devel -l pl.UTF-8
-Biblioteka boost::ref jest małą biblioteką która jest użyteczna w
-przypadku przekazywania referencji do wzorców funkcji (algorytmów)
-które zazwyczaj biorą kopię swoich argumentów.
-
 %package signals
 Summary:	Signals & slots callback implementation
 Summary(pl.UTF-8):	Implementacja sygnałów i slotów
@@ -507,7 +491,6 @@ Requires:	%{name}-signals = %{version}-%{release}
 Requires:	%{name}-bind-devel = %{version}-%{release}
 #Requires:	%{name}-iterator_adaptors-devel = %{version}-%{release}
 #Requires:	%{name}-operators-devel = %{version}-%{release}
-Requires:	%{name}-ref-devel = %{version}-%{release}
 #Requires:	%{name}-smart_ptr-devel = %{version}-%{release}
 
 %description signals-devel
@@ -533,7 +516,6 @@ Summary:	LL parser framework
 Summary(pl.UTF-8):	Szkielet parsera LL
 Group:		Development/Libraries
 Requires:	%{name}-compressed_pair-devel = %{version}-%{release}
-Requires:	%{name}-ref-devel = %{version}-%{release}
 Requires:	%{name}-regex-devel = %{version}-%{release}
 Requires:	%{name}-thread-devel = %{version}-%{release}
 #TODO:
@@ -1024,6 +1006,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost/range
 %{_includedir}/boost/range.hpp
 %{_includedir}/boost/rational.hpp
+%{_includedir}/boost/ref.hpp
 %{_includedir}/boost/scoped_*.hpp
 %{_includedir}/boost/serialization
 %{_includedir}/boost/shared_*.hpp
@@ -1175,10 +1158,6 @@ rm -rf $RPM_BUILD_ROOT
 %files program_options-static
 %defattr(644,root,root,755)
 %{_libdir}/libboost_program_options*.a
-
-%files ref-devel
-%defattr(644,root,root,755)
-%{_includedir}/boost/ref.hpp
 
 %files signals
 %defattr(644,root,root,755)
