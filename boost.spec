@@ -404,6 +404,7 @@ Summary:	Header files for boost::graph
 Summary(pl.UTF-8):	Pliki nagłówkowe dla boost::graph
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-graph = %{version}-%{release}
 
 %description graph-devel
 Header files for boost::graph library.
