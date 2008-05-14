@@ -11,7 +11,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.35.0
-Release:	1
+Release:	2
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
@@ -142,7 +142,6 @@ klasy C++ i funkcje do Pythona.
 Summary:	Boost.Python development headers
 Summary(pl.UTF-8):	Pliki nagłówkowe dla Boost.Python
 Group:		Development/Libraries
-Requires:	%{name}-compressed_pair-devel = %{version}-%{release}
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-python = %{version}-%{release}
 
