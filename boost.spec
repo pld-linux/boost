@@ -59,6 +59,7 @@ Requires:	%{name}-graph = %{version}-%{release}
 Requires:	%{name}-program_options = %{version}-%{release}
 Requires:	%{name}-regex = %{version}-%{release}
 Requires:	%{name}-signals = %{version}-%{release}
+Requires:	%{name}-system = %{version}-%{release}
 Requires:	%{name}-test = %{version}-%{release}
 Requires:	%{name}-thread = %{version}-%{release}
 Requires:	%{name}-wave = %{version}-%{release}
@@ -179,6 +180,7 @@ Zbiór bibliotek daty-czasu.
 Summary:	Portable paths, iteration over directories, and other useful filesystem operations
 Summary(pl.UTF-8):	Przenośne ścieżki, iteracje katalogów i inne użyteczne operacje na systemie plików
 Group:		Libraries
+Requires:	%{name}-system = %{version}-%{release}
 Obsoletes:	boost < 1.33
 
 %description filesystem
@@ -283,7 +285,6 @@ Przenośna biblioteka wątków dla C++ - biblioteka dzielona.
 Summary:	Boost.Wave - a standard compliant C++ preprocessor library
 Summary(pl.UTF-8):	Boost.Wave - zgodna ze standardem biblioteka preprocesora C++
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
 
 %description wave
 Boost.Wave - a standard compliant C++ preprocessor library.
