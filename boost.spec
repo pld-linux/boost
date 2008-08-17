@@ -10,12 +10,12 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.35.0
-Release:	3
+Version:	1.36.0
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
-# Source0-md5:	dce952a7214e72d6597516bcac84048b
+# Source0-md5:	328bfec66c312150e4c2a78dcecb504b
 Patch0:		%{name}-climits.patch
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.12
@@ -456,6 +456,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_iostreams*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_math_*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_serialization*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_wserialization*.so.*.*.*
 
@@ -466,6 +467,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_filesystem*.so
 %attr(755,root,root) %{_libdir}/libboost_graph*.so
 %attr(755,root,root) %{_libdir}/libboost_iostreams*.so
+%attr(755,root,root) %{_libdir}/libboost_math_*.so
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor*.so
 %attr(755,root,root) %{_libdir}/libboost_program_options*.so
 %attr(755,root,root) %{_libdir}/libboost_regex*.so
@@ -483,6 +485,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_filesystem*.a
 %{_libdir}/libboost_grap*.a
 %{_libdir}/libboost_iostreams*.a
+%{_libdir}/libboost_math_*.a
 %{_libdir}/libboost_prg_exec_monitor*.a
 %{_libdir}/libboost_program_options*.a
 %{_libdir}/libboost_regex*.a
