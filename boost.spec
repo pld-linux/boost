@@ -11,7 +11,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.37.0
-Release:	1
+Release:	0.1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
@@ -29,9 +29,6 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	zlib-devel
 BuildConflicts:	gcc = 5:3.3.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-# who wants to fix python jamfiles?
-%define		no_install_post_check_so	1
 
 %description
 The Boost web site provides free peer-reviewed portable C++ source
