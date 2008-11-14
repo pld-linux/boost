@@ -315,7 +315,7 @@ Dokumentacja dla biblioteki Boost C++.
 # - don't know how to pass it through (b)jam -s (no way?)
 #   due to oversophisticated build flags system.
 # - pass -fPIC due to <shared-linkable> removal.
-%{__sed} -i 's/<optimization>speed : -O3/<optimization>speed : %{rpmcxxflags} -fPIC/' tools/build/v2/tools/gcc.jam
+%{__sed} -i "s/<optimization>speed : -O3/<optimization>speed : ${CXXFLAGS:-%rpmcxxflags} -fPIC/" tools/build/v2/tools/gcc.jam
 
 # cleanup -g switch to avoid override debuginfocflags.
 %{__sed} -i 's/<debug-symbols>on : -g/<debug-symbols>on :/' tools/build/v2/tools/gcc.jam
