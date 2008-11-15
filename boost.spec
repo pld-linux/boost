@@ -68,6 +68,7 @@ Requires:	%{name}-wave = %{version}-%{release}
 Requires:	libstdc++-devel
 Obsoletes:	boost-any-devel
 Obsoletes:	boost-array-devel
+Obsoletes:	boost-asio
 Obsoletes:	boost-bind-devel
 Obsoletes:	boost-call_traits-devel
 Obsoletes:	boost-compatibility-devel
