@@ -48,7 +48,7 @@ współpracują ze standardową biblioteką C++. Celem jest ustanowienie
 "istniejącej praktyki" i dostarczenie implementacji, tak że biblioteki
 "Boost" nadają się do ewentualnej standaryzacji. Niektóre z bibliotek
 już zostały zgłoszone do komitetu standaryzacyjnego C++ w nadchodzącym
-Raporcie Technicznym Biblioteki Standardowej C++
+Raporcie Technicznym Biblioteki Standardowej C++.
 
 %package devel
 Summary:	Boost C++ development headers
@@ -257,6 +257,12 @@ Group:		Libraries
 The Boost System library provides simple, light-weight error_code
 objects that encapsulate system-specific error code values, yet also
 provide access to more abstract and portable error conditions objects.
+
+%description system -l pl.UTF-8
+Biblioteka Boost System udostępnia proste, lekkie obiekty error_code
+obudowujące wartości kodów błędów specyficznych dla systemu, dając
+jednocześnie dostęp do bardziej abstrakcyjnych i przenośnych obiektów
+błędów.
 
 %package test
 Summary:	Support for program testing and execution monitoring
