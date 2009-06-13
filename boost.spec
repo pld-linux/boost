@@ -1,39 +1,36 @@
 #
+# TODO:
+#	- think about building MPI.
+#	- split shared libs from core package into -iostreams/-serialization.
+#
 # Conditional build:
-%bcond_without	doc	# don't mess with & pack docs (time/space-consumming)
 %bcond_without	python	# without boost-python support
 #
+%define		_fver	%(echo %{version} | tr . _)
+%define		svn	53868
+
 Summary:	The Boost C++ Libraries
-Summary(pl.UTF-8):   Biblioteki C++ "Boost"
+Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.33.1
-%define	_fver	%(echo %{version} | tr . _)
-Release:	0.1
+Version:	1.40.0
+Release:	0.%{svn}.1
 License:	Boost Software License and others
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.gz
-# Source0-md5:	a0be7261bfdc8a6c98a25f964766c7a5
-Patch0:		%{name}-python.patch
+Source0:	%{name}-svn-r%{svn}.tar.bz2
+# Source0-md5:	9878bd28c35f7257d5a6c22a8badbb11
+Patch0:		%{name}-climits.patch
+Patch1:		%{name}-link.patch
 URL:		http://www.boost.org/
-BuildRequires:	boost-jam >= 3.1.3
+BuildRequires:	boost-jam >= 3.1.12
+BuildRequires:	bzip2-devel
+BuildRequires:	expat-devel
+BuildRequires:	libicu-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	perl-base
-%{?with_python:BuildRequires:	python-devel >= 2.4}
+%{?with_python:BuildRequires:	python-devel >= 2.2}
+BuildRequires:	rpm-pythonprov
+BuildRequires:	zlib-devel
 BuildConflicts:	gcc = 5:3.3.1
-Obsoletes:	boost-date_time
-Obsoletes:	boost-filesystem
-Obsoletes:	boost-program_options
-Obsoletes:	boost-regex
-Obsoletes:	boost-signals
-Obsoletes:	boost-test
-Obsoletes:	boost-thread
-Provides:	boost-date_time
-Provides:	boost-filesystem
-Provides:	boost-program_options
-Provides:	boost-regex
-Provides:	boost-signals
-Provides:	boost-test
-Provides:	boost-thread
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -52,16 +49,27 @@ współpracują ze standardową biblioteką C++. Celem jest ustanowienie
 "istniejącej praktyki" i dostarczenie implementacji, tak że biblioteki
 "Boost" nadają się do ewentualnej standaryzacji. Niektóre z bibliotek
 już zostały zgłoszone do komitetu standaryzacyjnego C++ w nadchodzącym
-Raporcie Technicznym Biblioteki Standardowej C++
+Raporcie Technicznym Biblioteki Standardowej C++.
 
 %package devel
-Summary:	Boost C++ development libraries and headers
-Summary(pl.UTF-8):   Pliki nagłówkowe i biblioteki statyczne Boost C++
+Summary:	Boost C++ development headers
+Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek C++ Boost
 Group:		Development/Libraries
-Requires:	libstdc++-devel
 Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-date_time = %{version}-%{release}
+Requires:	%{name}-filesystem = %{version}-%{release}
+Requires:	%{name}-graph = %{version}-%{release}
+Requires:	%{name}-program_options = %{version}-%{release}
+Requires:	%{name}-regex = %{version}-%{release}
+Requires:	%{name}-signals = %{version}-%{release}
+Requires:	%{name}-system = %{version}-%{release}
+Requires:	%{name}-test = %{version}-%{release}
+Requires:	%{name}-thread = %{version}-%{release}
+Requires:	%{name}-wave = %{version}-%{release}
+Requires:	libstdc++-devel
 Obsoletes:	boost-any-devel
 Obsoletes:	boost-array-devel
+Obsoletes:	boost-asio
 Obsoletes:	boost-bind-devel
 Obsoletes:	boost-call_traits-devel
 Obsoletes:	boost-compatibility-devel
@@ -72,6 +80,7 @@ Obsoletes:	boost-conversion-devel
 Obsoletes:	boost-crc-devel
 Obsoletes:	boost-date_time-devel
 Obsoletes:	boost-filesystem-devel
+Obsoletes:	boost-graph-devel
 Obsoletes:	boost-mem_fn-devel
 Obsoletes:	boost-mpl-devel
 Obsoletes:	boost-preprocessor-devel
@@ -80,72 +89,40 @@ Obsoletes:	boost-ref-devel
 Obsoletes:	boost-regex-devel
 Obsoletes:	boost-signals-devel
 Obsoletes:	boost-spirit-devel
+Obsoletes:	boost-statechart-devel
 Obsoletes:	boost-static_assert-devel
 Obsoletes:	boost-test-devel
 Obsoletes:	boost-thread-devel
+Obsoletes:	boost-tr1-devel
 Obsoletes:	boost-type_traits-devel
+Obsoletes:	boost-typeof-devel
 Obsoletes:	boost-uBLAS-devel
 Obsoletes:	boost-utility-devel
-Provides:	boost-any-devel
-Provides:	boost-array-devel
-Provides:	boost-bind-devel
-Provides:	boost-call_traits-devel
-Provides:	boost-compatibility-devel
-Provides:	boost-compose-devel
-Provides:	boost-compressed_pair-devel
-Provides:	boost-concept_check-devel
-Provides:	boost-conversion-devel
-Provides:	boost-crc-devel
-Provides:	boost-date_time-devel
-Provides:	boost-filesystem-devel
-Provides:	boost-mem_fn-devel
-Provides:	boost-mpl-devel
-Provides:	boost-preprocessor-devel
-Provides:	boost-program_options-devel
-Provides:	boost-ref-devel
-Provides:	boost-regex-devel
-Provides:	boost-signals-devel
-Provides:	boost-spirit-devel
-Provides:	boost-static_assert-devel
-Provides:	boost-test-devel
-Provides:	boost-thread-devel
-Provides:	boost-type_traits-devel
-Provides:	boost-uBLAS-devel
-Provides:	boost-utility-devel
+Obsoletes:	boost-wave-devel
+Obsoletes:	boost-xpressive-devel
 
 %description devel
-Headers for the Boost C++ libraries.
+Header files for the Boost C++ libraries.
 
 %description devel -l pl.UTF-8
-Pliki nagłówkowe bibliotek Boost C++.
+Pliki nagłówkowe bibliotek C++ Boost.
 
 %package static
-Summary:	Boost C++ static libraries
-Summary(pl.UTF-8):   Biblioteki statyczne Boost C++
+Summary:	Static version of base Boost C++ libraries
+Summary(pl.UTF-8):	Statyczne wersje podstawowych bibliotek C++ Boost
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
-Obsoletes:	boost-date_time-static
-Obsoletes:	boost-filesystem-static
-Obsoletes:	boost-regex-static
-Obsoletes:	boost-signals-static
-Obsoletes:	boost-static_assert
-Obsoletes:	boost-test-static
-Provides:	boost-date_time-static
-Provides:	boost-filesystem-static
-Provides:	boost-regex-static
-Provides:	boost-signals-static
-Provides:	boost-static_assert
-Provides:	boost-test-static
+Obsoletes:	boost-static < 1.33
 
 %description static
-Boost C++ static libraries.
+Static version of base Boost C++ libraries.
 
 %description static -l pl.UTF-8
-Biblioteki statyczne Boost C++.
+Statyczne wersje podstawowych bibliotek C++ Boost.
 
 %package python
 Summary:	Boost.Python library
-Summary(pl.UTF-8):   biblioteka Boost.Python
+Summary(pl.UTF-8):	biblioteka Boost.Python
 Group:		Libraries
 %pyrequires_eq	python
 
@@ -168,7 +145,7 @@ klasy C++ i funkcje do Pythona.
 
 %package python-devel
 Summary:	Boost.Python development headers
-Summary(pl.UTF-8):   Pliki nagłówkowe dla Boost.Python
+Summary(pl.UTF-8):	Pliki nagłówkowe dla Boost.Python
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-python = %{version}-%{release}
@@ -181,7 +158,7 @@ Pliki nagłówkowe dla biblioteki Boost.Python.
 
 %package python-static
 Summary:	Static version of Boost.Python library
-Summary(pl.UTF-8):   Statyczna wersja biblioteki Boost.Python
+Summary(pl.UTF-8):	Statyczna wersja biblioteki Boost.Python
 Group:		Development/Libraries
 Requires:	%{name}-python-devel = %{version}-%{release}
 
@@ -191,9 +168,143 @@ Static version of Boost.Python library.
 %description python-static -l pl.UTF-8
 Statyczna wersja biblioteki Boost.Python.
 
+%package date_time
+Summary:	Date-Time library
+Summary(pl.UTF-8):	Biblioteka daty-czasu
+Group:		Libraries
+Obsoletes:	boost < 1.33
+
+%description date_time
+A set of date-time libraries.
+
+%description date_time -l pl.UTF-8
+Zbiór bibliotek daty-czasu.
+
+%package filesystem
+Summary:	Portable paths, iteration over directories, and other useful filesystem operations
+Summary(pl.UTF-8):	Przenośne ścieżki, iteracje katalogów i inne użyteczne operacje na systemie plików
+Group:		Libraries
+Requires:	%{name}-system = %{version}-%{release}
+Obsoletes:	boost < 1.33
+
+%description filesystem
+The boost::filesystem library provides portable facilities to query
+and manipulate paths, files, and directories.
+
+%description filesystem -l pl.UTF-8
+Przenośna biblioteka boost::filesystem dostarcza ułatwienia w
+operacjach na ścieżkach, plikach i katalogach.
+
+%package graph
+Summary:	General purpose, generic C++ library for graph data structures and graph algorithms
+Summary(pl.UTF-8):	Biblioteka ogólnego przeznaczenia w C++ dla struktur danych typu grafy oraz algorytmów związanych z grafami
+Group:		Libraries
+
+%description graph
+The boost::graph library provides portable facilities to operate on
+graph data structures using graph algorithms.
+
+%description graph -l pl.UTF-8
+Przenośna biblioteka boost::graph dostarcza ułatwienia w operacjach na
+strukturach danych typu graf za pomocą algorytmów związanych z
+grafami.
+
+%package program_options
+Summary:	Access to program options, via conventional methods such as command line and config file
+Summary(pl.UTF-8):	Dostęp do opcji programu za pomocą typowych metod, jak linia poleceń i plik konfiguracyjny
+Group:		Libraries
+
+%description program_options
+The program_options library allows program developers to obtain
+program options, that is (name, value) pairs from the user, via
+conventional methods such as command line and config file.
+
+%description program_options -l pl.UTF-8
+Biblioteka program_options umożliwia uzyskanie od użytkownika opcji
+programu, czyli par (nazwa, wartość), za pomocą typowych metod, takich
+jak linia poleceń, czy plik konfiguracyjny.
+
+%package regex
+Summary:	Boost C++ regular expressions library
+Summary(pl.UTF-8):	Biblioteka wyrażeń regularnych Boost C++
+Group:		Libraries
+
+%description regex
+Shared library for Boost C++ regular expressions.
+
+%description regex -l pl.UTF-8
+Biblioteka wyrażeń regularnych dla C++, biblioteki dzielone.
+
+%package signals
+Summary:	Signals & slots callback implementation
+Summary(pl.UTF-8):	Implementacja sygnałów i slotów
+Group:		Libraries
+Obsoletes:	boost < 1.33
+
+%description signals
+The boost::signals library is an implementation of a signals and slots
+system.
+
+%description signals -l pl.UTF-8
+Biblioteka boost::signals jest implementacją systemu sygnałów i
+slotów.
+
+%package system
+Summary:	Support for getting system specific error codes
+Summary(pl.UTF-8):	Wsparcie dla pobierania specyficznych dla systemu kodów błędów
+Group:		Libraries
+
+%description system
+The Boost System library provides simple, light-weight error_code
+objects that encapsulate system-specific error code values, yet also
+provide access to more abstract and portable error conditions objects.
+
+%description system -l pl.UTF-8
+Biblioteka Boost System udostępnia proste, lekkie obiekty error_code
+obudowujące wartości kodów błędów specyficznych dla systemu, dając
+jednocześnie dostęp do bardziej abstrakcyjnych i przenośnych obiektów
+błędów.
+
+%package test
+Summary:	Support for program testing and execution monitoring
+Summary(pl.UTF-8):	Wsparcie dla testowania i monitorowania programu
+Group:		Libraries
+Obsoletes:	boost < 1.33
+
+%description test
+Support for simple program testing, full unit testing, and for program
+execution monitoring.
+
+%description test -l pl.UTF-8
+Wsparcie dla prostego testowania programu, pełnego testowania i
+monitorowania wykonania programu.
+
+%package thread
+Summary:	Portable C++ threads library
+Summary(pl.UTF-8):	Przenośna biblioteka wątków C++
+Group:		Libraries
+Obsoletes:	boost < 1.33
+
+%description thread
+Portable C++ threads library - shared library.
+
+%description thread -l pl.UTF-8
+Przenośna biblioteka wątków dla C++ - biblioteka dzielona.
+
+%package wave
+Summary:	Boost.Wave - a standard compliant C++ preprocessor library
+Summary(pl.UTF-8):	Boost.Wave - zgodna ze standardem biblioteka preprocesora C++
+Group:		Development/Libraries
+
+%description wave
+Boost.Wave - a standard compliant C++ preprocessor library.
+
+%description wave -l pl.UTF-8
+Boost.Wave - zgodna ze standardem biblioteka preprocesora C++.
+
 %package doc
 Summary:	Boost C++ Library documentation
-Summary(pl.UTF-8):   Dokumentacja dla biblioteki Boost C++
+Summary(pl.UTF-8):	Dokumentacja dla biblioteki Boost C++
 Group:		Documentation
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -204,12 +315,19 @@ Documentation for the Boost C++ Library.
 Dokumentacja dla biblioteki Boost C++.
 
 %prep
-%setup -q -n %{name}_%{_fver}
+%setup -q -n %{name}-svn
 %patch0 -p1
+%patch1 -p1
 
-# don't know how to pass it through (b)jam -s (no way?)
-# due to oversophisticated build flags system
-%{__perl} -pi -e 's/ -O3 / %{rpmcflags} /' tools/build/v1/gcc-tools.jam
+# - don't know how to pass it through (b)jam -s (no way?)
+#   due to oversophisticated build flags system.
+# - pass -fPIC due to <shared-linkable> removal.
+%{__sed} -i "s/<optimization>speed : -O3/<optimization>speed : ${CXXFLAGS:-%rpmcxxflags} -fPIC/" tools/build/v2/tools/gcc.jam
+
+# cleanup -g switch to avoid override debuginfocflags.
+%{__sed} -i 's/<debug-symbols>on : -g/<debug-symbols>on :/' tools/build/v2/tools/gcc.jam
+# link against shared expat library.
+%{__sed} -i 's:find-static:find-shared:' libs/graph/build/Jamfile.v2
 
 %ifarch alpha
 # -pthread gcc parameter doesn't add _REENTRANT to cpp macros on alpha (only)
@@ -218,21 +336,24 @@ Dokumentacja dla biblioteki Boost C++.
 %{__perl} -pi -e 's/(CFLAGS.*-pthread)/$1 -D_REENTRANT/' tools/build/v1/gcc-tools.jam
 %endif
 
+cat << EOF > tools/build/v2/user-config.jam
+using gcc : %(%{__cxx} -dumpversion) : %{__cxx} ;
+EOF
+
 %build
 %if %{with python}
-PYTHON_VERSION=`python -V 2>&1 | sed 's,.* \([0-9]\.[0-9]\)\(\.[0-9]\)\?.*,\1,'`
+PYTHON_VERSION=$(%{__python} -c 'import sys; print sys.version[0:3]')
 PYTHON_ROOT=%{_prefix}
 %else
 PYTHON_ROOT=
 PYTHON_VERSION=
 %endif
+EXPAT_INCLUDE=%{_includedir} \
+EXPAT_LIBPATH=%{_libdir} \
+ICU_PATH=%{_prefix} \
 bjam \
-	-d2 \
-	-sBUILD="release <threading>multi" \
-	-sPYTHON_ROOT=$PYTHON_ROOT \
-	-sPYTHON_VERSION=$PYTHON_VERSION \
-	-sGXX="%{__cxx}" \
-	-sGCC="%{__cc}"
+	-d2 --toolset=gcc \
+	variant=release debug-symbols=on inlining=on link=static,shared threading=multi
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -240,40 +361,35 @@ install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}}
 
 cp -rf boost $RPM_BUILD_ROOT%{_includedir}
 
-install bin/boost/libs/*/build/*.a/*/release/*/lib*.a $RPM_BUILD_ROOT%{_libdir}
-install bin/boost/libs/*/build/*.so/*/release/*/*/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
-# use cp -d, install follows symlinks instead of preserving them!
-cp -df bin/boost/libs/*/build/*.so/*/release/*/*/lib*.so $RPM_BUILD_ROOT%{_libdir}
+install bin.v2/libs/*/build/gcc-*/release/debug-symbols-on/inlining-on/link-static/threading-multi/lib*.a $RPM_BUILD_ROOT%{_libdir}
+install bin.v2/libs/*/build/gcc-*/release/debug-symbols-on/inlining-on/threading-multi/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
 
-# create symlinks without -gcc-mt-* things in names
-for f in $RPM_BUILD_ROOT%{_libdir}/*.so.*; do
-	[ -f "$f" ] || continue	
+# create symlinks without -gccXX-mt-* things in names
+for f in $RPM_BUILD_ROOT%{_libdir}/*.so.*.*.*; do
+	[ -f "$f" ] || continue
 	f=$(basename "$f")
-	soname=$(basename "$f" | sed -e 's#-gcc-mt-.*#.so#g')
-
-	ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/${soname}"
+	soname=$(basename "$f" | sed -e 's#-gcc..-mt-.*#.so#g')
+	ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/$soname"
 done
 for f in $RPM_BUILD_ROOT%{_libdir}/*.a; do
-	[ -f "$f" ] || continue	
+	[ -f "$f" ] || continue
 	f=$(basename "$f")
-	soname=$(basename "$f" | sed -e 's#-gcc-mt-.*#.a#g')
-
-	ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/${soname}"
+	soname=$(basename "$f" | sed -e 's#-gcc..-mt-.*#.a#g')
+	ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/$soname"
 done
 
-%if %{with doc}
 # documentation
 install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
-install README $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
 
 # as the documentation doesn't completely reside in a directory of its
 # own, we need to find out ourselves... this looks for HTML files and
 # then collects everything linked from those.  this is certainly quite
 # unoptimized wrt mkdir calls, but does it really matter?
-for i in `find -type f -name '*.htm*'`; do
+installdocs() {
+for i in $(find -type f -name '*.htm*'); do
 	# bjam docu is included in the boost-jam RPM
 	if test "`echo $i | sed 's,jam_src,,'`" = "$i"; then
-		install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/`dirname $i`
+		install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/${i%/*}
 		for LINKED in `%{__perl} - $i $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/$i <<'EOT'
 			sub rewrite_link
 			{
@@ -299,214 +415,99 @@ for i in `find -type f -name '*.htm*'`; do
 				$in_link = /href|src=\s*$/;
 			}
 EOT`; do
-			TARGET=`dirname $i`/$LINKED
+			TARGET=${i%/*}/$LINKED
 			# ignore non-existant linked files
 			if test -f $TARGET; then
-				install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/`dirname $TARGET`
-				install -m 644 $TARGET $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/$TARGET
+				install -D -m 644 $TARGET $RPM_BUILD_ROOT%{_docdir}/boost-%{version}/$TARGET
 			fi
 		done
 	fi
 done
-%endif
+}; installdocs
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post -p /sbin/ldconfig
-%preun -p /sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
-%post python -p /sbin/ldconfig
-%preun python -p /sbin/ldconfig
+%post	date_time -p /sbin/ldconfig
+%postun	date_time -p /sbin/ldconfig
+
+%post	filesystem -p /sbin/ldconfig
+%postun	filesystem -p /sbin/ldconfig
+
+%post	graph -p /sbin/ldconfig
+%postun	graph -p /sbin/ldconfig
+
+%post	python -p /sbin/ldconfig
+%postun	python -p /sbin/ldconfig
+
+%post	program_options -p /sbin/ldconfig
+%postun	program_options -p /sbin/ldconfig
+
+%post	regex -p /sbin/ldconfig
+%postun regex -p /sbin/ldconfig
+
+%post	signals -p /sbin/ldconfig
+%postun	signals -p /sbin/ldconfig
+
+%post	system -p /sbin/ldconfig
+%postun	system -p /sbin/ldconfig
+
+%post	test -p /sbin/ldconfig
+%postun	test -p /sbin/ldconfig
+
+%post	wave -p /sbin/ldconfig
+%postun	wave -p /sbin/ldconfig
+
+%post	thread -p /sbin/ldconfig
+%postun	thread -p /sbin/ldconfig
 
 %files
-%attr(755,root,root) %{_libdir}/libboost_date_time-*.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_filesystem-*.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_iostreams-*.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor-*.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_program_options-*.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_regex-*.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_serialization-*.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_signals-*.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor-*.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_thread-*.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_unit_test_framework-*.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_wserialization-*.so.*.*.*
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_iostreams*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_math_*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_serialization*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_wserialization*.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_date_time.so
-%attr(755,root,root) %{_libdir}/libboost_filesystem.so
-%attr(755,root,root) %{_libdir}/libboost_iostreams.so
-%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so
-%attr(755,root,root) %{_libdir}/libboost_program_options.so
-%attr(755,root,root) %{_libdir}/libboost_regex.so
-%attr(755,root,root) %{_libdir}/libboost_serialization.so
-%attr(755,root,root) %{_libdir}/libboost_signals.so
-%attr(755,root,root) %{_libdir}/libboost_test_exec_monitor.so
-%attr(755,root,root) %{_libdir}/libboost_thread.so
-%attr(755,root,root) %{_libdir}/libboost_unit_test_framework.so
-%attr(755,root,root) %{_libdir}/libboost_wserialization.so
-%dir %{_includedir}/boost
-%{_includedir}/boost/algorithm
-%{_includedir}/boost/aligned_storage.hpp
-%{_includedir}/boost/any.hpp
-%{_includedir}/boost/archive
-%{_includedir}/boost/array.hpp
-%{_includedir}/boost/assert.hpp
-%{_includedir}/boost/assign
-%{_includedir}/boost/assign.hpp
-%{_includedir}/boost/bind
-%{_includedir}/boost/bind.hpp
-%{_includedir}/boost/blank.hpp
-%{_includedir}/boost/blank_fwd.hpp
-%{_includedir}/boost/call_traits.hpp
-%{_includedir}/boost/cast.hpp
-%{_includedir}/boost/checked_delete.hpp
-%{_includedir}/boost/compatibility
-%{_includedir}/boost/compressed_pair.hpp
-%{_includedir}/boost/concept_archetype.hpp
-%{_includedir}/boost/concept_check.hpp
-%{_includedir}/boost/config
-%{_includedir}/boost/config.hpp
-%{_includedir}/boost/crc.hpp
-%{_includedir}/boost/cregex.hpp
-%{_includedir}/boost/cstdint.hpp
-%{_includedir}/boost/cstdlib.hpp
-%{_includedir}/boost/current_function.hpp
-%{_includedir}/boost/date_time
-%{_includedir}/boost/detail
-%{_includedir}/boost/dynamic_bitset
-%{_includedir}/boost/dynamic_bitset.hpp
-%{_includedir}/boost/dynamic_bitset_fwd.hpp
-%{_includedir}/boost/dynamic_property_map.hpp
-%{_includedir}/boost/enable_shared_from_this.hpp
-%{_includedir}/boost/filesystem
-%{_includedir}/boost/format
-%{_includedir}/boost/format.hpp
-%{_includedir}/boost/function
-%{_includedir}/boost/function.hpp
-%{_includedir}/boost/function_equal.hpp
-%{_includedir}/boost/function_output_iterator.hpp
-%{_includedir}/boost/functional.hpp
-%{_includedir}/boost/functional
-%{_includedir}/boost/generator_iterator.hpp
-%{_includedir}/boost/get_pointer.hpp
-%{_includedir}/boost/graph
-%{_includedir}/boost/implicit_cast.hpp
-%{_includedir}/boost/indirect_reference.hpp
-%{_includedir}/boost/integer
-%{_includedir}/boost/integer.hpp
-%{_includedir}/boost/integer_fwd.hpp
-%{_includedir}/boost/integer_traits.hpp
-%{_includedir}/boost/intrusive_ptr.hpp
-%{_includedir}/boost/io
-%{_includedir}/boost/io_fwd.hpp
-%{_includedir}/boost/iostreams
-%{_includedir}/boost/iterator
-%{_includedir}/boost/iterator.hpp
-%{_includedir}/boost/iterator_adaptors.hpp
-%{_includedir}/boost/lambda
-%{_includedir}/boost/last_value.hpp
-%{_includedir}/boost/lexical_cast.hpp
-%{_includedir}/boost/limits.hpp
-%{_includedir}/boost/logic
-%{_includedir}/boost/math
-%{_includedir}/boost/math_fwd.hpp
-%{_includedir}/boost/mem_fn.hpp
-%{_includedir}/boost/mpl
-%{_includedir}/boost/multi_array
-%{_includedir}/boost/multi_array.hpp
-%{_includedir}/boost/multi_index
-%{_includedir}/boost/multi_index_container.hpp
-%{_includedir}/boost/multi_index_container_fwd.hpp
-%{_includedir}/boost/next_prior.hpp
-%{_includedir}/boost/non_type.hpp
-%{_includedir}/boost/noncopyable.hpp
-%{_includedir}/boost/nondet_random.hpp
-%{_includedir}/boost/none.hpp
-%{_includedir}/boost/none_t.hpp
-%{_includedir}/boost/numeric
-%{_includedir}/boost/operators.hpp
-%{_includedir}/boost/optional
-%{_includedir}/boost/optional.hpp
-%{_includedir}/boost/parameter
-%{_includedir}/boost/parameter.hpp
-%{_includedir}/boost/pending
-%{_includedir}/boost/pfto.hpp
-%{_includedir}/boost/pointee.hpp
-%{_includedir}/boost/pool
-%{_includedir}/boost/preprocessor
-%{_includedir}/boost/preprocessor.hpp
-%{_includedir}/boost/program_options
-%{_includedir}/boost/program_options.hpp
-%{_includedir}/boost/progress.hpp
-%{_includedir}/boost/property_map.hpp
-%{_includedir}/boost/property_map_iterator.hpp
-%{_includedir}/boost/ptr_container
-%{_includedir}/boost/random
-%{_includedir}/boost/random.hpp
-%{_includedir}/boost/range
-%{_includedir}/boost/range.hpp
-%{_includedir}/boost/rational.hpp
-%{_includedir}/boost/ref.hpp
-%{_includedir}/boost/regex
-%{_includedir}/boost/regex.h
-%{_includedir}/boost/regex.hpp
-%{_includedir}/boost/regex_fwd.hpp
-%{_includedir}/boost/scoped_array.hpp
-%{_includedir}/boost/scoped_ptr.hpp
-%{_includedir}/boost/serialization
-%{_includedir}/boost/shared_array.hpp
-%{_includedir}/boost/shared_container_iterator.hpp
-%{_includedir}/boost/shared_ptr.hpp
-%{_includedir}/boost/signal.hpp
-%{_includedir}/boost/signals
-%{_includedir}/boost/signals.hpp
-%{_includedir}/boost/smart_cast.hpp
-%{_includedir}/boost/smart_ptr.hpp
-%{_includedir}/boost/spirit
-%{_includedir}/boost/spirit.hpp
-%{_includedir}/boost/state_saver.hpp
-%{_includedir}/boost/static_assert.hpp
-%{_includedir}/boost/static_warning.hpp
-%{_includedir}/boost/strong_typedef.hpp
-%{_includedir}/boost/test
-%{_includedir}/boost/thread
-%{_includedir}/boost/thread.hpp
-%{_includedir}/boost/throw_exception.hpp
-%{_includedir}/boost/timer.hpp
-%{_includedir}/boost/token_functions.hpp
-%{_includedir}/boost/token_iterator.hpp
-%{_includedir}/boost/tokenizer.hpp
-%{_includedir}/boost/tuple
-%{_includedir}/boost/type.hpp
-%{_includedir}/boost/type_traits
-%{_includedir}/boost/type_traits.hpp
-%{_includedir}/boost/utility
-%{_includedir}/boost/utility.hpp
-%{_includedir}/boost/variant
-%{_includedir}/boost/variant.hpp
-%{_includedir}/boost/vector_property_map.hpp
-%{_includedir}/boost/version.hpp
-%{_includedir}/boost/visit_each.hpp
-%{_includedir}/boost/wave
-%{_includedir}/boost/wave.hpp
-%{_includedir}/boost/weak_ptr.hpp
+%{_includedir}/boost
+%attr(755,root,root) %{_libdir}/libboost_date_time*.so
+%attr(755,root,root) %{_libdir}/libboost_filesystem*.so
+%attr(755,root,root) %{_libdir}/libboost_graph*.so
+%attr(755,root,root) %{_libdir}/libboost_iostreams*.so
+%attr(755,root,root) %{_libdir}/libboost_math_*.so
+%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor*.so
+%attr(755,root,root) %{_libdir}/libboost_program_options*.so
+%attr(755,root,root) %{_libdir}/libboost_regex*.so
+%attr(755,root,root) %{_libdir}/libboost_serialization*.so
+%attr(755,root,root) %{_libdir}/libboost_signals*.so
+%attr(755,root,root) %{_libdir}/libboost_system*.so
+%attr(755,root,root) %{_libdir}/libboost_thread*.so
+%attr(755,root,root) %{_libdir}/libboost_unit_test_framework*.so
+%attr(755,root,root) %{_libdir}/libboost_wave*.so
+%attr(755,root,root) %{_libdir}/libboost_wserialization*.so
 
 %files static
-%{_libdir}/libboost_date_time.a
-%{_libdir}/libboost_filesystem.a
-%{_libdir}/libboost_iostreams.a
-%{_libdir}/libboost_prg_exec_monitor.a
-%{_libdir}/libboost_program_options.a
-%{_libdir}/libboost_regex.a
-%{_libdir}/libboost_serialization.a
-%{_libdir}/libboost_signals.a
-%{_libdir}/libboost_test_exec_monitor.a
-%{_libdir}/libboost_thread.a
-%{_libdir}/libboost_unit_test_framework.a
-%{_libdir}/libboost_wserialization.a
+%defattr(644,root,root,755)
+%{_libdir}/libboost_date_time*.a
+%{_libdir}/libboost_filesystem*.a
+%{_libdir}/libboost_grap*.a
+%{_libdir}/libboost_iostreams*.a
+%{_libdir}/libboost_math_*.a
+%{_libdir}/libboost_prg_exec_monitor*.a
+%{_libdir}/libboost_program_options*.a
+%{_libdir}/libboost_regex*.a
+%{_libdir}/libboost_serialization*.a
+%{_libdir}/libboost_signals*.a
+%{_libdir}/libboost_system*.a
+%{_libdir}/libboost_test_exec_monitor*.a
+%{_libdir}/libboost_thread*.a
+%{_libdir}/libboost_unit_test_framework*.a
+%{_libdir}/libboost_wave*.a
+%{_libdir}/libboost_wserialization*.a
 
 %if %{with python}
 %files python
@@ -524,8 +525,47 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_python*.a
 %endif
 
-%if %{with doc}
+%files date_time
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_date_time*.so.*.*.*
+
+%files filesystem
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_filesystem*.so.*.*.*
+
+%files graph
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_graph*.so.*.*.*
+
+%files program_options
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_program_options*.so.*.*.*
+
+%files regex
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_regex*.so.*.*.*
+
+%files signals
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_signals*.so.*.*.*
+
+%files system
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_system*.so.*.*.*
+
+%files test
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_unit_test_framework*.so.*.*.*
+
+%files thread
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_thread*.so.*.*.*
+
+%files wave
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_wave*.so.*.*.*
+
 %files doc
 %defattr(644,root,root,755)
 %{_docdir}/%{name}-%{version}
-%endif
