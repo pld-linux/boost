@@ -19,6 +19,7 @@ Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
 Patch0:		%{name}-climits.patch
 Patch1:		%{name}-link.patch
 Patch2:		%{name}-ticket-2499.patch
+Patch3:		%{name}-gcc.patch
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.12
 BuildRequires:	bzip2-devel
@@ -318,6 +319,7 @@ Dokumentacja dla biblioteki Boost C++.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p0
 
 # - don't know how to pass it through (b)jam -s (no way?)
 #   due to oversophisticated build flags system.
