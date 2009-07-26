@@ -7,19 +7,20 @@
 %bcond_without	python	# without boost-python support
 #
 %define		_fver	%(echo %{version} | tr . _)
+%define		snap	r55135
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.39.0
-Release:	1
+Version:	1.40.0
+Release:	0.%{snap}.1
 License:	Boost Software License and others
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
-# Source0-md5:	a17281fd88c48e0d866e1a12deecbcc0
+# Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
+# svn export http://svn.boost.org/svn/boost/branches/release boost
+Source0:	%{name}-%{snap}.tar.bz2
+# Source0-md5:	159bfecfc3fb706da99d741e121e2abc
 Patch0:		%{name}-climits.patch
 Patch1:		%{name}-link.patch
-Patch2:		%{name}-ticket-2499.patch
-Patch3:		%{name}-gcc.patch
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.12
 BuildRequires:	bzip2-devel
@@ -315,11 +316,10 @@ Documentation for the Boost C++ Library.
 Dokumentacja dla biblioteki Boost C++.
 
 %prep
-%setup -q -n %{name}_%{_fver}
+%setup -q -n %{name}
+#%%setup -q -n %{name}_%{_fver}
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 -p0
 
 # - don't know how to pass it through (b)jam -s (no way?)
 #   due to oversophisticated build flags system.
@@ -371,13 +371,18 @@ for f in $RPM_BUILD_ROOT%{_libdir}/*.so.*.*.*; do
 	[ -f "$f" ] || continue
 	f=$(basename "$f")
 	soname=$(basename "$f" | sed -e 's#-gcc..-mt-.*#.so#g')
-	ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/$soname"
+	[ ! -f "$RPM_BUILD_ROOT%{_libdir}/$soname" ] && ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/$soname"
+	rawsoname=$(basename "$f" | sed -e 's#\.so.*#.so#g')
+	[ ! -f "$RPM_BUILD_ROOT%{_libdir}/$rawsoname" ] && ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/$rawsoname"
+
 done
 for f in $RPM_BUILD_ROOT%{_libdir}/*.a; do
 	[ -f "$f" ] || continue
 	f=$(basename "$f")
 	soname=$(basename "$f" | sed -e 's#-gcc..-mt-.*#.a#g')
-	ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/$soname"
+	[ ! -f "$RPM_BUILD_ROOT%{_libdir}/$soname" ] && ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/$soname"
+	rawsoname=$(basename "$f" | sed -e 's#\.so.*#.so#g')
+	[ ! -f "$RPM_BUILD_ROOT%{_libdir}/$rawsoname" ] && ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/$rawsoname"
 done
 
 # documentation
