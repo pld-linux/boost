@@ -7,18 +7,15 @@
 %bcond_without	python	# without boost-python support
 #
 %define		_fver	%(echo %{version} | tr . _)
-%define		snap	r55135
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.40.0
-Release:	0.%{snap}.1
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
-# Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
-# svn export http://svn.boost.org/svn/boost/branches/release boost
-Source0:	%{name}-%{snap}.tar.bz2
-# Source0-md5:	159bfecfc3fb706da99d741e121e2abc
+Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
+# Source0-md5:	ec3875caeac8c52c7c129802a8483bd7
 Patch0:		%{name}-climits.patch
 Patch1:		%{name}-link.patch
 URL:		http://www.boost.org/
@@ -316,8 +313,7 @@ Documentation for the Boost C++ Library.
 Dokumentacja dla biblioteki Boost C++.
 
 %prep
-%setup -q -n %{name}
-#%%setup -q -n %{name}_%{_fver}
+%setup -q -n %{name}_%{_fver}
 %patch0 -p1
 %patch1 -p1
 
