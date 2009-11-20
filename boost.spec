@@ -10,12 +10,12 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.40.0
-Release:	2
+Version:	1.41.0
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
-# Source0-md5:	ec3875caeac8c52c7c129802a8483bd7
+# Source0-md5:	8bb65e133907db727a2a825c5400d0a6
 Patch0:		%{name}-climits.patch
 Patch1:		%{name}-link.patch
 URL:		http://www.boost.org/
