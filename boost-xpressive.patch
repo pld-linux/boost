@@ -1,0 +1,10 @@
+--- boost-1.42.0/boost/xpressive/regex_error.hpp.orig   2009-11-04 19:05:06.000000000 +0100
++++ boost-1.42.0/boost/xpressive/regex_error.hpp        2010-02-10 09:36:26.000000000 +0100
+@@ -16,6 +16,7 @@
+
+ #include <string>
+ #include <stdexcept>
++#include <boost/current_function.hpp>
+ #include <boost/throw_exception.hpp>
+ #include <boost/exception/exception.hpp>
+ #include <boost/xpressive/regex_constants.hpp>
