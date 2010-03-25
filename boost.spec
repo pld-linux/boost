@@ -18,6 +18,7 @@ Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
 # Source0-md5:	7bf3b4eb841b62ffb0ade2b82218ebe6
 Patch0:		%{name}-climits.patch
 Patch1:		%{name}-link.patch
+Patch2:		%{name}-xpressive.patch
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.12
 BuildRequires:	bzip2-devel
@@ -316,6 +317,7 @@ Dokumentacja dla biblioteki Boost C++.
 %setup -q -n %{name}_%{_fver}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 # - don't know how to pass it through (b)jam -s (no way?)
 #   due to oversophisticated build flags system.
