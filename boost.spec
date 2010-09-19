@@ -6,19 +6,17 @@
 # Conditional build:
 %bcond_without	python	# without boost-python support
 #
-%define		_fver	%(echo %{version} | tr . _)
+%define		fver	%(echo %{version} | tr . _)
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.42.0
-Release:	3
+Version:	1.44.0
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/boost/%{name}_%{_fver}.tar.bz2
-# Source0-md5:	7bf3b4eb841b62ffb0ade2b82218ebe6
-Patch0:		%{name}-climits.patch
-Patch1:		%{name}-link.patch
-Patch2:		%{name}-xpressive.patch
+Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
+# Source0-md5:	f02578f5218f217a9f20e9c30e119c6a
+Patch0:		%{name}-link.patch
 URL:		http://www.boost.org/
 BuildRequires:	boost-jam >= 3.1.12
 BuildRequires:	bzip2-devel
@@ -314,10 +312,8 @@ Documentation for the Boost C++ Library.
 Dokumentacja dla biblioteki Boost C++.
 
 %prep
-%setup -q -n %{name}_%{_fver}
+%setup -q -n %{name}_%{fver}
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 # - don't know how to pass it through (b)jam -s (no way?)
 #   due to oversophisticated build flags system.
@@ -328,13 +324,6 @@ Dokumentacja dla biblioteki Boost C++.
 %{__sed} -i 's/<debug-symbols>on : -g/<debug-symbols>on :/' tools/build/v2/tools/gcc.jam
 # link against shared expat library.
 %{__sed} -i 's:find-static:find-shared:' libs/graph/build/Jamfile.v2
-
-%ifarch alpha
-# -pthread gcc parameter doesn't add _REENTRANT to cpp macros on alpha (only)
-# don't know, is it gcc bug or intentional omission?
-# anyway, boost check of -D_REENTRANT in its headers, so it's needed here
-%{__perl} -pi -e 's/(CFLAGS.*-pthread)/$1 -D_REENTRANT/' tools/build/v1/gcc-tools.jam
-%endif
 
 cat << EOF > tools/build/v2/user-config.jam
 using gcc : %(%{__cxx} -dumpversion) : %{__cxx} ;
@@ -361,27 +350,9 @@ install -d $RPM_BUILD_ROOT{%{_libdir},%{_includedir}}
 
 cp -rf boost $RPM_BUILD_ROOT%{_includedir}
 
-install bin.v2/libs/*/build/gcc-*/release/debug-symbols-on/inlining-on/link-static/threading-multi/lib*.a $RPM_BUILD_ROOT%{_libdir}
-install bin.v2/libs/*/build/gcc-*/release/debug-symbols-on/inlining-on/threading-multi/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
-
-# create symlinks without -gccXX-mt-* things in names
-for f in $RPM_BUILD_ROOT%{_libdir}/*.so.*.*.*; do
-	[ -f "$f" ] || continue
-	f=$(basename "$f")
-	soname=$(basename "$f" | sed -e 's#-gcc..-mt-.*#.so#g')
-	[ ! -f "$RPM_BUILD_ROOT%{_libdir}/$soname" ] && ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/$soname"
-	rawsoname=$(basename "$f" | sed -e 's#\.so.*#.so#g')
-	[ ! -f "$RPM_BUILD_ROOT%{_libdir}/$rawsoname" ] && ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/$rawsoname"
-
-done
-for f in $RPM_BUILD_ROOT%{_libdir}/*.a; do
-	[ -f "$f" ] || continue
-	f=$(basename "$f")
-	soname=$(basename "$f" | sed -e 's#-gcc..-mt-.*#.a#g')
-	[ ! -f "$RPM_BUILD_ROOT%{_libdir}/$soname" ] && ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/$soname"
-	rawsoname=$(basename "$f" | sed -e 's#\.so.*#.so#g')
-	[ ! -f "$RPM_BUILD_ROOT%{_libdir}/$rawsoname" ] && ln -s "$f" "$RPM_BUILD_ROOT%{_libdir}/$rawsoname"
-done
+install -p stage/lib/lib*.a $RPM_BUILD_ROOT%{_libdir}
+install -p stage/lib/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
+cp -a stage/lib/lib*.so $RPM_BUILD_ROOT%{_libdir}
 
 # documentation
 install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
@@ -471,105 +442,110 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_iostreams*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_iostreams.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_math_*.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_serialization*.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_wserialization*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_random.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_serialization.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_wserialization.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%{_includedir}/boost
-%attr(755,root,root) %{_libdir}/libboost_date_time*.so
-%attr(755,root,root) %{_libdir}/libboost_filesystem*.so
-%attr(755,root,root) %{_libdir}/libboost_graph*.so
-%attr(755,root,root) %{_libdir}/libboost_iostreams*.so
+%attr(755,root,root) %{_libdir}/libboost_date_time.so
+%attr(755,root,root) %{_libdir}/libboost_filesystem.so
+%attr(755,root,root) %{_libdir}/libboost_graph.so
+%attr(755,root,root) %{_libdir}/libboost_iostreams.so
 %attr(755,root,root) %{_libdir}/libboost_math_*.so
-%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor*.so
-%attr(755,root,root) %{_libdir}/libboost_program_options*.so
-%attr(755,root,root) %{_libdir}/libboost_regex*.so
-%attr(755,root,root) %{_libdir}/libboost_serialization*.so
-%attr(755,root,root) %{_libdir}/libboost_signals*.so
-%attr(755,root,root) %{_libdir}/libboost_system*.so
-%attr(755,root,root) %{_libdir}/libboost_thread*.so
-%attr(755,root,root) %{_libdir}/libboost_unit_test_framework*.so
-%attr(755,root,root) %{_libdir}/libboost_wave*.so
-%attr(755,root,root) %{_libdir}/libboost_wserialization*.so
+%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so
+%attr(755,root,root) %{_libdir}/libboost_program_options.so
+%attr(755,root,root) %{_libdir}/libboost_regex.so
+%attr(755,root,root) %{_libdir}/libboost_random.so
+%attr(755,root,root) %{_libdir}/libboost_serialization.so
+%attr(755,root,root) %{_libdir}/libboost_signals.so
+%attr(755,root,root) %{_libdir}/libboost_system.so
+%attr(755,root,root) %{_libdir}/libboost_thread.so
+%attr(755,root,root) %{_libdir}/libboost_unit_test_framework.so
+%attr(755,root,root) %{_libdir}/libboost_wave.so
+%attr(755,root,root) %{_libdir}/libboost_wserialization.so
+%{_includedir}/boost
+%exclude %{_includedir}/boost/python
+%exclude %{_includedir}/boost/python.hpp
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libboost_date_time*.a
-%{_libdir}/libboost_filesystem*.a
-%{_libdir}/libboost_grap*.a
-%{_libdir}/libboost_iostreams*.a
+%{_libdir}/libboost_date_time.a
+%{_libdir}/libboost_filesystem.a
+%{_libdir}/libboost_graph.a
+%{_libdir}/libboost_iostreams.a
 %{_libdir}/libboost_math_*.a
-%{_libdir}/libboost_prg_exec_monitor*.a
-%{_libdir}/libboost_program_options*.a
-%{_libdir}/libboost_regex*.a
-%{_libdir}/libboost_serialization*.a
-%{_libdir}/libboost_signals*.a
-%{_libdir}/libboost_system*.a
-%{_libdir}/libboost_test_exec_monitor*.a
-%{_libdir}/libboost_thread*.a
-%{_libdir}/libboost_unit_test_framework*.a
-%{_libdir}/libboost_wave*.a
-%{_libdir}/libboost_wserialization*.a
+%{_libdir}/libboost_prg_exec_monitor.a
+%{_libdir}/libboost_program_options.a
+%{_libdir}/libboost_random.a
+%{_libdir}/libboost_regex.a
+%{_libdir}/libboost_serialization.a
+%{_libdir}/libboost_signals.a
+%{_libdir}/libboost_system.a
+%{_libdir}/libboost_test_exec_monitor.a
+%{_libdir}/libboost_thread.a
+%{_libdir}/libboost_unit_test_framework.a
+%{_libdir}/libboost_wave.a
+%{_libdir}/libboost_wserialization.a
 
 %if %{with python}
 %files python
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_python*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_python.so.*.*.*
 
 %files python-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_python*.so
+%attr(755,root,root) %{_libdir}/libboost_python.so
 %{_includedir}/boost/python
 %{_includedir}/boost/python.hpp
 
 %files python-static
 %defattr(644,root,root,755)
-%{_libdir}/libboost_python*.a
+%{_libdir}/libboost_python.a
 %endif
 
 %files date_time
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_date_time*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_date_time.so.*.*.*
 
 %files filesystem
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_filesystem*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_filesystem.so.*.*.*
 
 %files graph
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_graph*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_graph.so.*.*.*
 
 %files program_options
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_program_options*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_program_options.so.*.*.*
 
 %files regex
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_regex*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_regex.so.*.*.*
 
 %files signals
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_signals*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_signals.so.*.*.*
 
 %files system
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_system*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_system.so.*.*.*
 
 %files test
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor*.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_unit_test_framework*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_unit_test_framework.so.*.*.*
 
 %files thread
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_thread*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_thread.so.*.*.*
 
 %files wave
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_wave*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_wave.so.*.*.*
 
 %files doc
 %defattr(644,root,root,755)
