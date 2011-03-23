@@ -10,15 +10,16 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.44.0
-Release:	4
+Version:	1.46.1
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
-# Source0-md5:	f02578f5218f217a9f20e9c30e119c6a
+# Source0-md5:	7375679575f4c8db605d426fc721d506
 Patch0:		%{name}-link.patch
+Patch1:		%{name}-bjam-workaround.patch
 URL:		http://www.boost.org/
-BuildRequires:	boost-jam >= 3.1.12
+BuildRequires:	boost-jam >= 3.1.18
 BuildRequires:	bzip2-devel
 BuildRequires:	expat-devel
 BuildRequires:	libicu-devel
@@ -314,6 +315,7 @@ Dokumentacja dla biblioteki Boost C++.
 %prep
 %setup -q -n %{name}_%{fver}
 %patch0 -p1
+%patch1 -p1
 
 # - don't know how to pass it through (b)jam -s (no way?)
 #   due to oversophisticated build flags system.
