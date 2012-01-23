@@ -10,16 +10,14 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.46.1
-Release:	2
+Version:	1.48.0
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
-# Source0-md5:	7375679575f4c8db605d426fc721d506
+# Source0-md5:	d1e9a7a7f532bb031a3c175d86688d95
 Patch0:		%{name}-link.patch
-Patch1:		%{name}-bjam-workaround.patch
 URL:		http://www.boost.org/
-BuildRequires:	boost-jam >= 3.1.18
 BuildRequires:	bzip2-devel
 BuildRequires:	expat-devel
 BuildRequires:	libicu-devel
@@ -166,6 +164,14 @@ Static version of Boost.Python library.
 %description python-static -l pl.UTF-8
 Statyczna wersja biblioteki Boost.Python.
 
+%package chrono
+Summary:	Useful time utilities
+Group:		Libraries
+Obsoletes:	boost < 1.33
+
+%description chrono
+Useful time utilities.
+
 %package date_time
 Summary:	Date-Time library
 Summary(pl.UTF-8):	Biblioteka daty-czasu
@@ -206,6 +212,13 @@ graph data structures using graph algorithms.
 Przenośna biblioteka boost::graph dostarcza ułatwienia w operacjach na
 strukturach danych typu graf za pomocą algorytmów związanych z
 grafami.
+
+%package locale
+Summary:	Provide localization and Unicode handling tools for C++
+Group:		Libraries
+
+%description locale
+Provide localization and Unicode handling tools for C++.
 
 %package program_options
 Summary:	Access to program options, via conventional methods such as command line and config file
@@ -277,6 +290,14 @@ execution monitoring.
 Wsparcie dla prostego testowania programu, pełnego testowania i
 monitorowania wykonania programu.
 
+%package timer
+Summary:	Event timer, progress timer, and progress display classes
+Group:		Libraries
+Obsoletes:	boost < 1.33
+
+%description timer
+Event timer, progress timer, and progress display classes.
+
 %package thread
 Summary:	Portable C++ threads library
 Summary(pl.UTF-8):	Przenośna biblioteka wątków C++
@@ -315,7 +336,6 @@ Dokumentacja dla biblioteki Boost C++.
 %prep
 %setup -q -n %{name}_%{fver}
 %patch0 -p1
-%patch1 -p1
 
 # - don't know how to pass it through (b)jam -s (no way?)
 #   due to oversophisticated build flags system.
@@ -342,7 +362,8 @@ PYTHON_VERSION=
 EXPAT_INCLUDE=%{_includedir} \
 EXPAT_LIBPATH=%{_libdir} \
 ICU_PATH=%{_prefix} \
-bjam \
+./bootstrap.sh --prefix=%{_prefix}
+./b2 \
 	-d2 --toolset=gcc \
 	variant=release debug-symbols=on inlining=on link=static,shared threading=multi
 
@@ -409,6 +430,9 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
+%post	chrono -p /sbin/ldconfig
+%postun	chrono -p /sbin/ldconfig
+
 %post	date_time -p /sbin/ldconfig
 %postun	date_time -p /sbin/ldconfig
 
@@ -417,6 +441,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	graph -p /sbin/ldconfig
 %postun	graph -p /sbin/ldconfig
+
+%post	locale -p /sbin/ldconfig
+%postun	locale -p /sbin/ldconfig
 
 %post	python -p /sbin/ldconfig
 %postun	python -p /sbin/ldconfig
@@ -439,6 +466,9 @@ rm -rf $RPM_BUILD_ROOT
 %post	wave -p /sbin/ldconfig
 %postun	wave -p /sbin/ldconfig
 
+%post	timer -p /sbin/ldconfig
+%postun	timer -p /sbin/ldconfig
+
 %post	thread -p /sbin/ldconfig
 %postun	thread -p /sbin/ldconfig
 
@@ -452,10 +482,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_chrono.so
 %attr(755,root,root) %{_libdir}/libboost_date_time.so
 %attr(755,root,root) %{_libdir}/libboost_filesystem.so
 %attr(755,root,root) %{_libdir}/libboost_graph.so
 %attr(755,root,root) %{_libdir}/libboost_iostreams.so
+%attr(755,root,root) %{_libdir}/libboost_locale.so
 %attr(755,root,root) %{_libdir}/libboost_math_*.so
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so
 %attr(755,root,root) %{_libdir}/libboost_program_options.so
@@ -465,6 +497,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_signals.so
 %attr(755,root,root) %{_libdir}/libboost_system.so
 %attr(755,root,root) %{_libdir}/libboost_thread.so
+%attr(755,root,root) %{_libdir}/libboost_timer.so
 %attr(755,root,root) %{_libdir}/libboost_unit_test_framework.so
 %attr(755,root,root) %{_libdir}/libboost_wave.so
 %attr(755,root,root) %{_libdir}/libboost_wserialization.so
@@ -474,10 +507,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files static
 %defattr(644,root,root,755)
+%{_libdir}/libboost_chrono.a
 %{_libdir}/libboost_date_time.a
+%{_libdir}/libboost_exception.a
 %{_libdir}/libboost_filesystem.a
 %{_libdir}/libboost_graph.a
 %{_libdir}/libboost_iostreams.a
+%{_libdir}/libboost_locale.a
 %{_libdir}/libboost_math_*.a
 %{_libdir}/libboost_prg_exec_monitor.a
 %{_libdir}/libboost_program_options.a
@@ -487,6 +523,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_signals.a
 %{_libdir}/libboost_system.a
 %{_libdir}/libboost_test_exec_monitor.a
+%{_libdir}/libboost_timer.a
 %{_libdir}/libboost_thread.a
 %{_libdir}/libboost_unit_test_framework.a
 %{_libdir}/libboost_wave.a
@@ -508,6 +545,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_python.a
 %endif
 
+%files chrono
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_chrono.so.*.*.*
+
 %files date_time
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_date_time.so.*.*.*
@@ -519,6 +560,10 @@ rm -rf $RPM_BUILD_ROOT
 %files graph
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_graph.so.*.*.*
+
+%files locale
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_locale.so.*.*.*
 
 %files program_options
 %defattr(644,root,root,755)
@@ -540,6 +585,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_unit_test_framework.so.*.*.*
+
+%files timer
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_timer.so.*.*.*
 
 %files thread
 %defattr(644,root,root,755)
