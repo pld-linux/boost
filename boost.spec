@@ -166,11 +166,15 @@ Statyczna wersja biblioteki Boost.Python.
 
 %package chrono
 Summary:	Useful time utilities
+Summary(pl.UTF-8):	Przydatne funkcje związane z czasem
 Group:		Libraries
 Obsoletes:	boost < 1.33
 
 %description chrono
 Useful time utilities.
+
+%description chrono -l pl.UTF-8
+Przydatne funkcje związane z czasem.
 
 %package date_time
 Summary:	Date-Time library
@@ -215,10 +219,14 @@ grafami.
 
 %package locale
 Summary:	Provide localization and Unicode handling tools for C++
+Summary(pl.UTF-8):	Narzędzia do obsługi lokalizacji i Unikodu w C++
 Group:		Libraries
 
 %description locale
 Provide localization and Unicode handling tools for C++.
+
+%description locale -l pl.UTF-8
+Narzędzia do obsługi lokalizacji i Unikodu w C++.
 
 %package program_options
 Summary:	Access to program options, via conventional methods such as command line and config file
@@ -244,7 +252,7 @@ Group:		Libraries
 Shared library for Boost C++ regular expressions.
 
 %description regex -l pl.UTF-8
-Biblioteka wyrażeń regularnych dla C++, biblioteki dzielone.
+Biblioteka współdzielona do obsługi wyrażeń regularnych w C++.
 
 %package signals
 Summary:	Signals & slots callback implementation
@@ -292,11 +300,15 @@ monitorowania wykonania programu.
 
 %package timer
 Summary:	Event timer, progress timer, and progress display classes
+Summary(pl.UTF-8):	Klasy do obsługi pomiarów czasu, postępu i wyświetlania postępu
 Group:		Libraries
 Obsoletes:	boost < 1.33
 
 %description timer
 Event timer, progress timer, and progress display classes.
+
+%description timer -l pl.UTF-8
+Klasy do obsługi pomiarów czasu, postępu i wyświetlania postępu.
 
 %package thread
 Summary:	Portable C++ threads library
@@ -463,14 +475,14 @@ rm -rf $RPM_BUILD_ROOT
 %post	test -p /sbin/ldconfig
 %postun	test -p /sbin/ldconfig
 
-%post	wave -p /sbin/ldconfig
-%postun	wave -p /sbin/ldconfig
-
 %post	timer -p /sbin/ldconfig
 %postun	timer -p /sbin/ldconfig
 
 %post	thread -p /sbin/ldconfig
 %postun	thread -p /sbin/ldconfig
+
+%post	wave -p /sbin/ldconfig
+%postun	wave -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
