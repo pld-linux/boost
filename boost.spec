@@ -10,12 +10,12 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.50.0
+Version:	1.51.0
 Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
-# Source0-md5:	52dd00be775e689f55a987baebccc462
+# Source0-md5:	4b6bd483b692fd138aef84ed2c8eb679
 Patch0:		%{name}-link.patch
 URL:		http://www.boost.org/
 BuildRequires:	bzip2-devel
@@ -52,15 +52,19 @@ Summary:	Boost C++ development headers
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek C++ Boost
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-chrono = %{version}-%{release}
+Requires:	%{name}-context = %{version}-%{release}
 Requires:	%{name}-date_time = %{version}-%{release}
 Requires:	%{name}-filesystem = %{version}-%{release}
 Requires:	%{name}-graph = %{version}-%{release}
+Requires:	%{name}-locale = %{version}-%{release}
 Requires:	%{name}-program_options = %{version}-%{release}
 Requires:	%{name}-regex = %{version}-%{release}
 Requires:	%{name}-signals = %{version}-%{release}
 Requires:	%{name}-system = %{version}-%{release}
 Requires:	%{name}-test = %{version}-%{release}
 Requires:	%{name}-thread = %{version}-%{release}
+Requires:	%{name}-timer = %{version}-%{release}
 Requires:	%{name}-wave = %{version}-%{release}
 Requires:	libstdc++-devel
 Obsoletes:	boost-any-devel
@@ -175,6 +179,19 @@ Useful time utilities.
 
 %description chrono -l pl.UTF-8
 Przydatne funkcje związane z czasem.
+
+%package context
+Summary:	Boost.Context - context switching library
+Summary(pl.UTF-8):	Boost.Context - biblioteka do zmiany kontekstu
+Group:		Libraries
+
+%description context
+Boost.Context - context switching library, providing a sort of
+cooperative multitasking on a single thread.
+
+%description context -l pl.UTF-8
+Boost.Context - biblioteka do zmiany kontekstu, zapewniająca pewną
+wielozadaniowość kooperatywnąw ramach pojedynczego wątku.
 
 %package date_time
 Summary:	Date-Time library
@@ -298,18 +315,6 @@ execution monitoring.
 Wsparcie dla prostego testowania programu, pełnego testowania i
 monitorowania wykonania programu.
 
-%package timer
-Summary:	Event timer, progress timer, and progress display classes
-Summary(pl.UTF-8):	Klasy do obsługi pomiarów czasu, postępu i wyświetlania postępu
-Group:		Libraries
-Obsoletes:	boost < 1.33
-
-%description timer
-Event timer, progress timer, and progress display classes.
-
-%description timer -l pl.UTF-8
-Klasy do obsługi pomiarów czasu, postępu i wyświetlania postępu.
-
 %package thread
 Summary:	Portable C++ threads library
 Summary(pl.UTF-8):	Przenośna biblioteka wątków C++
@@ -321,6 +326,18 @@ Portable C++ threads library - shared library.
 
 %description thread -l pl.UTF-8
 Przenośna biblioteka wątków dla C++ - biblioteka dzielona.
+
+%package timer
+Summary:	Event timer, progress timer, and progress display classes
+Summary(pl.UTF-8):	Klasy do obsługi pomiarów czasu, postępu i wyświetlania postępu
+Group:		Libraries
+Obsoletes:	boost < 1.33
+
+%description timer
+Event timer, progress timer, and progress display classes.
+
+%description timer -l pl.UTF-8
+Klasy do obsługi pomiarów czasu, postępu i wyświetlania postępu.
 
 %package wave
 Summary:	Boost.Wave - a standard compliant C++ preprocessor library
@@ -445,6 +462,9 @@ rm -rf $RPM_BUILD_ROOT
 %post	chrono -p /sbin/ldconfig
 %postun	chrono -p /sbin/ldconfig
 
+%post	context -p /sbin/ldconfig
+%postun	context -p /sbin/ldconfig
+
 %post	date_time -p /sbin/ldconfig
 %postun	date_time -p /sbin/ldconfig
 
@@ -475,11 +495,11 @@ rm -rf $RPM_BUILD_ROOT
 %post	test -p /sbin/ldconfig
 %postun	test -p /sbin/ldconfig
 
-%post	timer -p /sbin/ldconfig
-%postun	timer -p /sbin/ldconfig
-
 %post	thread -p /sbin/ldconfig
 %postun	thread -p /sbin/ldconfig
+
+%post	timer -p /sbin/ldconfig
+%postun	timer -p /sbin/ldconfig
 
 %post	wave -p /sbin/ldconfig
 %postun	wave -p /sbin/ldconfig
@@ -495,6 +515,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_chrono.so
+%attr(755,root,root) %{_libdir}/libboost_context.so
 %attr(755,root,root) %{_libdir}/libboost_date_time.so
 %attr(755,root,root) %{_libdir}/libboost_filesystem.so
 %attr(755,root,root) %{_libdir}/libboost_graph.so
@@ -520,6 +541,7 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libboost_chrono.a
+%{_libdir}/libboost_context.a
 %{_libdir}/libboost_date_time.a
 %{_libdir}/libboost_exception.a
 %{_libdir}/libboost_filesystem.a
@@ -561,6 +583,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_chrono.so.*.*.*
 
+%files context
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_context.so.*.*.*
+
 %files date_time
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_date_time.so.*.*.*
@@ -598,13 +624,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_unit_test_framework.so.*.*.*
 
-%files timer
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_timer.so.*.*.*
-
 %files thread
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_thread.so.*.*.*
+
+%files timer
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_timer.so.*.*.*
 
 %files wave
 %defattr(644,root,root,755)
