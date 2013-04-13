@@ -10,14 +10,13 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.51.0
-Release:	6
+Version:	1.53.0
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
-# Source0-md5:	4b6bd483b692fd138aef84ed2c8eb679
+# Source0-md5:	a00d22605d5dbcfb4c9936a9b35bc4c2
 Patch0:		%{name}-link.patch
-Patch1:		%{name}-hash-enum.patch
 URL:		http://www.boost.org/
 BuildRequires:	bzip2-devel
 BuildRequires:	expat-devel
@@ -366,7 +365,6 @@ Dokumentacja dla biblioteki Boost C++.
 %prep
 %setup -q -n %{name}_%{fver}
 %patch0 -p1
-%patch1 -p0
 
 # - don't know how to pass it through (b)jam -s (no way?)
 #   due to oversophisticated build flags system.
@@ -508,6 +506,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_atomic.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_iostreams.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_math_*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_random.so.*.*.*
@@ -516,6 +515,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_atomic.so
 %attr(755,root,root) %{_libdir}/libboost_chrono.so
 %attr(755,root,root) %{_libdir}/libboost_context.so
 %attr(755,root,root) %{_libdir}/libboost_date_time.so
@@ -542,6 +542,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files static
 %defattr(644,root,root,755)
+%{_libdir}/libboost_atomic.a
 %{_libdir}/libboost_chrono.a
 %{_libdir}/libboost_context.a
 %{_libdir}/libboost_date_time.a
