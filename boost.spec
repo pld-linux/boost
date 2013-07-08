@@ -245,6 +245,17 @@ Provide localization and Unicode handling tools for C++.
 %description locale -l pl.UTF-8
 Narzędzia do obsługi lokalizacji i Unikodu w C++.
 
+%package log
+Summary:	Provide logging tools for C++
+Summary(pl.UTF-8):	Narzędzia do logowania w C++
+Group:		Libraries
+
+%description log
+Provide logging tools for C++.
+
+%description log -l pl.UTF-8
+Narzędzia do logowania w C++.
+
 %package program_options
 Summary:	Access to program options, via conventional methods such as command line and config file
 Summary(pl.UTF-8):	Dostęp do opcji programu za pomocą typowych metod, jak linia poleceń i plik konfiguracyjny
@@ -523,6 +534,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_graph.so
 %attr(755,root,root) %{_libdir}/libboost_iostreams.so
 %attr(755,root,root) %{_libdir}/libboost_locale.so
+%attr(755,root,root) %{_libdir}/libboost_log.so
+%attr(755,root,root) %{_libdir}/libboost_log_setup.so
 %attr(755,root,root) %{_libdir}/libboost_math_*.so
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so
 %attr(755,root,root) %{_libdir}/libboost_program_options.so
@@ -545,12 +558,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_atomic.a
 %{_libdir}/libboost_chrono.a
 %{_libdir}/libboost_context.a
+%{_libdir}/libboost_coroutine.a
 %{_libdir}/libboost_date_time.a
 %{_libdir}/libboost_exception.a
 %{_libdir}/libboost_filesystem.a
 %{_libdir}/libboost_graph.a
 %{_libdir}/libboost_iostreams.a
 %{_libdir}/libboost_locale.a
+%{_libdir}/libboost_log.a
+%{_libdir}/libboost_log_setup.a
 %{_libdir}/libboost_math_*.a
 %{_libdir}/libboost_prg_exec_monitor.a
 %{_libdir}/libboost_program_options.a
@@ -605,6 +621,11 @@ rm -rf $RPM_BUILD_ROOT
 %files locale
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_locale.so.*.*.*
+
+%files log
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_log.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_log_setup.so.*.*.*
 
 %files program_options
 %defattr(644,root,root,755)
