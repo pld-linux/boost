@@ -11,13 +11,72 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.54.0
-Release:	2
+Release:	3
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
 # Source0-md5:	15cb8c0803064faef0c4ddf5bc5ca279
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-stdint.patch
+
+# Upstream patches posted as release notes:
+# http://www.boost.org/users/history/version_1_54_0.html
+Patch100: 001-coroutine.patch
+Patch101: 002-date-time.patch
+Patch102: 003-log.patch
+
+# FC Patches:
+# https://svn.boost.org/trac/boost/ticket/8826
+Patch200: boost-1.54.0-context-execstack.patch
+# https://svn.boost.org/trac/boost/ticket/8844
+Patch201: boost-1.54.0-bind-static_assert.patch
+# https://svn.boost.org/trac/boost/ticket/8847
+Patch202: boost-1.54.0-concept-unused_typedef.patch
+# https://svn.boost.org/trac/boost/ticket/5637
+Patch203: boost-1.54.0-mpl-print.patch
+# https://svn.boost.org/trac/boost/ticket/8859
+Patch204: boost-1.54.0-static_warning-unused_typedef.patch
+# https://svn.boost.org/trac/boost/ticket/8855
+Patch205: boost-1.54.0-math-unused_typedef.patch
+Patch206: boost-1.54.0-math-unused_typedef-2.patch
+# https://svn.boost.org/trac/boost/ticket/8853
+Patch207: boost-1.54.0-tuple-unused_typedef.patch
+# https://svn.boost.org/trac/boost/ticket/8854
+Patch208: boost-1.54.0-random-unused_typedef.patch
+# https://svn.boost.org/trac/boost/ticket/8856
+Patch209: boost-1.54.0-date_time-unused_typedef.patch
+Patch210: boost-1.54.0-date_time-unused_typedef-2.patch
+# https://svn.boost.org/trac/boost/ticket/8870
+Patch211: boost-1.54.0-spirit-unused_typedef.patch
+Patch212: boost-1.54.0-spirit-unused_typedef-2.patch
+# https://svn.boost.org/trac/boost/ticket/8871
+Patch213: boost-1.54.0-numeric-unused_typedef.patch
+# https://svn.boost.org/trac/boost/ticket/8872
+Patch214: boost-1.54.0-multiprecision-unused_typedef.patch
+# https://svn.boost.org/trac/boost/ticket/8874
+Patch215: boost-1.54.0-unordered-unused_typedef.patch
+# https://svn.boost.org/trac/boost/ticket/8876
+Patch216: boost-1.54.0-algorithm-unused_typedef.patch
+# https://svn.boost.org/trac/boost/ticket/8877
+Patch217: boost-1.54.0-graph-unused_typedef.patch
+# https://svn.boost.org/trac/boost/ticket/8878
+Patch218: boost-1.54.0-locale-unused_typedef.patch
+# https://svn.boost.org/trac/boost/ticket/8879
+Patch219: boost-1.54.0-property_tree-unused_typedef.patch
+# https://svn.boost.org/trac/boost/ticket/8880
+Patch220: boost-1.54.0-xpressive-unused_typedef.patch
+# https://svn.boost.org/trac/boost/ticket/8881
+Patch221: boost-1.54.0-mpi-unused_typedef.patch
+# https://svn.boost.org/trac/boost/ticket/8888
+Patch222: boost-1.54.0-python-unused_typedef.patch
+# https://svn.boost.org/trac/boost/ticket/8941
+Patch223: boost-1.54.0-lexical_cast-int128.patch
+# https://svn.boost.org/trac/boost/ticket/9038
+Patch224: boost-1.54.0-pool-test_linking.patch
+# https://svn.boost.org/trac/boost/ticket/9037
+Patch225: boost-1.54.0-thread-cond_variable_shadow.patch
+# https://svn.boost.org/trac/boost/ticket/9041
+Patch226: boost-1.54.0-thread-link_atomic.patch
 URL:		http://www.boost.org/
 BuildRequires:	bzip2-devel
 BuildRequires:	expat-devel
@@ -29,6 +88,8 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	zlib-devel
 BuildConflicts:	gcc = 5:3.3.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		specflags	-DBOOST_IOSTREAMS_USE_DEPRECATED=1
 
 %description
 The Boost web site provides free peer-reviewed portable C++ source
@@ -378,6 +439,38 @@ Dokumentacja dla biblioteki Boost C++.
 %setup -q -n %{name}_%{fver}
 %patch0 -p1
 %patch1 -p2
+
+%patch100 -p1
+%patch101 -p1
+%patch102 -p1
+
+%patch200 -p1
+%patch201 -p1
+%patch202 -p1
+%patch203 -p0
+%patch204 -p1
+%patch205 -p1
+%patch206 -p0
+%patch207 -p0
+%patch208 -p0
+%patch209 -p0
+%patch210 -p1
+%patch211 -p1
+%patch212 -p1
+%patch213 -p1
+%patch214 -p1
+%patch215 -p1
+%patch216 -p1
+%patch217 -p1
+%patch218 -p1
+%patch219 -p1
+%patch220 -p1
+%patch221 -p1
+%patch222 -p1
+%patch223 -p0
+%patch224 -p1
+%patch225 -p1
+%patch226 -p1
 
 # - don't know how to pass it through (b)jam -s (no way?)
 #   due to oversophisticated build flags system.
