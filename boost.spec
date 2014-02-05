@@ -5,50 +5,49 @@
 #
 # Conditional build:
 %bcond_without	python	# without boost-python support
-#
+
 %define		fver	%(echo %{version} | tr . _)
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.55.0
-Release:	1
+Release:	2
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
 # Source0-md5:	d6eef4b4cacb2183f2bf265a5a03a354
 Patch0:		%{name}-link.patch
-
 # FC Patches:
 # https://svn.boost.org/trac/boost/ticket/8844
-Patch201: boost-1.54.0-bind-static_assert.patch
+Patch201:	%{name}-1.54.0-bind-static_assert.patch
 # https://svn.boost.org/trac/boost/ticket/8847
-Patch202: boost-1.54.0-concept-unused_typedef.patch
+Patch202:	%{name}-1.54.0-concept-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/5637
-Patch203: boost-1.54.0-mpl-print.patch
+Patch203:	%{name}-1.54.0-mpl-print.patch
 # https://svn.boost.org/trac/boost/ticket/8859
-Patch204: boost-1.54.0-static_warning-unused_typedef.patch
+Patch204:	%{name}-1.54.0-static_warning-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/8853
-Patch207: boost-1.54.0-tuple-unused_typedef.patch
+Patch207:	%{name}-1.54.0-tuple-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/8854
-Patch208: boost-1.54.0-random-unused_typedef.patch
+Patch208:	%{name}-1.54.0-random-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/8856
-Patch209: boost-1.54.0-date_time-unused_typedef.patch
-Patch210: boost-1.54.0-date_time-unused_typedef-2.patch
+Patch209:	%{name}-1.54.0-date_time-unused_typedef.patch
+Patch210:	%{name}-1.54.0-date_time-unused_typedef-2.patch
 # https://svn.boost.org/trac/boost/ticket/8870
-Patch211: boost-1.54.0-spirit-unused_typedef.patch
-Patch212: boost-1.54.0-spirit-unused_typedef-2.patch
+Patch211:	%{name}-1.54.0-spirit-unused_typedef.patch
+Patch212:	%{name}-1.54.0-spirit-unused_typedef-2.patch
 # https://svn.boost.org/trac/boost/ticket/8871
-Patch213: boost-1.54.0-numeric-unused_typedef.patch
+Patch213:	%{name}-1.54.0-numeric-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/8878
-Patch218: boost-1.54.0-locale-unused_typedef.patch
+Patch218:	%{name}-1.54.0-locale-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/8879
-Patch219: boost-1.54.0-property_tree-unused_typedef.patch
+Patch219:	%{name}-1.54.0-property_tree-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/8881
-Patch221: boost-1.54.0-mpi-unused_typedef.patch
+Patch221:	%{name}-1.54.0-mpi-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/8888
-Patch222: boost-1.54.0-python-unused_typedef.patch
+Patch222:	%{name}-1.54.0-python-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/9038
-Patch224: boost-1.54.0-pool-test_linking.patch
+Patch224:	%{name}-1.54.0-pool-test_linking.patch
 URL:		http://www.boost.org/
 BuildRequires:	bzip2-devel
 BuildRequires:	expat-devel
@@ -158,7 +157,7 @@ Statyczne wersje podstawowych bibliotek C++ Boost.
 Summary:	Boost.Python library
 Summary(pl.UTF-8):	biblioteka Boost.Python
 Group:		Libraries
-%pyrequires_eq	python
+Requires:	python
 
 %description python
 Use the Boost Python Library to quickly and easily export a C++
@@ -439,8 +438,11 @@ Dokumentacja dla biblioteki Boost C++.
 %{__sed} -i 's:find-static:find-shared:' libs/graph/build/Jamfile.v2
 
 cat << EOF > tools/build/v2/user-config.jam
-using gcc : %(%{__cxx} -dumpversion) : %{__cxx} ;
+using gcc : %{cxx_version} : %{__cxx} ;
 EOF
+
+# cleanup backups after patching
+find '(' -name '*~' -o -name '*.orig' ')' -print0 | xargs -0 -r -l512 rm -f
 
 %build
 %if %{with python}
