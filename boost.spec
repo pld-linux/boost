@@ -10,29 +10,16 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.55.0
-Release:	3
+Version:	1.56.0
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
-# Source0-md5:	d6eef4b4cacb2183f2bf265a5a03a354
+# Source0-md5:	a744cf167b05d72335f27c88115f211d
 Patch0:		%{name}-link.patch
 # FC Patches:
-# https://svn.boost.org/trac/boost/ticket/8844
-Patch201:	%{name}-1.54.0-bind-static_assert.patch
-# https://svn.boost.org/trac/boost/ticket/8847
-Patch202:	%{name}-1.54.0-concept-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/5637
 Patch203:	%{name}-1.54.0-mpl-print.patch
-# https://svn.boost.org/trac/boost/ticket/8859
-Patch204:	%{name}-1.54.0-static_warning-unused_typedef.patch
-# https://svn.boost.org/trac/boost/ticket/8853
-Patch207:	%{name}-1.54.0-tuple-unused_typedef.patch
-# https://svn.boost.org/trac/boost/ticket/8854
-Patch208:	%{name}-1.54.0-random-unused_typedef.patch
-# https://svn.boost.org/trac/boost/ticket/8856
-Patch209:	%{name}-1.54.0-date_time-unused_typedef.patch
-Patch210:	%{name}-1.54.0-date_time-unused_typedef-2.patch
 # https://svn.boost.org/trac/boost/ticket/8870
 Patch211:	%{name}-1.54.0-spirit-unused_typedef.patch
 Patch212:	%{name}-1.54.0-spirit-unused_typedef-2.patch
@@ -40,8 +27,6 @@ Patch212:	%{name}-1.54.0-spirit-unused_typedef-2.patch
 Patch213:	%{name}-1.54.0-numeric-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/8878
 Patch218:	%{name}-1.54.0-locale-unused_typedef.patch
-# https://svn.boost.org/trac/boost/ticket/8879
-Patch219:	%{name}-1.54.0-property_tree-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/8881
 Patch221:	%{name}-1.54.0-mpi-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/8888
@@ -410,19 +395,11 @@ Dokumentacja dla biblioteki Boost C++.
 %setup -q -n %{name}_%{fver}
 %patch0 -p1
 
-%patch201 -p1
-%patch202 -p1
 %patch203 -p0
-%patch204 -p1
-%patch207 -p0
-%patch208 -p0
-%patch209 -p0
-%patch210 -p1
 %patch211 -p1
 %patch212 -p1
 %patch213 -p1
 %patch218 -p1
-%patch219 -p1
 %patch221 -p1
 %patch222 -p1
 %patch224 -p1
@@ -430,14 +407,14 @@ Dokumentacja dla biblioteki Boost C++.
 # - don't know how to pass it through (b)jam -s (no way?)
 #   due to oversophisticated build flags system.
 # - pass -fPIC due to <shared-linkable> removal.
-%{__sed} -i "s/<optimization>speed : -O3/<optimization>speed : ${CXXFLAGS:-%rpmcxxflags} -fPIC/" tools/build/v2/tools/gcc.jam
+%{__sed} -i "s/<optimization>speed : -O3/<optimization>speed : ${CXXFLAGS:-%rpmcxxflags} -fPIC/" tools/build/src/tools/gcc.jam
 
 # cleanup -g switch to avoid override debuginfocflags.
-%{__sed} -i 's/<debug-symbols>on : -g/<debug-symbols>on :/' tools/build/v2/tools/gcc.jam
+%{__sed} -i 's/<debug-symbols>on : -g/<debug-symbols>on :/' tools/build/src/tools/gcc.jam
 # link against shared expat library.
-%{__sed} -i 's:find-static:find-shared:' libs/graph/build/Jamfile.v2
+#%{__sed} -i 's:find-static:find-shared:' libs/graph/build/Jamfile.v2
 
-cat << EOF > tools/build/v2/user-config.jam
+cat << EOF > tools/build/src/user-config.jam
 using gcc : %{cxx_version} : %{__cxx} ;
 EOF
 
@@ -571,6 +548,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_atomic.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_container.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_coroutine.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_iostreams.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_math_*.so.*.*.*
@@ -582,6 +560,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_atomic.so
 %attr(755,root,root) %{_libdir}/libboost_chrono.so
+%attr(755,root,root) %{_libdir}/libboost_container.so
 %attr(755,root,root) %{_libdir}/libboost_context.so
 %attr(755,root,root) %{_libdir}/libboost_coroutine.so
 %attr(755,root,root) %{_libdir}/libboost_date_time.so
@@ -612,6 +591,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libboost_atomic.a
 %{_libdir}/libboost_chrono.a
+%{_libdir}/libboost_container.a
 %{_libdir}/libboost_context.a
 %{_libdir}/libboost_coroutine.a
 %{_libdir}/libboost_date_time.a
