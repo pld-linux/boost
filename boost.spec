@@ -73,7 +73,9 @@ Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek C++ Boost
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-chrono = %{version}-%{release}
+%ifnarch x32
 Requires:	%{name}-context = %{version}-%{release}
+%endif
 Requires:	%{name}-date_time = %{version}-%{release}
 Requires:	%{name}-filesystem = %{version}-%{release}
 Requires:	%{name}-graph = %{version}-%{release}
