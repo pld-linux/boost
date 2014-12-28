@@ -1,0 +1,85 @@
+Index: libs/context/src/asm/jump_x86_64_sysv_elf_gas.S
+===================================================================
+--- libs/context/src/asm/jump_x86_64_sysv_elf_gas.S	(revision 86799)
++++ libs/context/src/asm/jump_x86_64_sysv_elf_gas.S	(working copy)
+@@ -38,6 +38,12 @@
+  *                                                                                      *
+  * **************************************************************************************/
+ 
++#ifdef __ILP32__
++# define SIZEOF_FCONTEXT_T 0x50
++#else
++# define SIZEOF_FCONTEXT_T 0x58
++#endif
++
+ .text
+ .globl jump_fcontext
+ .type jump_fcontext,@function
+@@ -53,11 +59,11 @@ jump_fcontext:
+     cmp      $0,         %rcx
+     je       1f
+ 
+-    stmxcsr  0x50(%rdi)             /* save MMX control and status word */
+-    fnstcw   0x54(%rdi)             /* save x87 control word */
++    stmxcsr  (SIZEOF_FCONTEXT_T - 8)(%rdi)             /* save MMX control and status word */
++    fnstcw   (SIZEOF_FCONTEXT_T - 4)(%rdi)             /* save x87 control word */
+ 
+-    ldmxcsr  0x50(%rsi)             /* restore MMX control and status word */
+-    fldcw    0x54(%rsi)             /* restore x87 control word */
++    ldmxcsr  (SIZEOF_FCONTEXT_T - 8)(%rsi)             /* restore MMX control and status word */
++    fldcw    (SIZEOF_FCONTEXT_T - 4)(%rsi)             /* restore x87 control word */
+ 1:
+ 
+     leaq     0x8(%rsp),  %rax       /* exclude the return address and save as stack pointer */
+Index: libs/context/src/asm/make_x86_64_sysv_elf_gas.S
+===================================================================
+--- libs/context/src/asm/make_x86_64_sysv_elf_gas.S	(revision 86799)
++++ libs/context/src/asm/make_x86_64_sysv_elf_gas.S	(working copy)
+@@ -38,26 +38,43 @@
+  *                                                                                      *
+  * **************************************************************************************/
+ 
++#ifdef __ILP32__
++# define SIZEOF_FCONTEXT_T 0x50
++#else
++# define SIZEOF_FCONTEXT_T 0x58
++#endif
++
+ .text
+ .globl make_fcontext
+ .type make_fcontext,@function
+ .align 16
+-make_fcontext:
+-    leaq   -0x58(%rdi),    %rax        /* reserve space for fcontext_t at top of context stack */
++make_fcontext: // (rax, rsi, rdx)
++    leaq   -SIZEOF_FCONTEXT_T(%rdi), %rax /* reserve space for fcontext_t at top of context stack */
+ 
+     /* shift address in RAX to lower 16 byte boundary */
+     /* == pointer to fcontext_t and address of context stack */
+     andq   $-16,           %rax
+ 
++#ifdef __ILP32__
++    mov    %edi,           0x40(%rax) /* save address of context stack pointer (base) in fcontext_t */
++    mov    %esi,           0x44(%rax) /* save context stack size in fcontext_t */
++    mov    %edx,           0x38(%rax) /* save address of context function in fcontext_t */
++#else
+     movq   %rdi,           0x40(%rax) /* save address of context stack pointer (base) in fcontext_t */
+     movq   %rsi,           0x48(%rax) /* save context stack size in fcontext_t */
+     movq   %rdx,           0x38(%rax) /* save address of context function in fcontext_t */
++#endif
+ 
+-    stmxcsr  0x50(%rax)                /* save MMX control and status word */
+-    fnstcw   0x54(%rax)                /* save x87 control word */
++    stmxcsr  (SIZEOF_FCONTEXT_T - 8)(%rax)                /* save MMX control and status word */
++    fnstcw   (SIZEOF_FCONTEXT_T - 4)(%rax)                /* save x87 control word */
+ 
++#ifdef __ILP32__
++    leaq   -0x10(%rax),     %rdx       /* reserve space for the return address on context stack, (RSP - 0x8) % 16 == 0 */
++    mov    %edx,            0x30(%rax) /* save address in RDX as stack pointer for context function */
++#else
+     leaq   -0x8(%rax),      %rdx       /* reserve space for the return address on context stack, (RSP - 0x8) % 16 == 0 */
+     movq   %rdx,            0x30(%rax) /* save address in RDX as stack pointer for context function */
++#endif
+ 
+     leaq   finish(%rip),    %rcx       /* compute abs address of label finish */
+     movq   %rcx,            (%rdx)     /* save address of finish as return address for context function */
