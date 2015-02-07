@@ -11,12 +11,12 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.56.0
-Release:	2
+Version:	1.57.0
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
-# Source0-md5:	a744cf167b05d72335f27c88115f211d
+# Source0-md5:	1be49befbdd9a5ce9def2983ba3e7b76
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-x32-context.patch
 # FC Patches:
@@ -25,8 +25,6 @@ Patch203:	%{name}-1.54.0-mpl-print.patch
 # https://svn.boost.org/trac/boost/ticket/8870
 Patch211:	%{name}-1.54.0-spirit-unused_typedef.patch
 Patch212:	%{name}-1.54.0-spirit-unused_typedef-2.patch
-# https://svn.boost.org/trac/boost/ticket/8871
-Patch213:	%{name}-1.54.0-numeric-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/8878
 Patch218:	%{name}-1.54.0-locale-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/8881
@@ -404,7 +402,6 @@ Dokumentacja dla biblioteki Boost C++.
 %patch203 -p0
 %patch211 -p1
 %patch212 -p1
-%patch213 -p1
 %patch218 -p1
 %patch221 -p1
 %patch222 -p1
