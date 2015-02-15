@@ -5,7 +5,8 @@
 #	- fix building context and corouting on x32 (patch1)
 #
 # Conditional build:
-%bcond_without	python	# without boost-python support
+%bcond_without	python2		# without boost-python2 support
+%bcond_without	python3		# without boost-python3 support
 
 %define		fver	%(echo %{version} | tr . _)
 Summary:	The Boost C++ Libraries
@@ -40,6 +41,7 @@ BuildRequires:	libicu-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	perl-base
 %{?with_python:BuildRequires:	python-devel >= 2.2}
+%{?with_python3:BuildRequires:	python3-devel}
 BuildRequires:	rpm-pythonprov
 BuildRequires:	zlib-devel
 BuildConflicts:	gcc = 5:3.3.1
@@ -141,6 +143,18 @@ Static version of base Boost C++ libraries.
 %description static -l pl.UTF-8
 Statyczne wersje podstawowych bibliotek C++ Boost.
 
+%package python-devel-common
+Summary:	Boost.Python development headers
+Summary(pl.UTF-8):	Pliki nagłówkowe dla Boost.Python
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description python-devel-common
+Headers for the Boost.Python library.
+
+%description python-devel-common -l pl.UTF-8
+Pliki nagłówkowe dla biblioteki Boost.Python.
+
 %package python
 Summary:	Boost.Python library
 Summary(pl.UTF-8):	biblioteka Boost.Python
@@ -165,17 +179,18 @@ większości przypadków nie trzeba w ogóle zmieniać własnych klas C++,
 klasy C++ i funkcje do Pythona.
 
 %package python-devel
-Summary:	Boost.Python development headers
-Summary(pl.UTF-8):	Pliki nagłówkowe dla Boost.Python
+Summary:	Boost.Python development library
+Summary(pl.UTF-8):	Biblioteka developerska Boost.Python
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-python = %{version}-%{release}
+Requires:	%{name}-python-devel-common = %{version}-%{release}
 
 %description python-devel
-Headers for the Boost.Python library.
+Boost.Python development library.
 
 %description python-devel -l pl.UTF-8
-Pliki nagłówkowe dla biblioteki Boost.Python.
+Biblioteka developerska Boost.Python.
 
 %package python-static
 Summary:	Static version of Boost.Python library
@@ -187,6 +202,55 @@ Requires:	%{name}-python-devel = %{version}-%{release}
 Static version of Boost.Python library.
 
 %description python-static -l pl.UTF-8
+Statyczna wersja biblioteki Boost.Python.
+
+%package python3
+Summary:	Boost.Python library
+Summary(pl.UTF-8):	biblioteka Boost.Python
+Group:		Libraries
+Requires:	python3
+
+%description python3
+Use the Boost Python Library to quickly and easily export a C++
+library to Python 3 such that the Python 3 interface is very similar
+to the C++ interface. It is designed to be minimally intrusive on your
+C++ design. In most cases, you should not have to alter your C++
+classes in any way in order to use them with Boost.Python. The system
+should simply ``reflect'' your C++ classes and functions into Python 3.
+
+%description python3 -l pl.UTF-8
+Biblioteka Boost Python służy do szybkiego i prostego eksportu
+biblioteki C++ do Pythona 3, tak że interfejs Pythona 3 jest bardzo
+podobny do interfejsu C++. Biblioteka jest zaprojektowana tak, żeby
+narzucać jak najmniej wymagań dotyczących konstrukcjii C++. W
+większości przypadków nie trzeba w ogóle zmieniać własnych klas C++,
+żeby używać ich z Boost.Python. System powinien po prostu ,,odbić''
+klasy C++ i funkcje do Pythona 3.
+
+%package python3-devel
+Summary:	Boost.Python development library
+Summary(pl.UTF-8):	Biblioteka developerska Boost.Python
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-python3 = %{version}-%{release}
+Requires:	%{name}-python-devel-coomon = %{version}-%{release}
+
+%description python3-devel
+Boost.Python development library.
+
+%description python3-devel -l pl.UTF-8
+Biblioteka developerska Boost.Python.
+
+%package python3-static
+Summary:	Static version of Boost.Python library
+Summary(pl.UTF-8):	Statyczna wersja biblioteki Boost.Python
+Group:		Development/Libraries
+Requires:	%{name}-python3-devel = %{version}-%{release}
+
+%description python3-static
+Static version of Boost.Python library.
+
+%description python3-static -l pl.UTF-8
 Statyczna wersja biblioteki Boost.Python.
 
 %package chrono
@@ -425,18 +489,12 @@ EOF
 find '(' -name '*~' -o -name '*.orig' ')' -print0 | xargs -0 -r -l512 rm -f
 
 %build
-%if %{with python}
-PYTHON_VERSION=$(%{__python} -c 'import sys; print sys.version[0:3]')
-PYTHON_ROOT=%{_prefix}
-%else
-PYTHON_ROOT=
-PYTHON_VERSION=
-%endif
 EXPAT_INCLUDE=%{_includedir} \
 EXPAT_LIBPATH=%{_libdir} \
 ICU_PATH=%{_prefix} \
 ./bootstrap.sh \
-	--prefix=%{_prefix}
+	--prefix=%{_prefix} \
+	-without-libraries=python
 
 ./b2 \
 %ifarch x32
@@ -449,6 +507,31 @@ ICU_PATH=%{_prefix} \
 	inlining=on \
 	link=static,shared \
 	threading=multi
+
+
+%if %{with python2}
+echo "using python : %{py_ver} : %{py_prefix} : %{py_incdir} ;" >> project-config.jam
+./b2 \
+	--with-python python=%{py_ver} \
+	-d2 --toolset=gcc \
+	variant=release \
+	debug-symbols=on \
+	inlining=on \
+	link=static,shared \
+	threading=multi
+%endif
+
+%if %{with python3}
+echo "using python : %{py3_ver}m : %{py3_prefix} : %{py3_incdir} ;" >> project-config.jam
+./b2 \
+	--with-python python=%{py3_ver}m \
+	-d2 --toolset=gcc \
+	variant=release \
+	debug-symbols=on \
+	inlining=on \
+	link=static,shared \
+	threading=multi
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -533,6 +616,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	python -p /sbin/ldconfig
 %postun	python -p /sbin/ldconfig
+
+%post	python3 -p /sbin/ldconfig
+%postun	python3 -p /sbin/ldconfig
 
 %post	program_options -p /sbin/ldconfig
 %postun	program_options -p /sbin/ldconfig
@@ -636,7 +722,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_wave.a
 %{_libdir}/libboost_wserialization.a
 
-%if %{with python}
+%if %{with python2} || %{with python3}
+%files python-devel-common
+%defattr(644,root,root,755)
+%{_includedir}/boost/python
+%{_includedir}/boost/python.hpp
+%endif
+
+%if %{with python2}
 %files python
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_python.so.*.*.*
@@ -644,12 +737,24 @@ rm -rf $RPM_BUILD_ROOT
 %files python-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_python.so
-%{_includedir}/boost/python
-%{_includedir}/boost/python.hpp
 
 %files python-static
 %defattr(644,root,root,755)
 %{_libdir}/libboost_python.a
+%endif
+
+%if %{with python3}
+%files python3
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_python3.so.*.*.*
+
+%files python3-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_python3.so
+
+%files python3-static
+%defattr(644,root,root,755)
+%{_libdir}/libboost_python3.a
 %endif
 
 %files chrono
