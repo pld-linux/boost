@@ -13,7 +13,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.57.0
-Release:	2
+Release:	3
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
@@ -508,11 +508,10 @@ ICU_PATH=%{_prefix} \
 	link=static,shared \
 	threading=multi
 
-
-%if %{with python2}
-echo "using python : %{py_ver} : %{py_prefix} : %{py_incdir} ;" >> project-config.jam
+%if %{with python3}
+echo "using python : %{py3_ver}m : %{py3_prefix} : %{py3_incdir} ;" >> project-config.jam
 ./b2 \
-	--with-python python=%{py_ver} \
+	--with-python python=%{py3_ver}m \
 	-d2 --toolset=gcc \
 	variant=release \
 	debug-symbols=on \
@@ -521,10 +520,10 @@ echo "using python : %{py_ver} : %{py_prefix} : %{py_incdir} ;" >> project-confi
 	threading=multi
 %endif
 
-%if %{with python3}
-echo "using python : %{py3_ver}m : %{py3_prefix} : %{py3_incdir} ;" >> project-config.jam
+%if %{with python2}
+echo "using python : %{py_ver} : %{py_prefix} : %{py_incdir} ;" >> project-config.jam
 ./b2 \
-	--with-python python=%{py3_ver}m \
+	--with-python python=%{py_ver} \
 	-d2 --toolset=gcc \
 	variant=release \
 	debug-symbols=on \
