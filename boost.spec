@@ -13,7 +13,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.57.0
-Release:	4
+Release:	5
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
@@ -512,7 +512,7 @@ ICU_PATH=%{_prefix} \
 echo "using python : %{py3_ver}m : %{py3_prefix} : %{py3_incdir} ;" >> project-config.jam
 ./b2 \
 	--with-python python=%{py3_ver}m \
-	-d2 --toolset=gcc \
+	-a -d2 --toolset=gcc \
 	variant=release \
 	debug-symbols=on \
 	inlining=on \
@@ -524,7 +524,7 @@ echo "using python : %{py3_ver}m : %{py3_prefix} : %{py3_incdir} ;" >> project-c
 echo "using python : %{py_ver} : %{py_prefix} : %{py_incdir} ;" >> project-config.jam
 ./b2 \
 	--with-python python=%{py_ver} \
-	-d2 --toolset=gcc \
+	-a -d2 --toolset=gcc \
 	variant=release \
 	debug-symbols=on \
 	inlining=on \
