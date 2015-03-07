@@ -145,7 +145,7 @@ Statyczne wersje podstawowych bibliotek C++ Boost.
 
 %package python-devel-common
 Summary:	Boost.Python development headers
-Summary(pl.UTF-8):	Pliki nagłówkowe dla Boost.Python
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Boost.Python
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -153,62 +153,63 @@ Requires:	%{name}-devel = %{version}-%{release}
 Headers for the Boost.Python library.
 
 %description python-devel-common -l pl.UTF-8
-Pliki nagłówkowe dla biblioteki Boost.Python.
+Pliki nagłówkowe biblioteki Boost.Python.
 
 %package python
-Summary:	Boost.Python library
-Summary(pl.UTF-8):	biblioteka Boost.Python
+Summary:	Boost.Python library for Python 2
+Summary(pl.UTF-8):	Biblioteka Boost.Python dla Pythona 2
 Group:		Libraries
-Requires:	python
+Requires:	python-libs
 
 %description python
 Use the Boost Python Library to quickly and easily export a C++
-library to Python such that the Python interface is very similar to
-the C++ interface. It is designed to be minimally intrusive on your
+library to Python 2 such that the Python 2 interface is very similar
+to the C++ interface. It is designed to be minimally intrusive on your
 C++ design. In most cases, you should not have to alter your C++
 classes in any way in order to use them with Boost.Python. The system
-should simply ``reflect'' your C++ classes and functions into Python.
+should simply ``reflect'' your C++ classes and functions into Python
+3.
 
 %description python -l pl.UTF-8
 Biblioteka Boost Python służy do szybkiego i prostego eksportu
-biblioteki C++ do Pythona, tak że interfejs Pythona jest bardzo
+biblioteki C++ do Pythona 2, tak że interfejs Pythona 2 jest bardzo
 podobny do interfejsu C++. Biblioteka jest zaprojektowana tak, żeby
 narzucać jak najmniej wymagań dotyczących konstrukcjii C++. W
 większości przypadków nie trzeba w ogóle zmieniać własnych klas C++,
 żeby używać ich z Boost.Python. System powinien po prostu ,,odbić''
-klasy C++ i funkcje do Pythona.
+klasy C++ i funkcje do Pythona 3.
 
 %package python-devel
-Summary:	Boost.Python development library
-Summary(pl.UTF-8):	Biblioteka developerska Boost.Python
+Summary:	Boost.Python development files for Python 2
+Summary(pl.UTF-8):	Pliki programistyczne biblioteki Boost.Python dla Pythona 2
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-python = %{version}-%{release}
 Requires:	%{name}-python-devel-common = %{version}-%{release}
 
 %description python-devel
-Boost.Python development library.
+Boost.Python development files for Python 2.
 
 %description python-devel -l pl.UTF-8
-Biblioteka developerska Boost.Python.
+Pliki programistyczne biblioteki Boost.Python dla Pythona 2.
 
 %package python-static
-Summary:	Static version of Boost.Python library
-Summary(pl.UTF-8):	Statyczna wersja biblioteki Boost.Python
+Summary:	Static version of Boost.Python library for Python 2
+Summary(pl.UTF-8):	Statyczna wersja biblioteki Boost.Python dla Pythona 2
 Group:		Development/Libraries
 Requires:	%{name}-python-devel = %{version}-%{release}
 
 %description python-static
-Static version of Boost.Python library.
+Static version of Boost.Python library for Python 2.
 
 %description python-static -l pl.UTF-8
-Statyczna wersja biblioteki Boost.Python.
+Statyczna wersja biblioteki Boost.Python dla Pythona 2.
 
 %package python3
-Summary:	Boost.Python library
-Summary(pl.UTF-8):	biblioteka Boost.Python
+Summary:	Boost.Python library for Python 3
+Summary(pl.UTF-8):	biblioteka Boost.Python dla Pythona 3
 Group:		Libraries
-Requires:	python3
+Requires:	python3-libs
 
 %description python3
 Use the Boost Python Library to quickly and easily export a C++
@@ -216,7 +217,8 @@ library to Python 3 such that the Python 3 interface is very similar
 to the C++ interface. It is designed to be minimally intrusive on your
 C++ design. In most cases, you should not have to alter your C++
 classes in any way in order to use them with Boost.Python. The system
-should simply ``reflect'' your C++ classes and functions into Python 3.
+should simply ``reflect'' your C++ classes and functions into Python
+3.
 
 %description python3 -l pl.UTF-8
 Biblioteka Boost Python służy do szybkiego i prostego eksportu
@@ -228,30 +230,30 @@ większości przypadków nie trzeba w ogóle zmieniać własnych klas C++,
 klasy C++ i funkcje do Pythona 3.
 
 %package python3-devel
-Summary:	Boost.Python development library
-Summary(pl.UTF-8):	Biblioteka developerska Boost.Python
+Summary:	Boost.Python development files for Python 3
+Summary(pl.UTF-8):	Pliki programistyczne biblioteki Boost.Python dla Pythona 3
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	%{name}-python3 = %{version}-%{release}
 Requires:	%{name}-python-devel-common = %{version}-%{release}
 
 %description python3-devel
-Boost.Python development library.
+Boost.Python development files for Python 3.
 
 %description python3-devel -l pl.UTF-8
-Biblioteka developerska Boost.Python.
+Pliki programistyczne biblioteki Boost.Python dla Pythona 3.
 
 %package python3-static
-Summary:	Static version of Boost.Python library
-Summary(pl.UTF-8):	Statyczna wersja biblioteki Boost.Python
+Summary:	Static version of Boost.Python library for Python 3
+Summary(pl.UTF-8):	Statyczna wersja biblioteki Boost.Python dla Pythona 3
 Group:		Development/Libraries
 Requires:	%{name}-python3-devel = %{version}-%{release}
 
 %description python3-static
-Static version of Boost.Python library.
+Static version of Boost.Python library for Python 3.
 
 %description python3-static -l pl.UTF-8
-Statyczna wersja biblioteki Boost.Python.
+Statyczna wersja biblioteki Boost.Python dla Pythona 3.
 
 %package chrono
 Summary:	Useful time utilities
