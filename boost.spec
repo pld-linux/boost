@@ -12,12 +12,12 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.57.0
-Release:	5
+Version:	1.58.0
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
-# Source0-md5:	1be49befbdd9a5ce9def2983ba3e7b76
+# Source0-md5:	b8839650e61e9c1c0a89f371dd475546
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-x32-context.patch
 # FC Patches:
@@ -32,8 +32,6 @@ Patch218:	%{name}-1.54.0-locale-unused_typedef.patch
 Patch221:	%{name}-1.54.0-mpi-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/8888
 Patch222:	%{name}-1.54.0-python-unused_typedef.patch
-# https://svn.boost.org/trac/boost/ticket/9038
-Patch224:	%{name}-1.54.0-pool-test_linking.patch
 URL:		http://www.boost.org/
 BuildRequires:	bzip2-devel
 BuildRequires:	expat-devel
@@ -473,7 +471,6 @@ Dokumentacja dla biblioteki Boost C++.
 %patch218 -p1
 %patch221 -p1
 %patch222 -p1
-%patch224 -p1
 
 # - don't know how to pass it through (b)jam -s (no way?)
 #   due to oversophisticated build flags system.
