@@ -2,7 +2,6 @@
 # TODO:
 #	- think about building MPI.
 #	- split shared libs from core package into -iostreams/-serialization.
-#	- fix building context and corouting on x32 (patch1)
 #
 # Conditional build:
 %bcond_without	python2		# without boost-python2 support
@@ -13,7 +12,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.58.0
-Release:	1
+Release:	2
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
@@ -72,9 +71,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek C++ Boost
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-chrono = %{version}-%{release}
-%ifnarch x32
 Requires:	%{name}-context = %{version}-%{release}
-%endif
 Requires:	%{name}-date_time = %{version}-%{release}
 Requires:	%{name}-filesystem = %{version}-%{release}
 Requires:	%{name}-graph = %{version}-%{release}
@@ -636,9 +633,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_atomic.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_container.so.*.*.*
-%ifnarch x32
 %attr(755,root,root) %{_libdir}/libboost_coroutine.so.*.*.*
-%endif
 %attr(755,root,root) %{_libdir}/libboost_iostreams.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_math_*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_random.so.*.*.*
@@ -650,10 +645,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_atomic.so
 %attr(755,root,root) %{_libdir}/libboost_chrono.so
 %attr(755,root,root) %{_libdir}/libboost_container.so
-%ifnarch x32
 %attr(755,root,root) %{_libdir}/libboost_context.so
 %attr(755,root,root) %{_libdir}/libboost_coroutine.so
-%endif
 %attr(755,root,root) %{_libdir}/libboost_date_time.so
 %attr(755,root,root) %{_libdir}/libboost_filesystem.so
 %attr(755,root,root) %{_libdir}/libboost_graph.so
@@ -683,10 +676,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_atomic.a
 %{_libdir}/libboost_chrono.a
 %{_libdir}/libboost_container.a
-%ifnarch x32
 %{_libdir}/libboost_context.a
 %{_libdir}/libboost_coroutine.a
-%endif
 %{_libdir}/libboost_date_time.a
 %{_libdir}/libboost_exception.a
 %{_libdir}/libboost_filesystem.a
@@ -749,11 +740,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_chrono.so.*.*.*
 
-%ifnarch x32
 %files context
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_context.so.*.*.*
-%endif
 
 %files date_time
 %defattr(644,root,root,755)
