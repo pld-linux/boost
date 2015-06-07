@@ -20,6 +20,7 @@ Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
 # Source0-md5:	b8839650e61e9c1c0a89f371dd475546
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-x32-context.patch
+Patch2:		%{name}-clean-gcc-flags.patch
 # FC Patches:
 # https://svn.boost.org/trac/boost/ticket/5637
 Patch203:	%{name}-1.54.0-mpl-print.patch
@@ -463,7 +464,8 @@ Dokumentacja dla biblioteki Boost C++.
 %prep
 %setup -q -n %{name}_%{fver}
 %patch0 -p1
-#patch1 -p0
+%patch1 -p1
+%patch2 -p1
 
 %patch203 -p0
 %patch211 -p1
@@ -472,18 +474,8 @@ Dokumentacja dla biblioteki Boost C++.
 %patch221 -p1
 %patch222 -p1
 
-# - don't know how to pass it through (b)jam -s (no way?)
-#   due to oversophisticated build flags system.
-# - pass -fPIC due to <shared-linkable> removal.
-%{__sed} -i "s/<optimization>speed : -O3/<optimization>speed : ${CXXFLAGS:-%rpmcxxflags} -fPIC/" tools/build/src/tools/gcc.jam
-
-# cleanup -g switch to avoid override debuginfocflags.
-%{__sed} -i 's/<debug-symbols>on : -g/<debug-symbols>on :/' tools/build/src/tools/gcc.jam
-# link against shared expat library.
-#%{__sed} -i 's:find-static:find-shared:' libs/graph/build/Jamfile.v2
-
 cat << EOF > tools/build/src/user-config.jam
-using gcc : %{cxx_version} : %{__cxx} ;
+using gcc : %{cxx_version} : %{__cxx} : <cflags>"%{rpmcflags} -fPIC" <cxxflags>"%{rpmcxxflags} -fPIC" <linkflags>"%{rpmldflags}" ;
 EOF
 
 # cleanup backups after patching
@@ -498,10 +490,6 @@ ICU_PATH=%{_prefix} \
 	-without-libraries=python
 
 ./b2 \
-%ifarch x32
-	--without-context \
-	--without-coroutine \
-%endif
 	-d2 --toolset=gcc \
 	variant=release \
 	debug-symbols=on \
