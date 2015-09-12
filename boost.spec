@@ -11,12 +11,12 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.58.0
-Release:	2
+Version:	1.59.0
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
-# Source0-md5:	b8839650e61e9c1c0a89f371dd475546
+# Source0-md5:	6aa9a5c6a4ca1016edd0ed1178e3cb87
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-x32-context.patch
 Patch2:		%{name}-clean-gcc-flags.patch
@@ -24,14 +24,11 @@ Patch2:		%{name}-clean-gcc-flags.patch
 # https://svn.boost.org/trac/boost/ticket/5637
 Patch203:	%{name}-1.54.0-mpl-print.patch
 # https://svn.boost.org/trac/boost/ticket/8870
-Patch211:	%{name}-1.54.0-spirit-unused_typedef.patch
 Patch212:	%{name}-1.54.0-spirit-unused_typedef-2.patch
 # https://svn.boost.org/trac/boost/ticket/8878
 Patch218:	%{name}-1.54.0-locale-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/8881
 Patch221:	%{name}-1.54.0-mpi-unused_typedef.patch
-# https://svn.boost.org/trac/boost/ticket/8888
-Patch222:	%{name}-1.54.0-python-unused_typedef.patch
 URL:		http://www.boost.org/
 BuildRequires:	bzip2-devel
 BuildRequires:	expat-devel
@@ -465,11 +462,9 @@ Dokumentacja dla biblioteki Boost C++.
 %patch2 -p1
 
 %patch203 -p0
-%patch211 -p1
 %patch212 -p1
 %patch218 -p1
 %patch221 -p1
-%patch222 -p1
 
 cat << EOF > tools/build/src/user-config.jam
 using gcc : %{cxx_version} : %{__cxx} : <cflags>"%{rpmcflags} -fPIC" <cxxflags>"%{rpmcxxflags} -fPIC" <linkflags>"%{rpmldflags}" ;

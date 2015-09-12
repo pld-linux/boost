@@ -1,6 +1,6 @@
---- boost_1_58_0/tools/build/src/tools/gcc.jam~	2015-06-07 11:33:34.000000000 +0200
-+++ boost_1_58_0/tools/build/src/tools/gcc.jam	2015-06-07 11:38:59.720016555 +0200
-@@ -366,9 +366,9 @@
+--- boost_1_59_0/tools/build/src/tools/gcc.jam.orig	2015-08-11 15:53:51.000000000 +0200
++++ boost_1_59_0/tools/build/src/tools/gcc.jam	2015-09-12 17:16:00.647535444 +0200
+@@ -369,9 +369,9 @@
  toolset.flags gcc.compile PCH_FILE <pch>on : <pch-file> ;
  
  # Declare flags and action for compilation.
@@ -13,7 +13,7 @@
  
  toolset.flags gcc.compile OPTIONS <inlining>off  : -fno-inline ;
  toolset.flags gcc.compile OPTIONS <inlining>on   : -Wno-inline ;
-@@ -379,8 +379,8 @@
+@@ -382,8 +382,8 @@
  toolset.flags gcc.compile OPTIONS <warnings>all : -Wall -pedantic ;
  toolset.flags gcc.compile OPTIONS <warnings-as-errors>on : -Werror ;
  
@@ -24,14 +24,14 @@
  
  toolset.flags gcc.compile.c++ OPTIONS <rtti>off : -fno-rtti ;
  toolset.flags gcc.compile.c++ OPTIONS <exception-handling>off : -fno-exceptions ;
-@@ -448,23 +448,6 @@
+@@ -451,23 +451,6 @@
                  option = -mlp64 ;
              }
          }
 -        else
 -        {
 -            local arch = [ feature.get-values architecture : $(properties) ] ;
--            if $(arch) != arm
+-            if $(arch) = power || $(arch) = sparc || $(arch) = x86
 -            {
 -                if $(model) = 32
 -                {
@@ -48,7 +48,7 @@
          OPTIONS on $(targets) += $(option) ;
      }
  }
-@@ -1073,7 +1056,7 @@
+@@ -1076,7 +1059,7 @@
  # x86 and compatible
  # The 'native' option appeared in gcc 4.2 so we cannot safely use it as default.
  # Use i686 instead for 32-bit.
