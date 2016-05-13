@@ -11,24 +11,18 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.59.0
-Release:	5
+Version:	1.61.0
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
-# Source0-md5:	6aa9a5c6a4ca1016edd0ed1178e3cb87
+# Source0-md5:	6095876341956f65f9d35939ccea1a9f
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-x32-context.patch
 Patch2:		%{name}-clean-gcc-flags.patch
-# https://svn.boost.org/trac/boost/ticket/11549
-Patch3:		Boost.Log-regression.patch
 # FC Patches:
 # https://svn.boost.org/trac/boost/ticket/5637
 Patch203:	%{name}-1.54.0-mpl-print.patch
-# https://svn.boost.org/trac/boost/ticket/8870
-Patch212:	%{name}-1.54.0-spirit-unused_typedef-2.patch
-# https://svn.boost.org/trac/boost/ticket/8878
-Patch218:	%{name}-1.54.0-locale-unused_typedef.patch
 # https://svn.boost.org/trac/boost/ticket/8881
 Patch221:	%{name}-1.54.0-mpi-unused_typedef.patch
 URL:		http://www.boost.org/
@@ -462,11 +456,8 @@ Dokumentacja dla biblioteki Boost C++.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %patch203 -p0
-%patch212 -p1
-%patch218 -p1
 %patch221 -p1
 
 cat << EOF > tools/build/src/user-config.jam
@@ -636,6 +627,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_math_*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_random.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_serialization.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_type_erasure.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_wserialization.so.*.*.*
 
 %files devel
@@ -662,6 +654,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_system.so
 %attr(755,root,root) %{_libdir}/libboost_thread.so
 %attr(755,root,root) %{_libdir}/libboost_timer.so
+%attr(755,root,root) %{_libdir}/libboost_type_erasure.so
 %attr(755,root,root) %{_libdir}/libboost_unit_test_framework.so
 %attr(755,root,root) %{_libdir}/libboost_wave.so
 %attr(755,root,root) %{_libdir}/libboost_wserialization.so
@@ -695,6 +688,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_test_exec_monitor.a
 %{_libdir}/libboost_timer.a
 %{_libdir}/libboost_thread.a
+%{_libdir}/libboost_type_erasure.a
 %{_libdir}/libboost_unit_test_framework.a
 %{_libdir}/libboost_wave.a
 %{_libdir}/libboost_wserialization.a
