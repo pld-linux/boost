@@ -36,3 +36,22 @@
  .section .note.GNU-stack,"",%progbits
 +
 +#endif
+--- boost_1_61_0/libs/context/src/asm/ontop_i386_sysv_elf_gas.S.orig	2016-05-05 23:11:09.000000000 +0200
++++ boost_1_61_0/libs/context/src/asm/ontop_i386_sysv_elf_gas.S	2016-05-15 19:29:14.464562018 +0200
+@@ -17,6 +17,10 @@
+  *                                                                                       *
+  *****************************************************************************************/
+ 
++#ifdef __x86_64__
++#include "ontop_x86_64_sysv_elf_gas.S"
++#else
++
+ .text
+ .globl ontop_fcontext
+ .align 2
+@@ -59,3 +63,5 @@
+ 
+ /* Mark that we don't need executable stack.  */
+ .section .note.GNU-stack,"",%progbits
++
++#endif
