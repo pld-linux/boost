@@ -15,7 +15,6 @@ Version:	1.61.0
 Release:	2
 License:	Boost Software License and others
 Group:		Libraries
-# TODO: use .7z extension:
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
 # Source0-md5:	6095876341956f65f9d35939ccea1a9f
 Patch0:		%{name}-link.patch
