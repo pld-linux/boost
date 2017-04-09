@@ -13,7 +13,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.63.0
-Release:	1
+Release:	2
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
@@ -52,7 +52,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		specflags	-DBOOST_IOSTREAMS_USE_DEPRECATED=1
 
 # __once_call, __once_callable non-function symbols from libstdc++
-%define		skip_post_check_so	libboost_context.so.*
+%define		skip_post_check_so	libboost_context.so.* libboost_fiber.so.*
 
 %description
 The Boost web site provides free peer-reviewed portable C++ source
