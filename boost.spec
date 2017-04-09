@@ -4,23 +4,28 @@
 #	- split shared libs from core package into -iostreams/-serialization.
 #
 # Conditional build:
-%bcond_without	python2		# without boost-python2 support
-%bcond_without	python3		# without boost-python3 support
+%bcond_without	python2		# boost-python[2] support
+%bcond_without	python3		# boost-python3 support
+%bcond_without	numpy		# boost-numpy support
 
 %define		fver	%(echo %{version} | tr . _)
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.61.0
-Release:	6
+Version:	1.63.0
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
-# Source0-md5:	6095876341956f65f9d35939ccea1a9f
+# Source0-md5:	1c837ecd990bb022d07e7aab32b09847
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-x32-context.patch
 Patch2:		%{name}-clean-gcc-flags.patch
+Patch3:		%{name}-numpy3.patch
 # FC Patches:
+Patch201:	%{name}-python-abi_letters.patch
+# https://github.com/boostorg/build/issues/163
+Patch202:	%{name}-dual-python-build.patch
 # https://svn.boost.org/trac/boost/ticket/5637
 Patch203:	%{name}-1.54.0-mpl-print.patch
 # https://svn.boost.org/trac/boost/ticket/8881
@@ -31,8 +36,14 @@ BuildRequires:	expat-devel
 BuildRequires:	libicu-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	perl-base
-%{?with_python:BuildRequires:	python-devel >= 2.2}
-%{?with_python3:BuildRequires:	python3-devel}
+%if %{with python}
+BuildRequires:	python-devel >= 2.2
+%{?with_numpy:BuildRequires:	python-numpy-devel}
+%endif
+%if %{with python3}
+BuildRequires:	python3-devel
+%{?with_numpy:BuildRequires:	python3-numpy-devel}
+%endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	zlib-devel
 BuildConflicts:	gcc = 5:3.3.1
@@ -459,7 +470,10 @@ Dokumentacja dla biblioteki Boost C++.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
+%patch201 -p1
+%patch202 -p1
 %patch203 -p0
 %patch221 -p1
 
@@ -487,9 +501,9 @@ ICU_PATH=%{_prefix} \
 	threading=multi
 
 %if %{with python3}
-echo "using python : %{py3_ver}m : %{py3_prefix} : %{py3_incdir} ;" >> project-config.jam
+echo "using python : %{py3_ver} : %{py3_prefix} : %{py3_incdir} : : : : m ;" >> project-config.jam
 ./b2 \
-	--with-python python=%{py3_ver}m \
+	--with-python python=%{py3_ver} \
 	-a -d2 --toolset=gcc \
 	variant=release \
 	debug-symbols=on \
@@ -499,6 +513,7 @@ echo "using python : %{py3_ver}m : %{py3_prefix} : %{py3_incdir} ;" >> project-c
 %endif
 
 %if %{with python2}
+%{__sed} -i -e '/^using python : 3/d' project-config.jam
 echo "using python : %{py_ver} : %{py_prefix} : %{py_incdir} ;" >> project-config.jam
 ./b2 \
 	--with-python python=%{py_ver} \
@@ -706,28 +721,46 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python2}
 %files python
 %defattr(644,root,root,755)
+%if %{with numpy}
+%attr(755,root,root) %{_libdir}/libboost_numpy.so.*.*.*
+%endif
 %attr(755,root,root) %{_libdir}/libboost_python.so.*.*.*
 
 %files python-devel
 %defattr(644,root,root,755)
+%if %{with numpy}
+%attr(755,root,root) %{_libdir}/libboost_numpy.so
+%endif
 %attr(755,root,root) %{_libdir}/libboost_python.so
 
 %files python-static
 %defattr(644,root,root,755)
+%if %{with numpy}
+%{_libdir}/libboost_numpy.a
+%endif
 %{_libdir}/libboost_python.a
 %endif
 
 %if %{with python3}
 %files python3
 %defattr(644,root,root,755)
+%if %{with numpy}
+%attr(755,root,root) %{_libdir}/libboost_numpy3.so.*.*.*
+%endif
 %attr(755,root,root) %{_libdir}/libboost_python3.so.*.*.*
 
 %files python3-devel
 %defattr(644,root,root,755)
+%if %{with numpy}
+%attr(755,root,root) %{_libdir}/libboost_numpy3.so
+%endif
 %attr(755,root,root) %{_libdir}/libboost_python3.so
 
 %files python3-static
 %defattr(644,root,root,755)
+%if %{with numpy}
+%{_libdir}/libboost_numpy3.a
+%endif
 %{_libdir}/libboost_python3.a
 %endif
 
