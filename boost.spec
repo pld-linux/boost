@@ -13,7 +13,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.63.0
-Release:	2
+Release:	3
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
@@ -80,6 +80,7 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	%{name}-chrono = %{version}-%{release}
 Requires:	%{name}-context = %{version}-%{release}
 Requires:	%{name}-date_time = %{version}-%{release}
+Requires:	%{name}-fiber = %{version}-%{release}
 Requires:	%{name}-filesystem = %{version}-%{release}
 Requires:	%{name}-graph = %{version}-%{release}
 Requires:	%{name}-locale = %{version}-%{release}
@@ -294,6 +295,15 @@ A set of date-time libraries.
 
 %description date_time -l pl.UTF-8
 Zbiór bibliotek daty-czasu.
+
+%package fiber
+Summary:	A framework for micro-/userland-threads (fibers) scheduled cooperatively
+Group:		Libraries
+
+%description fiber
+boost::fiber provides a framework for micro-/userland-threads (fibers)
+scheduled cooperatively. The API contains classes and functions
+to manage and synchronize fibers similiar to boost.thread.
 
 %package filesystem
 Summary:	Portable paths, iteration over directories, and other useful filesystem operations
@@ -597,6 +607,9 @@ rm -rf $RPM_BUILD_ROOT
 %post	date_time -p /sbin/ldconfig
 %postun	date_time -p /sbin/ldconfig
 
+%post	fiber -p /sbin/ldconfig
+%postun	fiber -p /sbin/ldconfig
+
 %post	filesystem -p /sbin/ldconfig
 %postun	filesystem -p /sbin/ldconfig
 
@@ -656,6 +669,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_context.so
 %attr(755,root,root) %{_libdir}/libboost_coroutine.so
 %attr(755,root,root) %{_libdir}/libboost_date_time.so
+%attr(755,root,root) %{_libdir}/libboost_fiber.so
 %attr(755,root,root) %{_libdir}/libboost_filesystem.so
 %attr(755,root,root) %{_libdir}/libboost_graph.so
 %attr(755,root,root) %{_libdir}/libboost_iostreams.so
@@ -689,6 +703,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_coroutine.a
 %{_libdir}/libboost_date_time.a
 %{_libdir}/libboost_exception.a
+%{_libdir}/libboost_fiber.a
 %{_libdir}/libboost_filesystem.a
 %{_libdir}/libboost_graph.a
 %{_libdir}/libboost_iostreams.a
@@ -775,6 +790,10 @@ rm -rf $RPM_BUILD_ROOT
 %files date_time
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_date_time.so.*.*.*
+
+%files fiber
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_fiber.so.*.*.*
 
 %files filesystem
 %defattr(644,root,root,755)
