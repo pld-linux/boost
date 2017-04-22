@@ -34,7 +34,7 @@ URL:		http://www.boost.org/
 BuildRequires:	bzip2-devel
 BuildRequires:	expat-devel
 BuildRequires:	libicu-devel
-BuildRequires:	libstdc++-devel
+BuildRequires:	libstdc++-devel >= 6:4.7
 BuildRequires:	perl-base
 %if %{with python}
 BuildRequires:	python-devel >= 2.2
@@ -46,7 +46,6 @@ BuildRequires:	python3-devel
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	zlib-devel
-BuildConflicts:	gcc = 5:3.3.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		specflags	-DBOOST_IOSTREAMS_USE_DEPRECATED=1
@@ -93,7 +92,7 @@ Requires:	%{name}-test = %{version}-%{release}
 Requires:	%{name}-thread = %{version}-%{release}
 Requires:	%{name}-timer = %{version}-%{release}
 Requires:	%{name}-wave = %{version}-%{release}
-Requires:	libstdc++-devel
+Requires:	libstdc++-devel >= 6:4.7
 Obsoletes:	boost-any-devel
 Obsoletes:	boost-array-devel
 Obsoletes:	boost-asio
@@ -298,12 +297,18 @@ Zbiór bibliotek daty-czasu.
 
 %package fiber
 Summary:	A framework for micro-/userland-threads (fibers) scheduled cooperatively
+Summary(pl.UTF-8):	Szkielet mikrowątków przestrzeni użytkownika (fibers), szeregowanych kooperacyjnie
 Group:		Libraries
 
 %description fiber
 boost::fiber provides a framework for micro-/userland-threads (fibers)
 scheduled cooperatively. The API contains classes and functions
 to manage and synchronize fibers similiar to boost.thread.
+
+%description fiber -l pl.UTF-8
+boost::fiber to szkielt mikrowątków przestrzeni użytkownika (fibers)
+szeregowanych kooperacyjnie. API zawiera klasy i funkcje służące do
+zarządzania i synchronizacji wątków podobne do boost.thread.
 
 %package filesystem
 Summary:	Portable paths, iteration over directories, and other useful filesystem operations
@@ -488,7 +493,7 @@ Dokumentacja dla biblioteki Boost C++.
 %patch221 -p1
 
 cat << EOF > tools/build/src/user-config.jam
-using gcc : %{cxx_version} : %{__cxx} : <cflags>"%{rpmcflags} -fPIC" <cxxflags>"%{rpmcxxflags} -fPIC" <linkflags>"%{rpmldflags}" ;
+using gcc : %{cxx_version} : %{__cxx} : <cflags>"%{rpmcflags} -fPIC" <cxxflags>"%{rpmcxxflags} -std=c++11 -fPIC" <linkflags>"%{rpmldflags}" ;
 EOF
 
 # cleanup backups after patching
