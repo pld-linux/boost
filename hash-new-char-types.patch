@@ -1,0 +1,21 @@
+https://svn.boost.org/trac/boost/ticket/11145
+
+--- boost_1_63_0/boost/functional/hash/hash.hpp~	2016-12-22 13:33:15.000000000 +0100
++++ boost_1_63_0/boost/functional/hash/hash.hpp	2017-04-26 19:14:04.588719738 +0200
+@@ -117,6 +117,16 @@
+             boost::hash_detail::enable_hash_value {};
+ #endif
+ 
++#if !defined(BOOST_NO_CXX11_CHAR16_T)
++        template <> struct basic_numbers<char16_t> :
++            boost::hash_detail::enable_hash_value {};
++#endif
++
++#if !defined(BOOST_NO_CXX11_CHAR32_T)
++        template <> struct basic_numbers<char32_t> :
++            boost::hash_detail::enable_hash_value {};
++#endif
++
+         template <> struct float_numbers<float> :
+             boost::hash_detail::enable_hash_value {};
+         template <> struct float_numbers<double> :
