@@ -46,13 +46,11 @@ BuildRequires:	python3-devel
 %{?with_numpy:BuildRequires:	python3-numpy-devel}
 %endif
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.734
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		specflags	-DBOOST_IOSTREAMS_USE_DEPRECATED=1
-
-# __once_call, __once_callable non-function symbols from libstdc++
-%define		skip_post_check_so	libboost_context.so.* libboost_fiber.so.*
 
 %description
 The Boost web site provides free peer-reviewed portable C++ source
