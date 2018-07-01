@@ -1,0 +1,18 @@
+From: Giovanni Mascellani <gio@debian.org>
+Subject: Fix FTBFS with Python 3.7
+
+The patch is backported from later Boost releases.
+
+Index: boost1.62-1.62.0+dfsg/libs/python/src/converter/builtin_converters.cpp
+===================================================================
+--- boost1.62-1.62.0+dfsg.orig/libs/python/src/converter/builtin_converters.cpp
++++ boost1.62-1.62.0+dfsg/libs/python/src/converter/builtin_converters.cpp
+@@ -48,7 +48,7 @@ namespace
+ #else
+   void* convert_to_cstring(PyObject* obj)
+   {
+-      return PyUnicode_Check(obj) ? _PyUnicode_AsString(obj) : 0;
++      return PyUnicode_Check(obj) ? const_cast<void*>(reinterpret_cast<const void*>(_PyUnicode_AsString(obj))) : 0;
+   }
+ #endif
+ 

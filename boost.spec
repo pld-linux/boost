@@ -13,7 +13,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.63.0
-Release:	5
+Release:	6
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
@@ -23,6 +23,7 @@ Patch1:		%{name}-x32-context.patch
 Patch2:		%{name}-clean-gcc-flags.patch
 Patch3:		%{name}-numpy3.patch
 Patch4:		hash-new-char-types.patch
+Patch5:		fix-python37.patch
 # FC Patches:
 Patch201:	%{name}-python-abi_letters.patch
 # https://github.com/boostorg/build/issues/163
@@ -486,6 +487,7 @@ Dokumentacja dla biblioteki Boost C++.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %patch201 -p1
 %patch202 -p1
