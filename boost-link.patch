@@ -1,15 +1,15 @@
---- boost_1_57_0/tools/build/src/tools/python.jam~	2015-02-15 19:23:08.000000000 +0100
-+++ boost_1_57_0/tools/build/src/tools/python.jam	2015-02-15 19:46:59.298672754 +0100
-@@ -375,7 +375,7 @@
+--- boost_1_67_0/tools/build/src/tools/python.jam.orig	2018-04-11 15:49:09.000000000 +0200
++++ boost_1_67_0/tools/build/src/tools/python.jam	2018-07-16 19:34:14.205382890 +0200
+@@ -380,7 +380,7 @@
  #
  local rule split-version ( version )
  {
--    local major-minor = [ MATCH ^([0-9]+)\.([0-9]+)(.*)$ : $(version) : 1 2 3 ] ;
-+    local major-minor = [ MATCH ^([0-9]+)\.([0-9m]+)(.*)$ : $(version) : 1 2 3 ] ;
+-    local major-minor = [ MATCH "^([0-9]+)\.([0-9]+)(.*)$" : $(version) : 1 2 3 ] ;
++    local major-minor = [ MATCH "^([0-9]+)\.([0-9m]+)(.*)$" : $(version) : 1 2 3 ] ;
      if ! $(major-minor[2]) || $(major-minor[3])
      {
          ECHO "Warning: \"using python\" expects a two part (major, minor) version number; got" $(version) instead ;
-@@ -992,7 +992,7 @@
+@@ -1033,7 +1033,7 @@
              :
              : $(target-requirements)
              :
@@ -17,4 +17,4 @@
 +            : $(usage-requirements) <library>python.lib
              ;
      }
- }
+     

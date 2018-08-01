@@ -12,22 +12,17 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.63.0
-Release:	6
+Version:	1.67.0
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
-# Source0-md5:	1c837ecd990bb022d07e7aab32b09847
+# Source0-md5:	ced776cb19428ab8488774e1415535ab
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-x32-context.patch
 Patch2:		%{name}-clean-gcc-flags.patch
-Patch3:		%{name}-numpy3.patch
-Patch4:		hash-new-char-types.patch
-Patch5:		fix-python37.patch
 # FC Patches:
 Patch201:	%{name}-python-abi_letters.patch
-# https://github.com/boostorg/build/issues/163
-Patch202:	%{name}-dual-python-build.patch
 # https://svn.boost.org/trac/boost/ticket/5637
 Patch203:	%{name}-1.54.0-mpl-print.patch
 # https://svn.boost.org/trac/boost/ticket/8881
@@ -52,6 +47,9 @@ BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		specflags	-DBOOST_IOSTREAMS_USE_DEPRECATED=1
+
+%define		py2v %(echo %{py_ver} | tr -d .)
+%define		py3v %(echo %{py3_ver} | tr -d .)
 
 %description
 The Boost web site provides free peer-reviewed portable C++ source
@@ -485,12 +483,8 @@ Dokumentacja dla biblioteki Boost C++.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
 
 %patch201 -p1
-%patch202 -p1
 %patch203 -p0
 %patch221 -p1
 
@@ -660,11 +654,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_atomic.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_container.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_contract.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_coroutine.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_iostreams.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_math_*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_random.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_serialization.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_stacktrace_*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_type_erasure.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_wserialization.so.*.*.*
 
@@ -674,6 +670,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_chrono.so
 %attr(755,root,root) %{_libdir}/libboost_container.so
 %attr(755,root,root) %{_libdir}/libboost_context.so
+%attr(755,root,root) %{_libdir}/libboost_contract.so
 %attr(755,root,root) %{_libdir}/libboost_coroutine.so
 %attr(755,root,root) %{_libdir}/libboost_date_time.so
 %attr(755,root,root) %{_libdir}/libboost_fiber.so
@@ -690,6 +687,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_random.so
 %attr(755,root,root) %{_libdir}/libboost_serialization.so
 %attr(755,root,root) %{_libdir}/libboost_signals.so
+%attr(755,root,root) %{_libdir}/libboost_stacktrace_*.so
 %attr(755,root,root) %{_libdir}/libboost_system.so
 %attr(755,root,root) %{_libdir}/libboost_thread.so
 %attr(755,root,root) %{_libdir}/libboost_timer.so
@@ -707,6 +705,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_chrono.a
 %{_libdir}/libboost_container.a
 %{_libdir}/libboost_context.a
+%{_libdir}/libboost_contract.a
 %{_libdir}/libboost_coroutine.a
 %{_libdir}/libboost_date_time.a
 %{_libdir}/libboost_exception.a
@@ -724,6 +723,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_regex.a
 %{_libdir}/libboost_serialization.a
 %{_libdir}/libboost_signals.a
+%{_libdir}/libboost_stacktrace_*.a
 %{_libdir}/libboost_system.a
 %{_libdir}/libboost_test_exec_monitor.a
 %{_libdir}/libboost_timer.a
@@ -744,46 +744,46 @@ rm -rf $RPM_BUILD_ROOT
 %files python
 %defattr(644,root,root,755)
 %if %{with numpy}
-%attr(755,root,root) %{_libdir}/libboost_numpy.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_numpy%{py2v}.so.*.*.*
 %endif
-%attr(755,root,root) %{_libdir}/libboost_python.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_python%{py2v}.so.*.*.*
 
 %files python-devel
 %defattr(644,root,root,755)
 %if %{with numpy}
-%attr(755,root,root) %{_libdir}/libboost_numpy.so
+%attr(755,root,root) %{_libdir}/libboost_numpy%{py2v}.so
 %endif
-%attr(755,root,root) %{_libdir}/libboost_python.so
+%attr(755,root,root) %{_libdir}/libboost_python%{py2v}.so
 
 %files python-static
 %defattr(644,root,root,755)
 %if %{with numpy}
-%{_libdir}/libboost_numpy.a
+%{_libdir}/libboost_numpy%{py2v}.a
 %endif
-%{_libdir}/libboost_python.a
+%{_libdir}/libboost_python%{py2v}.a
 %endif
 
 %if %{with python3}
 %files python3
 %defattr(644,root,root,755)
 %if %{with numpy}
-%attr(755,root,root) %{_libdir}/libboost_numpy3.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_numpy%{py3v}.so.*.*.*
 %endif
-%attr(755,root,root) %{_libdir}/libboost_python3.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_python%{py3v}.so.*.*.*
 
 %files python3-devel
 %defattr(644,root,root,755)
 %if %{with numpy}
-%attr(755,root,root) %{_libdir}/libboost_numpy3.so
+%attr(755,root,root) %{_libdir}/libboost_numpy%{py3v}.so
 %endif
-%attr(755,root,root) %{_libdir}/libboost_python3.so
+%attr(755,root,root) %{_libdir}/libboost_python%{py3v}.so
 
 %files python3-static
 %defattr(644,root,root,755)
 %if %{with numpy}
-%{_libdir}/libboost_numpy3.a
+%{_libdir}/libboost_numpy%{py3v}.a
 %endif
-%{_libdir}/libboost_python3.a
+%{_libdir}/libboost_python%{py3v}.a
 %endif
 
 %files chrono

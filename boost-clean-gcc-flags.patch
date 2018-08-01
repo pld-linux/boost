@@ -1,7 +1,19 @@
---- boost_1_59_0/tools/build/src/tools/gcc.jam.orig	2015-08-11 15:53:51.000000000 +0200
-+++ boost_1_59_0/tools/build/src/tools/gcc.jam	2015-09-12 17:16:00.647535444 +0200
-@@ -369,9 +369,9 @@
- toolset.flags gcc.compile PCH_FILE <pch>on : <pch-file> ;
+--- boost_1_67_0/tools/build/src/tools/gcc.jam.orig	2018-04-11 15:49:09.000000000 +0200
++++ boost_1_67_0/tools/build/src/tools/gcc.jam	2018-07-16 19:40:36.332045183 +0200
+@@ -356,11 +356,6 @@
+ 
+     compile-link-flags <target-os>hpux/<address-model>32 : -milp32 ;
+     compile-link-flags <target-os>hpux/<address-model>64 : -mlp64 ;
+-
+-    local generic-os = [ set.difference $(all-os) : aix hpux ] ;
+-    local arch = power sparc x86 ;
+-    compile-link-flags <target-os>$(generic-os)/<architecture>$(arch)/<address-model>32 : -m32 ;
+-    compile-link-flags <target-os>$(generic-os)/<architecture>$(arch)/<address-model>64 : -m64 ;
+ }
+ 
+ {
+@@ -624,9 +619,9 @@
+ ###
  
  # Declare flags and action for compilation.
 -toolset.flags gcc.compile OPTIONS <optimization>off   : -O0 ;
@@ -13,7 +25,7 @@
  
  toolset.flags gcc.compile OPTIONS <inlining>off  : -fno-inline ;
  toolset.flags gcc.compile OPTIONS <inlining>on   : -Wno-inline ;
-@@ -382,8 +382,8 @@
+@@ -637,8 +632,8 @@
  toolset.flags gcc.compile OPTIONS <warnings>all : -Wall -pedantic ;
  toolset.flags gcc.compile OPTIONS <warnings-as-errors>on : -Werror ;
  
@@ -24,31 +36,7 @@
  
  toolset.flags gcc.compile.c++ OPTIONS <rtti>off : -fno-rtti ;
  toolset.flags gcc.compile.c++ OPTIONS <exception-handling>off : -fno-exceptions ;
-@@ -451,23 +451,6 @@
-                 option = -mlp64 ;
-             }
-         }
--        else
--        {
--            local arch = [ feature.get-values architecture : $(properties) ] ;
--            if $(arch) = power || $(arch) = sparc || $(arch) = x86
--            {
--                if $(model) = 32
--                {
--                    option = -m32 ;
--                }
--                else if $(model) = 64
--                {
--                    option = -m64 ;
--                }
--            }
--            # For darwin, the model can be 32_64. darwin.jam will handle that
--            # on its own.
--        }
-         OPTIONS on $(targets) += $(option) ;
-     }
- }
-@@ -1076,7 +1059,7 @@
+@@ -1069,7 +1064,7 @@
  # x86 and compatible
  # The 'native' option appeared in gcc 4.2 so we cannot safely use it as default.
  # Use i686 instead for 32-bit.
