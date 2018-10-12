@@ -488,8 +488,13 @@ Dokumentacja dla biblioteki Boost C++.
 %patch203 -p0
 %patch221 -p1
 
+%if "%{cc_version}" < "6.0"
+CPPSTD="-std=c++11"
+%else
+CPPSTD=
+%endif
 cat << EOF > tools/build/src/user-config.jam
-using gcc : %{cxx_version} : %{__cxx} : <cflags>"%{rpmcflags} -fPIC" <cxxflags>"%{rpmcxxflags} -std=c++11 -fPIC" <linkflags>"%{rpmldflags}" ;
+using gcc : %{cxx_version} : %{__cxx} : <cflags>"%{rpmcflags} -fPIC" <cxxflags>"%{rpmcxxflags} $CPPSTD -fPIC" <linkflags>"%{rpmldflags}" ;
 EOF
 
 # cleanup backups after patching
