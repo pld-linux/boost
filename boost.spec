@@ -12,15 +12,14 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.68.0
+Version:	1.69.0
 Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
-# Source0-md5:	7fbd1890f571051f2a209681d57d486a
+# Source0-md5:	a1332494397bf48332cb152abfefcec2
 Patch0:		%{name}-link.patch
-Patch1:		%{name}-x32-context.patch
-Patch2:		%{name}-clean-gcc-flags.patch
+Patch1:		%{name}-clean-gcc-flags.patch
 # FC Patches:
 Patch201:	%{name}-python-abi_letters.patch
 # https://svn.boost.org/trac/boost/ticket/5637
@@ -44,6 +43,7 @@ BuildRequires:	python3-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.734
 BuildRequires:	zlib-devel
+Obsoletes:	boost-signals
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		specflags	-DBOOST_IOSTREAMS_USE_DEPRECATED=1
@@ -84,7 +84,6 @@ Requires:	%{name}-locale = %{version}-%{release}
 Requires:	%{name}-log = %{version}-%{release}
 Requires:	%{name}-program_options = %{version}-%{release}
 Requires:	%{name}-regex = %{version}-%{release}
-Requires:	%{name}-signals = %{version}-%{release}
 Requires:	%{name}-system = %{version}-%{release}
 Requires:	%{name}-test = %{version}-%{release}
 Requires:	%{name}-thread = %{version}-%{release}
@@ -385,20 +384,6 @@ Shared library for Boost C++ regular expressions.
 %description regex -l pl.UTF-8
 Biblioteka współdzielona do obsługi wyrażeń regularnych w C++.
 
-%package signals
-Summary:	Signals & slots callback implementation
-Summary(pl.UTF-8):	Implementacja sygnałów i slotów
-Group:		Libraries
-Obsoletes:	boost < 1.33
-
-%description signals
-The boost::signals library is an implementation of a signals and slots
-system.
-
-%description signals -l pl.UTF-8
-Biblioteka boost::signals jest implementacją systemu sygnałów i
-slotów.
-
 %package system
 Summary:	Support for getting system specific error codes
 Summary(pl.UTF-8):	Wsparcie dla pobierania specyficznych dla systemu kodów błędów
@@ -482,7 +467,6 @@ Dokumentacja dla biblioteki Boost C++.
 %setup -q -n %{name}_%{fver}
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %patch201 -p1
 %patch203 -p0
@@ -637,9 +621,6 @@ rm -rf $RPM_BUILD_ROOT
 %post	regex -p /sbin/ldconfig
 %postun regex -p /sbin/ldconfig
 
-%post	signals -p /sbin/ldconfig
-%postun	signals -p /sbin/ldconfig
-
 %post	system -p /sbin/ldconfig
 %postun	system -p /sbin/ldconfig
 
@@ -691,7 +672,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_regex.so
 %attr(755,root,root) %{_libdir}/libboost_random.so
 %attr(755,root,root) %{_libdir}/libboost_serialization.so
-%attr(755,root,root) %{_libdir}/libboost_signals.so
 %attr(755,root,root) %{_libdir}/libboost_stacktrace_*.so
 %attr(755,root,root) %{_libdir}/libboost_system.so
 %attr(755,root,root) %{_libdir}/libboost_thread.so
@@ -727,7 +707,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_random.a
 %{_libdir}/libboost_regex.a
 %{_libdir}/libboost_serialization.a
-%{_libdir}/libboost_signals.a
 %{_libdir}/libboost_stacktrace_*.a
 %{_libdir}/libboost_system.a
 %{_libdir}/libboost_test_exec_monitor.a
@@ -831,10 +810,6 @@ rm -rf $RPM_BUILD_ROOT
 %files regex
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_regex.so.*.*.*
-
-%files signals
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_signals.so.*.*.*
 
 %files system
 %defattr(644,root,root,755)
