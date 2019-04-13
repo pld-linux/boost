@@ -13,7 +13,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.70.0
-Release:	1
+Release:	2
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/boost/%{name}_%{fver}.tar.bz2
@@ -492,24 +492,29 @@ ICU_PATH=%{_prefix} \
 	--prefix=%{_prefix} \
 	-without-libraries=python
 
+# x32 detection need help (it's autodetected as address-model=32 abi=sysv, while context build expects address-model=64 abi=x32)
 ./b2 \
 	-d2 --toolset=gcc \
-	variant=release \
+%ifarch x32
+	abi=x32 \
+	address-model=64 \
+%endif
 	debug-symbols=on \
 	inlining=on \
 	link=static,shared \
-	threading=multi
+	threading=multi \
+	variant=release
 
 %if %{with python3}
 echo "using python : %{py3_ver} : %{py3_prefix} : %{py3_incdir} : : : : m ;" >> project-config.jam
 ./b2 \
 	--with-python python=%{py3_ver} \
 	-a -d2 --toolset=gcc \
-	variant=release \
 	debug-symbols=on \
 	inlining=on \
 	link=static,shared \
-	threading=multi
+	threading=multi \
+	variant=release
 %endif
 
 %if %{with python2}
@@ -518,11 +523,11 @@ echo "using python : %{py_ver} : %{py_prefix} : %{py_incdir} ;" >> project-confi
 ./b2 \
 	--with-python python=%{py_ver} \
 	-a -d2 --toolset=gcc \
-	variant=release \
 	debug-symbols=on \
 	inlining=on \
 	link=static,shared \
-	threading=multi
+	threading=multi \
+	variant=release
 %endif
 
 %install
