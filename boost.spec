@@ -13,7 +13,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.71.0
-Release:	3
+Release:	4
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.bintray.com/boostorg/release/%{version}/source/%{name}_%{fver}.tar.bz2
@@ -50,6 +50,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		py2v %(echo %{py_ver} | tr -d .)
 %define		py3v %(echo %{py3_ver} | tr -d .)
+
+%if "%{py3_ver}" >= "3.8"
+%define		py3v_suffix ""
+%else
+%define		py3v_suffix "m"
+%endif
 
 %description
 The Boost web site provides free peer-reviewed portable C++ source
@@ -506,7 +512,7 @@ ICU_PATH=%{_prefix} \
 	variant=release
 
 %if %{with python3}
-echo "using python : %{py3_ver} : %{py3_prefix} : %{py3_incdir} : : : : m ;" >> project-config.jam
+echo "using python : %{py3_ver} : %{py3_prefix} : %{py3_incdir} : : : : %{py3v_suffix} ;" >> project-config.jam
 ./b2 \
 	--with-python python=%{py3_ver} \
 	-a -d2 --toolset=gcc \
