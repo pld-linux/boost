@@ -12,12 +12,12 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.71.0
-Release:	5
+Version:	1.73.0
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	http://dl.bintray.com/boostorg/release/%{version}/source/%{name}_%{fver}.tar.bz2
-# Source0-md5:	4cdf9b5c2dc01fb2b7b733d5af30e558
+# Source0-md5:	9273c8c4576423562bbe84574b07b2bd
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-clean-gcc-flags.patch
 # FC Patches:
@@ -655,6 +655,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_coroutine.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_iostreams.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_math_*.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_nowide.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_random.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_serialization.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_stacktrace_*.so.*.*.*
@@ -678,6 +679,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_log.so
 %attr(755,root,root) %{_libdir}/libboost_log_setup.so
 %attr(755,root,root) %{_libdir}/libboost_math_*.so
+%attr(755,root,root) %{_libdir}/libboost_nowide.so
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so
 %attr(755,root,root) %{_libdir}/libboost_program_options.so
 %attr(755,root,root) %{_libdir}/libboost_regex.so
@@ -713,6 +715,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_log.a
 %{_libdir}/libboost_log_setup.a
 %{_libdir}/libboost_math_*.a
+%{_libdir}/libboost_nowide.a
 %{_libdir}/libboost_prg_exec_monitor.a
 %{_libdir}/libboost_program_options.a
 %{_libdir}/libboost_random.a
