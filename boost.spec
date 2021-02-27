@@ -459,9 +459,7 @@ Boost.Wave - zgodna ze standardem biblioteka preprocesora C++.
 Summary:	Boost C++ Library documentation
 Summary(pl.UTF-8):	Dokumentacja dla biblioteki Boost C++
 Group:		Documentation
-%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
-%endif
 
 %description doc
 Documentation for the Boost C++ Library.
