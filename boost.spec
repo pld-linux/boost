@@ -16,7 +16,7 @@ Version:	1.73.0
 Release:	1
 License:	Boost Software License and others
 Group:		Libraries
-Source0:	http://dl.bintray.com/boostorg/release/%{version}/source/%{name}_%{fver}.tar.bz2
+Source0:	https://dl.bintray.com/boostorg/release/%{version}/source/%{name}_%{fver}.tar.bz2
 # Source0-md5:	9273c8c4576423562bbe84574b07b2bd
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-clean-gcc-flags.patch
