@@ -10,7 +10,7 @@ Index: boost/mpl/print.hpp
 +#endif
  {
  #if defined(__clang__)
-     const int m_x = 1 / (sizeof(T) - sizeof(T));
+ # pragma clang diagnostic push
 @@ -52,15 +52,14 @@
      enum { n = sizeof(T) + -1 };
  #elif defined(__MWERKS__)

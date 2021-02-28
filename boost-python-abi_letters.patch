@@ -49,8 +49,8 @@
      extension-suffix ?= "" ;
 +    abi-letters ?= "" ;
  
-     # Normalize and dissect any version number.
-     local major-minor ;
+     local cmds-to-try ;
+ 
 @@ -922,7 +923,7 @@ local rule configure ( version ? : cmd-o
      }
      else

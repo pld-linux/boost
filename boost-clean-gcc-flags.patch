@@ -26,7 +26,7 @@
  toolset.flags gcc.compile OPTIONS <inlining>off  : -fno-inline ;
  toolset.flags gcc.compile OPTIONS <inlining>on   : -Wno-inline ;
 @@ -637,8 +632,8 @@
- toolset.flags gcc.compile OPTIONS <warnings>all : -Wall -pedantic ;
+ toolset.flags gcc.compile OPTIONS <warnings>pedantic : -Wall -Wextra -pedantic ;
  toolset.flags gcc.compile OPTIONS <warnings-as-errors>on : -Werror ;
  
 -toolset.flags gcc.compile OPTIONS <debug-symbols>on : -g ;
@@ -34,8 +34,8 @@
 +toolset.flags gcc.compile OPTIONS <debug-symbols>on : ;
 +toolset.flags gcc.compile OPTIONS <profiling>on : ;
  
- toolset.flags gcc.compile.c++ OPTIONS <rtti>off : -fno-rtti ;
- toolset.flags gcc.compile.c++ OPTIONS <exception-handling>off : -fno-exceptions ;
+ toolset.flags gcc.compile OPTIONS <local-visibility>hidden : -fvisibility=hidden ;
+ toolset.flags gcc.compile.c++ OPTIONS <local-visibility>hidden : -fvisibility-inlines-hidden ;
 @@ -1069,7 +1064,7 @@
  # x86 and compatible
  # The 'native' option appeared in gcc 4.2 so we cannot safely use it as default.
