@@ -12,12 +12,12 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.73.0
-Release:	2
+Version:	1.76.0
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
-Source0:	https://dl.bintray.com/boostorg/release/%{version}/source/%{name}_%{fver}.tar.bz2
-# Source0-md5:	9273c8c4576423562bbe84574b07b2bd
+Source0:	https://boostorg.jfrog.io/artifactory/main/release/%{version}/source/%{name}_%{fver}.tar.bz2
+# Source0-md5:	33334dd7f862e8ac9fe1cc7c6584fb6d
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-clean-gcc-flags.patch
 # FC Patches:
@@ -86,6 +86,7 @@ Requires:	%{name}-date_time = %{version}-%{release}
 Requires:	%{name}-fiber = %{version}-%{release}
 Requires:	%{name}-filesystem = %{version}-%{release}
 Requires:	%{name}-graph = %{version}-%{release}
+Requires:	%{name}-json = %{version}-%{release}
 Requires:	%{name}-locale = %{version}-%{release}
 Requires:	%{name}-log = %{version}-%{release}
 Requires:	%{name}-program_options = %{version}-%{release}
@@ -341,6 +342,21 @@ graph data structures using graph algorithms.
 Przenośna biblioteka boost::graph dostarcza ułatwienia w operacjach na
 strukturach danych typu graf za pomocą algorytmów związanych z
 grafami.
+
+%package json
+Summary:	Boost.JSON - a portable C++ JSON library
+Summary(pl.UTF-8):	Boost.JSON - przenośna biblioteka C++ dla formatu JSON
+Group:		Development/Libraries
+
+%description json
+Boost.JSON is a portable C++ library which provides containers and
+algorithms that implement JavaScript Object Notation, or simply
+"JSON", a lightweight data-interchange format.
+
+%description json -l pl.UTF-8
+Boost.JSON to przenośna biblioteka C++, która dostarcza kontenery oraz
+algorytmy implementujące JavaScript Object Notation, lub po prostu
+"JSON", lekki format wymiany danych.
 
 %package locale
 Summary:	Provide localization and Unicode handling tools for C++
@@ -615,6 +631,9 @@ rm -rf $RPM_BUILD_ROOT
 %post	graph -p /sbin/ldconfig
 %postun	graph -p /sbin/ldconfig
 
+%post	json -p /sbin/ldconfig
+%postun	json -p /sbin/ldconfig
+
 %post	locale -p /sbin/ldconfig
 %postun	locale -p /sbin/ldconfig
 
@@ -673,6 +692,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_filesystem.so
 %attr(755,root,root) %{_libdir}/libboost_graph.so
 %attr(755,root,root) %{_libdir}/libboost_iostreams.so
+%attr(755,root,root) %{_libdir}/libboost_json.so
 %attr(755,root,root) %{_libdir}/libboost_locale.so
 %attr(755,root,root) %{_libdir}/libboost_log.so
 %attr(755,root,root) %{_libdir}/libboost_log_setup.so
@@ -709,6 +729,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_filesystem.a
 %{_libdir}/libboost_graph.a
 %{_libdir}/libboost_iostreams.a
+%{_libdir}/libboost_json.a
 %{_libdir}/libboost_locale.a
 %{_libdir}/libboost_log.a
 %{_libdir}/libboost_log_setup.a
@@ -805,6 +826,10 @@ rm -rf $RPM_BUILD_ROOT
 %files graph
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_graph.so.*.*.*
+
+%files json
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_json.so.*.*.*
 
 %files locale
 %defattr(644,root,root,755)
