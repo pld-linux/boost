@@ -7,6 +7,7 @@
 %bcond_without	python2		# boost-python[2] support
 %bcond_without	python3		# boost-python3 support
 %bcond_without	numpy		# boost-numpy support
+%bcond_without	doc		# don't package documentation
 
 %define		fver	%(echo %{version} | tr . _)
 Summary:	The Boost C++ Libraries
@@ -560,6 +561,7 @@ install -p stage/lib/lib*.a $RPM_BUILD_ROOT%{_libdir}
 install -p stage/lib/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
 cp -a stage/lib/lib*.so $RPM_BUILD_ROOT%{_libdir}
 
+%if %{with doc}
 # documentation
 install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
 
@@ -606,6 +608,7 @@ EOT`; do
 	fi
 done
 }; installdocs
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -869,6 +872,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_wave.so.*.*.*
 
+%if %{with doc}
 %files doc
 %defattr(644,root,root,755)
 %{_docdir}/%{name}-%{version}
+%endif
