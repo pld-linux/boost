@@ -13,12 +13,12 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.76.0
+Version:	1.78.0
 Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	https://boostorg.jfrog.io/artifactory/main/release/%{version}/source/%{name}_%{fver}.tar.bz2
-# Source0-md5:	33334dd7f862e8ac9fe1cc7c6584fb6d
+# Source0-md5:	db0112a3a37a3742326471d20f1a186a
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-clean-gcc-flags.patch
 # FC Patches:
@@ -560,6 +560,15 @@ cp -rf boost $RPM_BUILD_ROOT%{_includedir}
 install -p stage/lib/lib*.a $RPM_BUILD_ROOT%{_libdir}
 install -p stage/lib/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
 cp -a stage/lib/lib*.so $RPM_BUILD_ROOT%{_libdir}
+
+# workaround https://github.com/boostorg/boost/issues/594
+cp -p bin.v2/libs/fiber/build/*/release/debug-symbols-on/inlining-on/link-static/threading-multi/visibility-hidden/libboost_fiber.a $RPM_BUILD_ROOT%{_libdir}
+cp -p bin.v2/libs/stacktrace/build/*/release/debug-symbols-on/inlining-on/link-static/threading-multi/visibility-hidden/libboost_stacktrace*.a $RPM_BUILD_ROOT%{_libdir}
+cp -p bin.v2/libs/fiber/build/*/release/debug-symbols-on/inlining-on/threading-multi/visibility-hidden/libboost_fiber.so.* $RPM_BUILD_ROOT%{_libdir}
+cp -p bin.v2/libs/stacktrace/build/*/release/debug-symbols-on/inlining-on/threading-multi/visibility-hidden/libboost_stacktrace*.so.* $RPM_BUILD_ROOT%{_libdir}
+for lib in $RPM_BUILD_ROOT%{_libdir}/*{stacktrace,fiber}*.so.*; do
+	ln -sf $(basename $lib) $RPM_BUILD_ROOT%{_libdir}/$(basename $lib .%{version})
+done
 
 %if %{with doc}
 # documentation
