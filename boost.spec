@@ -59,6 +59,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		py3v_suffix "m"
 %endif
 
+%ifarch x32
+%define		boost_buildsubdir	build/*/release/address-model-64
+%else
+%define		boost_buildsubdir	build/*/release/
+%endif
+
 %description
 The Boost web site provides free peer-reviewed portable C++ source
 libraries. The emphasis is on libraries which work well with the C++
@@ -563,10 +569,10 @@ install -p stage/lib/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
 cp -a stage/lib/lib*.so $RPM_BUILD_ROOT%{_libdir}
 
 # workaround https://github.com/boostorg/boost/issues/594
-cp -p bin.v2/libs/fiber/build/*/release/debug-symbols-on/inlining-on/link-static/threading-multi/visibility-hidden/libboost_fiber.a $RPM_BUILD_ROOT%{_libdir}
-cp -p bin.v2/libs/stacktrace/build/*/release/debug-symbols-on/inlining-on/link-static/threading-multi/visibility-hidden/libboost_stacktrace*.a $RPM_BUILD_ROOT%{_libdir}
-cp -p bin.v2/libs/fiber/build/*/release/debug-symbols-on/inlining-on/threading-multi/visibility-hidden/libboost_fiber.so.* $RPM_BUILD_ROOT%{_libdir}
-cp -p bin.v2/libs/stacktrace/build/*/release/debug-symbols-on/inlining-on/threading-multi/visibility-hidden/libboost_stacktrace*.so.* $RPM_BUILD_ROOT%{_libdir}
+cp -p bin.v2/libs/fiber/%{boost_buildsubdir}/debug-symbols-on/inlining-on/link-static/threading-multi/visibility-hidden/libboost_fiber.a $RPM_BUILD_ROOT%{_libdir}
+cp -p bin.v2/libs/stacktrace/%{boost_buildsubdir}/debug-symbols-on/inlining-on/link-static/threading-multi/visibility-hidden/libboost_stacktrace*.a $RPM_BUILD_ROOT%{_libdir}
+cp -p bin.v2/libs/fiber/%{boost_buildsubdir}/debug-symbols-on/inlining-on/threading-multi/visibility-hidden/libboost_fiber.so.* $RPM_BUILD_ROOT%{_libdir}
+cp -p bin.v2/libs/stacktrace/%{boost_buildsubdir}/debug-symbols-on/inlining-on/threading-multi/visibility-hidden/libboost_stacktrace*.so.* $RPM_BUILD_ROOT%{_libdir}
 for lib in $RPM_BUILD_ROOT%{_libdir}/*{stacktrace,fiber}*.so.*; do
 	ln -sf $(basename $lib) $RPM_BUILD_ROOT%{_libdir}/$(basename $lib .%{version})
 done
