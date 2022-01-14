@@ -40,6 +40,7 @@ BuildRequires:	python-devel >= 2.2
 %if %{with python3}
 BuildRequires:	python3-devel
 %{?with_numpy:BuildRequires:	python3-numpy-devel}
+BuildRequires:	rpm-build >= 4.6
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.734
