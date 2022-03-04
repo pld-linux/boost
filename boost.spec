@@ -40,12 +40,12 @@ BuildRequires:	python-devel >= 2.2
 %if %{with python3}
 BuildRequires:	python3-devel
 %{?with_numpy:BuildRequires:	python3-numpy-devel}
-BuildRequires:	rpm-build >= 4.6
 %endif
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.734
 BuildRequires:	zlib-devel
-Obsoletes:	boost-signals
+Obsoletes:	boost-signals < 1.69
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		specflags	-DBOOST_IOSTREAMS_USE_DEPRECATED=1
@@ -99,39 +99,39 @@ Requires:	%{name}-thread = %{version}-%{release}
 Requires:	%{name}-timer = %{version}-%{release}
 Requires:	%{name}-wave = %{version}-%{release}
 Requires:	libstdc++-devel >= 6:4.7
-Obsoletes:	boost-any-devel
-Obsoletes:	boost-array-devel
-Obsoletes:	boost-asio
-Obsoletes:	boost-bind-devel
-Obsoletes:	boost-call_traits-devel
-Obsoletes:	boost-compatibility-devel
-Obsoletes:	boost-compose-devel
-Obsoletes:	boost-compressed_pair-devel
-Obsoletes:	boost-concept_check-devel
-Obsoletes:	boost-conversion-devel
-Obsoletes:	boost-crc-devel
-Obsoletes:	boost-date_time-devel
-Obsoletes:	boost-filesystem-devel
-Obsoletes:	boost-graph-devel
-Obsoletes:	boost-mem_fn-devel
-Obsoletes:	boost-mpl-devel
-Obsoletes:	boost-preprocessor-devel
-Obsoletes:	boost-program_options-devel
-Obsoletes:	boost-ref-devel
-Obsoletes:	boost-regex-devel
-Obsoletes:	boost-signals-devel
-Obsoletes:	boost-spirit-devel
-Obsoletes:	boost-statechart-devel
-Obsoletes:	boost-static_assert-devel
-Obsoletes:	boost-test-devel
-Obsoletes:	boost-thread-devel
-Obsoletes:	boost-tr1-devel
-Obsoletes:	boost-type_traits-devel
-Obsoletes:	boost-typeof-devel
-Obsoletes:	boost-uBLAS-devel
-Obsoletes:	boost-utility-devel
-Obsoletes:	boost-wave-devel
-Obsoletes:	boost-xpressive-devel
+Obsoletes:	boost-any-devel < 1.35
+Obsoletes:	boost-array-devel < 1.35
+Obsoletes:	boost-asio < 1.3.0
+Obsoletes:	boost-bind-devel < 1.35
+Obsoletes:	boost-call_traits-devel < 1.34.1-2
+Obsoletes:	boost-compatibility-devel < 1.35
+Obsoletes:	boost-compose-devel < 1.31
+Obsoletes:	boost-compressed_pair-devel < 1.35
+Obsoletes:	boost-concept_check-devel < 1.33.1-1
+Obsoletes:	boost-conversion-devel < 1.33.1-1
+Obsoletes:	boost-crc-devel < 1.35
+Obsoletes:	boost-date_time-devel < 1.35
+Obsoletes:	boost-filesystem-devel < 1.35
+Obsoletes:	boost-graph-devel < 1.35
+Obsoletes:	boost-mem_fn-devel < 1.33.1-1
+Obsoletes:	boost-mpl-devel < 1.33.1-1
+Obsoletes:	boost-preprocessor-devel < 1.33.1-1
+Obsoletes:	boost-program_options-devel < 1.35
+Obsoletes:	boost-ref-devel < 1.34.1-2
+Obsoletes:	boost-regex-devel < 1.35
+Obsoletes:	boost-signals-devel < 1.35
+Obsoletes:	boost-spirit-devel < 1.35
+Obsoletes:	boost-statechart-devel < 1.35
+Obsoletes:	boost-static_assert-devel < 1.33.1-1
+Obsoletes:	boost-test-devel < 1.35
+Obsoletes:	boost-thread-devel < 1.35
+Obsoletes:	boost-tr1-devel < 1.35
+Obsoletes:	boost-type_traits-devel < 1.33.1-1
+Obsoletes:	boost-typeof-devel < 1.35
+Obsoletes:	boost-uBLAS-devel < 1.35
+Obsoletes:	boost-utility-devel < 1.33.1-1
+Obsoletes:	boost-wave-devel < 1.35
+Obsoletes:	boost-xpressive-devel < 1.35
 
 %description devel
 Header files for the Boost C++ libraries.
@@ -144,7 +144,15 @@ Summary:	Static version of base Boost C++ libraries
 Summary(pl.UTF-8):	Statyczne wersje podstawowych bibliotek C++ Boost
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
-Obsoletes:	boost-static < 1.33
+Obsoletes:	boost-date_time-static < 1.35
+Obsoletes:	boost-filesystem-static < 1.35
+Obsoletes:	boost-graph-static < 1.35
+Obsoletes:	boost-program_options-static < 1.35
+Obsoletes:	boost-regex-static < 1.35
+Obsoletes:	boost-signals-static < 1.35
+Obsoletes:	boost-test-static < 1.35
+Obsoletes:	boost-thread-static < 1.35
+Obsoletes:	boost-wave-static < 1.35
 
 %description static
 Static version of base Boost C++ libraries.
