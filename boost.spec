@@ -14,7 +14,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.78.0
-Release:	3
+Release:	4
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	https://boostorg.jfrog.io/artifactory/main/release/%{version}/source/%{name}_%{fver}.tar.bz2
@@ -53,11 +53,11 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		py2v %(echo %{py_ver} | tr -d .)
 %define		py3v %(echo %{py3_ver} | tr -d .)
 
-%if "%{py3_ver}" >= "3.8"
+#if "%{py3_ver}" >= "3.8"
 %define		py3v_suffix ""
-%else
-%define		py3v_suffix "m"
-%endif
+#else
+#define		py3v_suffix "m"
+#endif
 
 %description
 The Boost web site provides free peer-reviewed portable C++ source
