@@ -43,7 +43,7 @@ BuildRequires:	python3-devel
 %endif
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.734
+BuildRequires:	rpmbuild(macros) >= 1.750
 BuildRequires:	zlib-devel
 Obsoletes:	boost-signals < 1.69
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -53,11 +53,11 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		py2v %(echo %{py_ver} | tr -d .)
 %define		py3v %(echo %{py3_ver} | tr -d .)
 
-#if "%{py3_ver}" >= "3.8"
+%if %{_ver_ge "%{py3_ver}" "3.8"}
 %define		py3v_suffix ""
-#else
-#define		py3v_suffix "m"
-#endif
+%else
+%define		py3v_suffix "m"
+%endif
 
 %description
 The Boost web site provides free peer-reviewed portable C++ source
