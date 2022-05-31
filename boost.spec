@@ -13,12 +13,12 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.78.0
-Release:	4
+Version:	1.79.0
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	https://boostorg.jfrog.io/artifactory/main/release/%{version}/source/%{name}_%{fver}.tar.bz2
-# Source0-md5:	db0112a3a37a3742326471d20f1a186a
+# Source0-md5:	ce966eccb3c296a27abfef9356fd1dc4
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-clean-gcc-flags.patch
 # FC Patches:
@@ -569,12 +569,6 @@ cp -rf boost $RPM_BUILD_ROOT%{_includedir}
 install -p stage/lib/lib*.a $RPM_BUILD_ROOT%{_libdir}
 install -p stage/lib/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
 cp -a stage/lib/lib*.so $RPM_BUILD_ROOT%{_libdir}
-
-# workaround https://github.com/boostorg/boost/issues/594
-find bin.v2/libs '(' -name libboost_fiber.a -o -name 'libboost_stacktrace_*.a' -o -name 'libboost_fiber.so.*' -o -name 'libboost_stacktrace_*.so.*' ')' -exec cp -p {} $RPM_BUILD_ROOT%{_libdir} \;
-for lib in $RPM_BUILD_ROOT%{_libdir}/*{stacktrace,fiber}*.so.*; do
-	ln -sf $(basename $lib) $RPM_BUILD_ROOT%{_libdir}/$(basename $lib .%{version})
-done
 
 %if %{with doc}
 # documentation
