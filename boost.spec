@@ -524,6 +524,7 @@ ICU_PATH=%{_prefix} \
 
 # x32 detection need help (it's autodetected as address-model=32 abi=sysv, while context build expects address-model=64 abi=x32)
 ./b2 \
+	%{?__jobs:-j %{__jobs}} \
 	-d2 --toolset=gcc \
 %ifarch x32
 	abi=x32 \
@@ -538,6 +539,7 @@ ICU_PATH=%{_prefix} \
 %if %{with python3}
 echo "using python : %{py3_ver} : %{py3_prefix} : %{py3_incdir} : : : : %{py3v_suffix} ;" >> project-config.jam
 ./b2 \
+	%{?__jobs:-j %{__jobs}} \
 	--with-python python=%{py3_ver} \
 	-a -d2 --toolset=gcc \
 	debug-symbols=on \
@@ -551,6 +553,7 @@ echo "using python : %{py3_ver} : %{py3_prefix} : %{py3_incdir} : : : : %{py3v_s
 %{__sed} -i -e '/^using python : 3/d' project-config.jam
 echo "using python : %{py_ver} : %{py_prefix} : %{py_incdir} ;" >> project-config.jam
 ./b2 \
+	%{?__jobs:-j %{__jobs}} \
 	--with-python python=%{py_ver} \
 	-a -d2 --toolset=gcc \
 	debug-symbols=on \
