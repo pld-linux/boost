@@ -33,7 +33,7 @@ BuildRequires:	expat-devel
 BuildRequires:	libicu-devel
 BuildRequires:	libstdc++-devel >= 6:4.7
 BuildRequires:	perl-base
-%if %{with python}
+%if %{with python2}
 BuildRequires:	python-devel >= 2.2
 %{?with_numpy:BuildRequires:	python-numpy-devel}
 %endif
