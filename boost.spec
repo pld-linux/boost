@@ -13,12 +13,12 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.79.0
-Release:	3
+Version:	1.81.0
+Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	https://boostorg.jfrog.io/artifactory/main/release/%{version}/source/%{name}_%{fver}.tar.bz2
-# Source0-md5:	ce966eccb3c296a27abfef9356fd1dc4
+# Source0-md5:	3276c0637d1be8687740c550237ef999
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-clean-gcc-flags.patch
 Patch2:		%{name}-fallthrough.patch
@@ -98,6 +98,7 @@ Requires:	%{name}-system = %{version}-%{release}
 Requires:	%{name}-test = %{version}-%{release}
 Requires:	%{name}-thread = %{version}-%{release}
 Requires:	%{name}-timer = %{version}-%{release}
+Requires:	%{name}-url = %{version}-%{release}
 Requires:	%{name}-wave = %{version}-%{release}
 Requires:	libstdc++-devel >= 6:4.7
 Obsoletes:	boost-any-devel < 1.35
@@ -471,6 +472,17 @@ Event timer, progress timer, and progress display classes.
 %description timer -l pl.UTF-8
 Klasy do obsługi pomiarów czasu, postępu i wyświetlania postępu.
 
+%package url
+Summary:	Library for manipulating Uniform Resource Identifiers and Locators
+Summary(pl.UTF-8):	Biblioteka do manipulacji Unfiform Resource Identifier i Locator
+Group:		Libraries
+
+%description url
+Library for manipulating Uniform Resource Identifiers and Locators.
+
+%description url -l pl.UTF-8
+Biblioteka do manipulacji Unfiform Resource Identifier i Locator.
+
 %package wave
 Summary:	Boost.Wave - a standard compliant C++ preprocessor library
 Summary(pl.UTF-8):	Boost.Wave - zgodna ze standardem biblioteka preprocesora C++
@@ -678,6 +690,9 @@ rm -rf $RPM_BUILD_ROOT
 %post	timer -p /sbin/ldconfig
 %postun	timer -p /sbin/ldconfig
 
+%post	url -p /sbin/ldconfig
+%postun	url -p /sbin/ldconfig
+
 %post	wave -p /sbin/ldconfig
 %postun	wave -p /sbin/ldconfig
 
@@ -726,6 +741,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_timer.so
 %attr(755,root,root) %{_libdir}/libboost_type_erasure.so
 %attr(755,root,root) %{_libdir}/libboost_unit_test_framework.so
+%attr(755,root,root) %{_libdir}/libboost_url.so
 %attr(755,root,root) %{_libdir}/libboost_wave.so
 %attr(755,root,root) %{_libdir}/libboost_wserialization.so
 %{_includedir}/boost
@@ -761,6 +777,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_system.a
 %{_libdir}/libboost_test_exec_monitor.a
 %{_libdir}/libboost_timer.a
+%{_libdir}/libboost_url.a
 %{_libdir}/libboost_thread.a
 %{_libdir}/libboost_type_erasure.a
 %{_libdir}/libboost_unit_test_framework.a
@@ -881,6 +898,10 @@ rm -rf $RPM_BUILD_ROOT
 %files timer
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_timer.so.*.*.*
+
+%files url
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_url.so.*.*.*
 
 %files wave
 %defattr(644,root,root,755)
