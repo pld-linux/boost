@@ -536,13 +536,11 @@ ICU_PATH=%{_prefix} \
 	--prefix=%{_prefix} \
 	-without-libraries=python
 
-# x32 detection need help (it's autodetected as address-model=32 abi=sysv, while context build expects address-model=64 abi=x32)
 ./b2 \
 	%{?__jobs:-j %{__jobs}} \
 	-d2 --toolset=gcc \
 %ifarch x32
 	abi=x32 \
-	address-model=64 \
 %endif
 	debug-symbols=on \
 	inlining=on \
