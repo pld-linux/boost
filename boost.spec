@@ -14,7 +14,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.81.0
-Release:	1
+Release:	2
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	https://boostorg.jfrog.io/artifactory/main/release/%{version}/source/%{name}_%{fver}.tar.bz2
@@ -22,6 +22,7 @@ Source0:	https://boostorg.jfrog.io/artifactory/main/release/%{version}/source/%{
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-clean-gcc-flags.patch
 Patch2:		%{name}-fallthrough.patch
+Patch3:		uarg-def.patch
 # FC Patches:
 Patch201:	%{name}-python-abi_letters.patch
 # https://svn.boost.org/trac/boost/ticket/5637
@@ -511,6 +512,7 @@ Dokumentacja dla biblioteki Boost C++.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %patch201 -p1
 %patch203 -p0
