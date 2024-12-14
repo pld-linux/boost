@@ -542,6 +542,9 @@ ICU_PATH=%{_prefix} \
 %ifarch x32
 	abi=x32 \
 %endif
+%ifarch %{ix86}
+	boost.stacktrace.from_exception=off \
+%endif
 	debug-symbols=on \
 	inlining=on \
 	link=static,shared \
