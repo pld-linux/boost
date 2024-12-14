@@ -7,8 +7,8 @@
 -    : condition * : extension-suffix ? )
 +    : condition * : extension-suffix ? : abi-letters ? )
  {
-     project.push-current $(.project) ;
- 
+     if ! $(.initialized)
+     {
 @@ -107,7 +107,7 @@ rule init ( version ? : cmd-or-prefix ? 
          }
      }

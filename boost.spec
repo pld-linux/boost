@@ -13,16 +13,15 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.82.0
+Version:	1.87.0
 Release:	1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	https://boostorg.jfrog.io/artifactory/main/release/%{version}/source/%{name}_%{fver}.tar.bz2
-# Source0-md5:	b45dac8b54b58c087bfbed260dbfc03a
+# Source0-md5:	ccdfe37d3bad682d841782f760faf141
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-clean-gcc-flags.patch
 Patch2:		%{name}-fallthrough.patch
-Patch3:		uarg-def.patch
 # FC Patches:
 Patch201:	%{name}-python-abi_letters.patch
 # https://svn.boost.org/trac/boost/ticket/5637
@@ -509,14 +508,13 @@ Dokumentacja dla biblioteki Boost C++.
 
 %prep
 %setup -q -n %{name}_%{fver}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
 
-%patch201 -p1
-%patch203 -p0
-%patch221 -p1
+%patch -P 201 -p1
+%patch -P 203 -p0
+%patch -P 221 -p1
 
 %if "%{cc_version}" < "6.0"
 CPPSTD="-std=c++11"
@@ -699,12 +697,13 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_atomic.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_charconv.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_container.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_contract.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_coroutine.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_iostreams.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_math_*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_nowide.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_process.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_random.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_serialization.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_stacktrace_*.so.*.*.*
@@ -714,6 +713,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_atomic.so
+%attr(755,root,root) %{_libdir}/libboost_charconv.so
 %attr(755,root,root) %{_libdir}/libboost_chrono.so
 %attr(755,root,root) %{_libdir}/libboost_container.so
 %attr(755,root,root) %{_libdir}/libboost_context.so
@@ -728,9 +728,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_locale.so
 %attr(755,root,root) %{_libdir}/libboost_log.so
 %attr(755,root,root) %{_libdir}/libboost_log_setup.so
-%attr(755,root,root) %{_libdir}/libboost_math_*.so
 %attr(755,root,root) %{_libdir}/libboost_nowide.so
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so
+%attr(755,root,root) %{_libdir}/libboost_process.so
 %attr(755,root,root) %{_libdir}/libboost_program_options.so
 %attr(755,root,root) %{_libdir}/libboost_regex.so
 %attr(755,root,root) %{_libdir}/libboost_random.so
@@ -751,6 +751,7 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libboost_atomic.a
+%{_libdir}/libboost_charconv.a
 %{_libdir}/libboost_chrono.a
 %{_libdir}/libboost_container.a
 %{_libdir}/libboost_context.a
@@ -766,9 +767,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_locale.a
 %{_libdir}/libboost_log.a
 %{_libdir}/libboost_log_setup.a
-%{_libdir}/libboost_math_*.a
 %{_libdir}/libboost_nowide.a
 %{_libdir}/libboost_prg_exec_monitor.a
+%{_libdir}/libboost_process.a
 %{_libdir}/libboost_program_options.a
 %{_libdir}/libboost_random.a
 %{_libdir}/libboost_regex.a
