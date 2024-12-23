@@ -1,0 +1,10 @@
+--- boost_1_87_0/boost/lockfree/detail/freelist.hpp.orig	2024-12-05 01:53:33.000000000 +0100
++++ boost_1_87_0/boost/lockfree/detail/freelist.hpp	2024-12-23 17:20:21.772444369 +0100
+@@ -10,6 +10,7 @@
+ #define BOOST_LOCKFREE_FREELIST_HPP_INCLUDED
+ 
+ #include <array>
++#include <cstdint>
+ #include <cstring>
+ #include <limits>
+ #include <memory>
