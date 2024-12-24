@@ -13,12 +13,13 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.87.0
-Release:	2
+Version:	1.85.0
+Release:	1
+Epoch:		1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	https://boostorg.jfrog.io/artifactory/main/release/%{version}/source/%{name}_%{fver}.tar.bz2
-# Source0-md5:	ccdfe37d3bad682d841782f760faf141
+# Source0-md5:	429d451cb9197143cc77962c5ff272ef
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-clean-gcc-flags.patch
 Patch2:		%{name}-fallthrough.patch
@@ -708,7 +709,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_coroutine.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_iostreams.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_nowide.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_process.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_random.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_serialization.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_stacktrace_*.so.*.*.*
@@ -735,7 +735,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_log_setup.so
 %attr(755,root,root) %{_libdir}/libboost_nowide.so
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so
-%attr(755,root,root) %{_libdir}/libboost_process.so
 %attr(755,root,root) %{_libdir}/libboost_program_options.so
 %attr(755,root,root) %{_libdir}/libboost_regex.so
 %attr(755,root,root) %{_libdir}/libboost_random.so
@@ -774,7 +773,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_log_setup.a
 %{_libdir}/libboost_nowide.a
 %{_libdir}/libboost_prg_exec_monitor.a
-%{_libdir}/libboost_process.a
 %{_libdir}/libboost_program_options.a
 %{_libdir}/libboost_random.a
 %{_libdir}/libboost_regex.a
