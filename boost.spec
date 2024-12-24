@@ -14,7 +14,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.85.0
-Release:	1
+Release:	2
 Epoch:		1
 License:	Boost Software License and others
 Group:		Libraries
@@ -84,24 +84,24 @@ Raporcie Technicznym Biblioteki Standardowej C++.
 Summary:	Boost C++ development headers
 Summary(pl.UTF-8):	Pliki nagłówkowe bibliotek C++ Boost
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
-Requires:	%{name}-chrono = %{version}-%{release}
-Requires:	%{name}-context = %{version}-%{release}
-Requires:	%{name}-date_time = %{version}-%{release}
-Requires:	%{name}-fiber = %{version}-%{release}
-Requires:	%{name}-filesystem = %{version}-%{release}
-Requires:	%{name}-graph = %{version}-%{release}
-Requires:	%{name}-json = %{version}-%{release}
-Requires:	%{name}-locale = %{version}-%{release}
-Requires:	%{name}-log = %{version}-%{release}
-Requires:	%{name}-program_options = %{version}-%{release}
-Requires:	%{name}-regex = %{version}-%{release}
-Requires:	%{name}-system = %{version}-%{release}
-Requires:	%{name}-test = %{version}-%{release}
-Requires:	%{name}-thread = %{version}-%{release}
-Requires:	%{name}-timer = %{version}-%{release}
-Requires:	%{name}-url = %{version}-%{release}
-Requires:	%{name}-wave = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-chrono = %{epoch}:%{version}-%{release}
+Requires:	%{name}-context = %{epoch}:%{version}-%{release}
+Requires:	%{name}-date_time = %{epoch}:%{version}-%{release}
+Requires:	%{name}-fiber = %{epoch}:%{version}-%{release}
+Requires:	%{name}-filesystem = %{epoch}:%{version}-%{release}
+Requires:	%{name}-graph = %{epoch}:%{version}-%{release}
+Requires:	%{name}-json = %{epoch}:%{version}-%{release}
+Requires:	%{name}-locale = %{epoch}:%{version}-%{release}
+Requires:	%{name}-log = %{epoch}:%{version}-%{release}
+Requires:	%{name}-program_options = %{epoch}:%{version}-%{release}
+Requires:	%{name}-regex = %{epoch}:%{version}-%{release}
+Requires:	%{name}-system = %{epoch}:%{version}-%{release}
+Requires:	%{name}-test = %{epoch}:%{version}-%{release}
+Requires:	%{name}-thread = %{epoch}:%{version}-%{release}
+Requires:	%{name}-timer = %{epoch}:%{version}-%{release}
+Requires:	%{name}-url = %{epoch}:%{version}-%{release}
+Requires:	%{name}-wave = %{epoch}:%{version}-%{release}
 Requires:	libstdc++-devel >= 6:4.7
 Obsoletes:	boost-any-devel < 1.35
 Obsoletes:	boost-array-devel < 1.35
@@ -147,7 +147,7 @@ Pliki nagłówkowe bibliotek C++ Boost.
 Summary:	Static version of base Boost C++ libraries
 Summary(pl.UTF-8):	Statyczne wersje podstawowych bibliotek C++ Boost
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 Obsoletes:	boost-date_time-static < 1.35
 Obsoletes:	boost-filesystem-static < 1.35
 Obsoletes:	boost-graph-static < 1.35
@@ -168,7 +168,7 @@ Statyczne wersje podstawowych bibliotek C++ Boost.
 Summary:	Boost.Python development headers
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Boost.Python
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description python-devel-common
 Headers for the Boost.Python library.
@@ -204,9 +204,9 @@ klasy C++ i funkcje do Pythona 3.
 Summary:	Boost.Python development files for Python 2
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki Boost.Python dla Pythona 2
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-Requires:	%{name}-python = %{version}-%{release}
-Requires:	%{name}-python-devel-common = %{version}-%{release}
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
+Requires:	%{name}-python = %{epoch}:%{version}-%{release}
+Requires:	%{name}-python-devel-common = %{epoch}:%{version}-%{release}
 
 %description python-devel
 Boost.Python development files for Python 2.
@@ -218,7 +218,7 @@ Pliki programistyczne biblioteki Boost.Python dla Pythona 2.
 Summary:	Static version of Boost.Python library for Python 2
 Summary(pl.UTF-8):	Statyczna wersja biblioteki Boost.Python dla Pythona 2
 Group:		Development/Libraries
-Requires:	%{name}-python-devel = %{version}-%{release}
+Requires:	%{name}-python-devel = %{epoch}:%{version}-%{release}
 
 %description python-static
 Static version of Boost.Python library for Python 2.
@@ -254,9 +254,9 @@ klasy C++ i funkcje do Pythona 3.
 Summary:	Boost.Python development files for Python 3
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki Boost.Python dla Pythona 3
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-Requires:	%{name}-python-devel-common = %{version}-%{release}
-Requires:	%{name}-python3 = %{version}-%{release}
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
+Requires:	%{name}-python-devel-common = %{epoch}:%{version}-%{release}
+Requires:	%{name}-python3 = %{epoch}:%{version}-%{release}
 
 %description python3-devel
 Boost.Python development files for Python 3.
@@ -268,7 +268,7 @@ Pliki programistyczne biblioteki Boost.Python dla Pythona 3.
 Summary:	Static version of Boost.Python library for Python 3
 Summary(pl.UTF-8):	Statyczna wersja biblioteki Boost.Python dla Pythona 3
 Group:		Development/Libraries
-Requires:	%{name}-python3-devel = %{version}-%{release}
+Requires:	%{name}-python3-devel = %{epoch}:%{version}-%{release}
 
 %description python3-static
 Static version of Boost.Python library for Python 3.
@@ -332,7 +332,7 @@ zarządzania i synchronizacji wątków podobne do boost.thread.
 Summary:	Portable paths, iteration over directories, and other useful filesystem operations
 Summary(pl.UTF-8):	Przenośne ścieżki, iteracje katalogów i inne użyteczne operacje na systemie plików
 Group:		Libraries
-Requires:	%{name}-system = %{version}-%{release}
+Requires:	%{name}-system = %{epoch}:%{version}-%{release}
 Obsoletes:	boost < 1.33
 
 %description filesystem
