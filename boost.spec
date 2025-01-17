@@ -14,7 +14,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.85.0
-Release:	2
+Release:	3
 Epoch:		1
 License:	Boost Software License and others
 Group:		Libraries
