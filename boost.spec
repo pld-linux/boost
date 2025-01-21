@@ -14,7 +14,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.87.0
-Release:	2
+Release:	3
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	https://boostorg.jfrog.io/artifactory/main/release/%{version}/source/%{name}_%{fver}.tar.bz2
@@ -589,6 +589,7 @@ cp -rf boost $RPM_BUILD_ROOT%{_includedir}
 install -p stage/lib/lib*.a $RPM_BUILD_ROOT%{_libdir}
 install -p stage/lib/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
 cp -a stage/lib/lib*.so $RPM_BUILD_ROOT%{_libdir}
+cp -a stage/lib/cmake $RPM_BUILD_ROOT%{_libdir}
 
 %if %{with doc}
 # documentation
@@ -752,6 +753,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost
 %exclude %{_includedir}/boost/python
 %exclude %{_includedir}/boost/python.hpp
+%{_libdir}/cmake/Boost*
+%{_libdir}/cmake/boost_*
+%exclude %{_libdir}/cmake/boost_python-*
 
 %files static
 %defattr(644,root,root,755)
@@ -795,6 +799,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_includedir}/boost/python
 %{_includedir}/boost/python.hpp
+%dir %{_libdir}/cmake/boost_python-*
+%{_libdir}/cmake/boost_python-*/boost_python-config.cmake
+%{_libdir}/cmake/boost_python-*/boost_python-config-version.cmake
 %endif
 
 %if %{with python2}
@@ -811,6 +818,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_numpy%{py2v}.so
 %endif
 %attr(755,root,root) %{_libdir}/libboost_python%{py2v}.so
+%{_libdir}/cmake/boost_python-*/libboost_python-variant-*-py2*.cmake
 
 %files python-static
 %defattr(644,root,root,755)
@@ -834,6 +842,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_numpy%{py3v}.so
 %endif
 %attr(755,root,root) %{_libdir}/libboost_python%{py3v}.so
+%{_libdir}/cmake/boost_python-*/libboost_python-variant-*-py3*.cmake
 
 %files python3-static
 %defattr(644,root,root,755)
