@@ -24,6 +24,7 @@ Patch0:		%{name}-link.patch
 Patch1:		%{name}-clean-gcc-flags.patch
 Patch2:		%{name}-fallthrough.patch
 Patch3:		includes.patch
+Patch4:		numpy2.patch
 # FC Patches:
 Patch201:	%{name}-python-abi_letters.patch
 # https://svn.boost.org/trac/boost/ticket/5637
@@ -514,6 +515,7 @@ Dokumentacja dla biblioteki Boost C++.
 %patch -P 1 -p1
 %patch -P 2 -p1
 %patch -P 3 -p1
+%patch -P 4 -p1 -d libs/python
 
 %patch -P 201 -p1
 %patch -P 203 -p0

@@ -1,0 +1,76 @@
+From 0474de0f6cc9c6e7230aeb7164af2f7e4ccf74bf Mon Sep 17 00:00:00 2001
+From: Alexis DUBURCQ <alexis.duburcq@gmail.com>
+Date: Fri, 15 Mar 2024 14:10:16 +0100
+Subject: [PATCH] Support numpy 2.0.0b1
+
+---
+ src/numpy/dtype.cpp | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/src/numpy/dtype.cpp b/src/numpy/dtype.cpp
+index 88a20a27b5..da30d1927b 100644
+--- a/src/numpy/dtype.cpp
++++ b/src/numpy/dtype.cpp
+@@ -98,7 +98,13 @@ python::detail::new_reference dtype::convert(object const & arg, bool align)
+   return python::detail::new_reference(reinterpret_cast<PyObject*>(obj));
+ }
+ 
+-int dtype::get_itemsize() const { return reinterpret_cast<PyArray_Descr*>(ptr())->elsize;}
++int dtype::get_itemsize() const {
++#if NPY_ABI_VERSION < 0x02000000
++  return reinterpret_cast<PyArray_Descr*>(ptr())->elsize;
++#else
++  return PyDataType_ELSIZE(reinterpret_cast<PyArray_Descr*>(ptr()));
++#endif
++}
+ 
+ bool equivalent(dtype const & a, dtype const & b) {
+     // On Windows x64, the behaviour described on 
+From 99a5352b5cf790c559a7b976c1ba99520431d9d1 Mon Sep 17 00:00:00 2001
+From: "Billy K. Poon" <bkpoon@lbl.gov>
+Date: Mon, 15 Jul 2024 15:48:38 -0700
+Subject: [PATCH] Another fix for numpy 2.0
+
+- Compare pointers directly instead of using PyArray_EquivTypes
+---
+ src/numpy/dtype.cpp | 27 +--------------------------
+ 1 file changed, 1 insertion(+), 26 deletions(-)
+
+diff --git a/src/numpy/dtype.cpp b/src/numpy/dtype.cpp
+index da30d1927..1ce8c6ec3 100644
+--- a/src/numpy/dtype.cpp
++++ b/src/numpy/dtype.cpp
+@@ -107,32 +107,7 @@ int dtype::get_itemsize() const {
+ }
+ 
+ bool equivalent(dtype const & a, dtype const & b) {
+-    // On Windows x64, the behaviour described on 
+-    // http://docs.scipy.org/doc/numpy/reference/c-api.array.html for
+-    // PyArray_EquivTypes unfortunately does not extend as expected:
+-    // "For example, on 32-bit platforms, NPY_LONG and NPY_INT are equivalent".
+-    // This should also hold for 64-bit platforms (and does on Linux), but not
+-    // on Windows. Implement an alternative:
+-#ifdef _MSC_VER
+-    if (sizeof(long) == sizeof(int) &&
+-        // Manually take care of the type equivalence.
+-        ((a == dtype::get_builtin<long>() || a == dtype::get_builtin<int>()) &&
+-         (b == dtype::get_builtin<long>() || b == dtype::get_builtin<int>()) ||
+-         (a == dtype::get_builtin<unsigned int>() || a == dtype::get_builtin<unsigned long>()) &&
+-         (b == dtype::get_builtin<unsigned int>() || b == dtype::get_builtin<unsigned long>()))) {
+-        return true;
+-    } else {
+-        return PyArray_EquivTypes(
+-            reinterpret_cast<PyArray_Descr*>(a.ptr()),
+-            reinterpret_cast<PyArray_Descr*>(b.ptr())
+-        );
+-    }
+-#else
+-    return PyArray_EquivTypes(
+-        reinterpret_cast<PyArray_Descr*>(a.ptr()),
+-        reinterpret_cast<PyArray_Descr*>(b.ptr())
+-    );
+-#endif
++  return a == b;
+ }
+ 
+ namespace
