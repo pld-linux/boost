@@ -753,9 +753,50 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/boost
 %exclude %{_includedir}/boost/python
 %exclude %{_includedir}/boost/python.hpp
-%{_libdir}/cmake/Boost*
-%{_libdir}/cmake/boost_*
-%exclude %{_libdir}/cmake/boost_python-*
+%{_libdir}/cmake/Boost-%{version}
+%{_libdir}/cmake/BoostDetectToolset-%{version}.cmake
+%{_libdir}/cmake/boost_atomic-%{version}
+%{_libdir}/cmake/boost_charconv-%{version}
+%{_libdir}/cmake/boost_chrono-%{version}
+%{_libdir}/cmake/boost_container-%{version}
+%{_libdir}/cmake/boost_context-%{version}
+%{_libdir}/cmake/boost_contract-%{version}
+%{_libdir}/cmake/boost_coroutine-%{version}
+%{_libdir}/cmake/boost_date_time-%{version}
+%{_libdir}/cmake/boost_exception-%{version}
+%{_libdir}/cmake/boost_fiber-%{version}
+%{_libdir}/cmake/boost_filesystem-%{version}
+%{_libdir}/cmake/boost_graph-%{version}
+%{_libdir}/cmake/boost_graph_parallel-%{version}
+%{_libdir}/cmake/boost_headers-%{version}
+%{_libdir}/cmake/boost_iostreams-%{version}
+%{_libdir}/cmake/boost_json-%{version}
+%{_libdir}/cmake/boost_locale-%{version}
+%{_libdir}/cmake/boost_log-%{version}
+%{_libdir}/cmake/boost_log_setup-%{version}
+%{_libdir}/cmake/boost_math-%{version}
+%{_libdir}/cmake/boost_mpi-%{version}
+%{_libdir}/cmake/boost_mpi_python-%{version}
+%{_libdir}/cmake/boost_nowide-%{version}
+%{_libdir}/cmake/boost_prg_exec_monitor-%{version}
+%{_libdir}/cmake/boost_process-%{version}
+%{_libdir}/cmake/boost_program_options-%{version}
+%{_libdir}/cmake/boost_random-%{version}
+%{_libdir}/cmake/boost_regex-%{version}
+%{_libdir}/cmake/boost_serialization-%{version}
+%{_libdir}/cmake/boost_stacktrace_addr2line-%{version}
+%{_libdir}/cmake/boost_stacktrace_basic-%{version}
+%{_libdir}/cmake/boost_stacktrace_noop-%{version}
+%{_libdir}/cmake/boost_system-%{version}
+%{_libdir}/cmake/boost_test_exec_monitor-%{version}
+%{_libdir}/cmake/boost_thread-%{version}
+%{_libdir}/cmake/boost_timer-%{version}
+%{_libdir}/cmake/boost_type_erasure-%{version}
+%{_libdir}/cmake/boost_unit_test_framework-%{version}
+%{_libdir}/cmake/boost_url-%{version}
+%{_libdir}/cmake/boost_wave-%{version}
+%{_libdir}/cmake/boost_wserialization-%{version}
+%exclude %{_libdir}/cmake/boost_*/libboost_*-variant-static.cmake
 
 %files static
 %defattr(644,root,root,755)
@@ -793,15 +834,53 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_unit_test_framework.a
 %{_libdir}/libboost_wave.a
 %{_libdir}/libboost_wserialization.a
+%{_libdir}/cmake/boost_atomic-%{version}/libboost_atomic-variant-static.cmake
+%{_libdir}/cmake/boost_charconv-%{version}/libboost_charconv-variant-static.cmake
+%{_libdir}/cmake/boost_chrono-%{version}/libboost_chrono-variant-static.cmake
+%{_libdir}/cmake/boost_container-%{version}/libboost_container-variant-static.cmake
+%{_libdir}/cmake/boost_context-%{version}/libboost_context-variant-static.cmake
+%{_libdir}/cmake/boost_contract-%{version}/libboost_contract-variant-static.cmake
+%{_libdir}/cmake/boost_coroutine-%{version}/libboost_coroutine-variant-static.cmake
+%{_libdir}/cmake/boost_date_time-%{version}/libboost_date_time-variant-static.cmake
+%{_libdir}/cmake/boost_fiber-%{version}/libboost_fiber-variant-static.cmake
+%{_libdir}/cmake/boost_filesystem-%{version}/libboost_filesystem-variant-static.cmake
+%{_libdir}/cmake/boost_graph-%{version}/libboost_graph-variant-static.cmake
+%{_libdir}/cmake/boost_iostreams-%{version}/libboost_iostreams-variant-static.cmake
+%{_libdir}/cmake/boost_json-%{version}/libboost_json-variant-static.cmake
+%{_libdir}/cmake/boost_locale-%{version}/libboost_locale-variant-static.cmake
+%{_libdir}/cmake/boost_log-%{version}/libboost_log-variant-static.cmake
+%{_libdir}/cmake/boost_log_setup-%{version}/libboost_log_setup-variant-static.cmake
+%{_libdir}/cmake/boost_nowide-%{version}/libboost_nowide-variant-static.cmake
+%{_libdir}/cmake/boost_prg_exec_monitor-%{version}/libboost_prg_exec_monitor-variant-static.cmake
+%{_libdir}/cmake/boost_process-%{version}/libboost_process-variant-static.cmake
+%{_libdir}/cmake/boost_program_options-%{version}/libboost_program_options-variant-static.cmake
+%{_libdir}/cmake/boost_random-%{version}/libboost_random-variant-static.cmake
+%{_libdir}/cmake/boost_regex-%{version}/libboost_regex-variant-static.cmake
+%{_libdir}/cmake/boost_serialization-%{version}/libboost_serialization-variant-static.cmake
+%{_libdir}/cmake/boost_stacktrace_addr2line-%{version}/libboost_stacktrace_addr2line-variant-static.cmake
+%{_libdir}/cmake/boost_stacktrace_basic-%{version}/libboost_stacktrace_basic-variant-static.cmake
+%{_libdir}/cmake/boost_stacktrace_noop-%{version}/libboost_stacktrace_noop-variant-static.cmake
+%{_libdir}/cmake/boost_system-%{version}/libboost_system-variant-static.cmake
+%{_libdir}/cmake/boost_test_exec_monitor-%{version}/libboost_test_exec_monitor-variant-static.cmake
+%{_libdir}/cmake/boost_thread-%{version}/libboost_thread-variant-static.cmake
+%{_libdir}/cmake/boost_timer-%{version}/libboost_timer-variant-static.cmake
+%{_libdir}/cmake/boost_type_erasure-%{version}/libboost_type_erasure-variant-static.cmake
+%{_libdir}/cmake/boost_unit_test_framework-%{version}/libboost_unit_test_framework-variant-static.cmake
+%{_libdir}/cmake/boost_url-%{version}/libboost_url-variant-static.cmake
+%{_libdir}/cmake/boost_wave-%{version}/libboost_wave-variant-static.cmake
+%{_libdir}/cmake/boost_wserialization-%{version}/libboost_wserialization-variant-static.cmake
 
 %if %{with python2} || %{with python3}
 %files python-devel-common
 %defattr(644,root,root,755)
 %{_includedir}/boost/python
 %{_includedir}/boost/python.hpp
-%dir %{_libdir}/cmake/boost_python-*
-%{_libdir}/cmake/boost_python-*/boost_python-config.cmake
-%{_libdir}/cmake/boost_python-*/boost_python-config-version.cmake
+%dir %{_libdir}/cmake/boost_python-%{version}
+%{_libdir}/cmake/boost_python-%{version}/boost_python-config.cmake
+%{_libdir}/cmake/boost_python-%{version}/boost_python-config-version.cmake
+%dir %{_libdir}/cmake/boost_numpy-%{version}
+%{_libdir}/cmake/boost_numpy-%{version}/boost_numpy-config.cmake
+%{_libdir}/cmake/boost_numpy-%{version}/boost_numpy-config-version.cmake
 %endif
 
 %if %{with python2}
@@ -816,16 +895,19 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %if %{with numpy}
 %attr(755,root,root) %{_libdir}/libboost_numpy%{py2v}.so
+%{_libdir}/cmake/boost_numpy-%{version}/libboost_numpy-variant-shared-py2.*.cmake
 %endif
 %attr(755,root,root) %{_libdir}/libboost_python%{py2v}.so
-%{_libdir}/cmake/boost_python-*/libboost_python-variant-*-py2*.cmake
+%{_libdir}/cmake/boost_python-%{version}/libboost_python-variant-shared-py2.*.cmake
 
 %files python-static
 %defattr(644,root,root,755)
 %if %{with numpy}
 %{_libdir}/libboost_numpy%{py2v}.a
+%{_libdir}/cmake/boost_numpy-%{version}/libboost_numpy-variant-static-py2.*.cmake
 %endif
 %{_libdir}/libboost_python%{py2v}.a
+%{_libdir}/cmake/boost_python-%{version}/libboost_python-variant-static-py2.*.cmake
 %endif
 
 %if %{with python3}
@@ -840,16 +922,19 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %if %{with numpy}
 %attr(755,root,root) %{_libdir}/libboost_numpy%{py3v}.so
+%{_libdir}/cmake/boost_numpy-%{version}/libboost_numpy-variant-shared-py3.*.cmake
 %endif
 %attr(755,root,root) %{_libdir}/libboost_python%{py3v}.so
-%{_libdir}/cmake/boost_python-*/libboost_python-variant-*-py3*.cmake
+%{_libdir}/cmake/boost_python-%{version}/libboost_python-variant-shared-py3.*.cmake
 
 %files python3-static
 %defattr(644,root,root,755)
 %if %{with numpy}
 %{_libdir}/libboost_numpy%{py3v}.a
+%{_libdir}/cmake/boost_numpy-%{version}/libboost_numpy-variant-static-py3.*.cmake
 %endif
 %{_libdir}/libboost_python%{py3v}.a
+%{_libdir}/cmake/boost_python-%{version}/libboost_python-variant-static-py3.*.cmake
 %endif
 
 %files chrono
