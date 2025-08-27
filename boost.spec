@@ -14,7 +14,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.87.0
-Release:	3
+Release:	3.1
 License:	Boost Software License and others
 Group:		Libraries
 Source0:	https://boostorg.jfrog.io/artifactory/main/release/%{version}/source/%{name}_%{fver}.tar.bz2
@@ -175,6 +175,18 @@ Headers for the Boost.Python library.
 %description python-devel-common -l pl.UTF-8
 Pliki nagłówkowe biblioteki Boost.Python.
 
+%package python-numpy-devel-common
+Summary:	Boost.Numpy development headers
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Boost.Numpy
+Group:		Development/Libraries
+Requires:	%{name}-python-devel-common = %{version}-%{release}
+
+%description python-numpy-devel-common
+Headers for the Boost.Numpy library.
+
+%description python-numpy-devel-common -l pl.UTF-8
+Pliki nagłówkowe biblioteki Boost.Numpy
+
 %package python
 Summary:	Boost.Python library for Python 2
 Summary(pl.UTF-8):	Biblioteka Boost.Python dla Pythona 2
@@ -225,6 +237,43 @@ Static version of Boost.Python library for Python 2.
 %description python-static -l pl.UTF-8
 Statyczna wersja biblioteki Boost.Python dla Pythona 2.
 
+%package python-numpy
+Summary:	Boost.Numpy library for Python 2
+Summary(pl.UTF-8):	Biblioteka Boost.Numpy dla Pythona 2
+Group:		Libraries
+Requires:	%{name}-python = %{version}-%{release}
+
+%description python-numpy
+Boost.Python NumPy extension.
+
+%description python-numpy -l pl.UTF-8
+Rozszerzenie NumPy do biblioteki Boost.Python.
+
+%package python-numpy-devel
+Summary:	Boost.Numpy development files for Python 2
+Summary(pl.UTF-8):	Pliki programistyczne biblioteki Boost.Numpy dla Pythona 2
+Group:		Development/Libraries
+Requires:	%{name}-python-numpy = %{version}-%{release}
+Requires:	%{name}-python-numpy-devel-common = %{version}-%{release}
+
+%description python-numpy-devel
+Boost.Numpy development files for Python 2.
+
+%description python-numpy-devel -l pl.UTF-8
+Pliki programistyczne biblioteki Boost.Numpy dla Pythona 2.
+
+%package python-numpy-static
+Summary:	Static version of Boost.Numpy library for Python 2
+Summary(pl.UTF-8):	Statyczna wersja biblioteki Boost.Numpy dla Pythona 2
+Group:		Development/Libraries
+Requires:	%{name}-python-numpy-devel = %{version}-%{release}
+
+%description python-numpy-static
+Static version of Boost.Numpy library for Python 2.
+
+%description python-numpy-static -l pl.UTF-8
+Statyczna wersja biblioteki Boost.Numpy dla Pythona 2.
+
 %package python3
 Summary:	Boost.Python library for Python 3
 Summary(pl.UTF-8):	biblioteka Boost.Python dla Pythona 3
@@ -274,6 +323,43 @@ Static version of Boost.Python library for Python 3.
 
 %description python3-static -l pl.UTF-8
 Statyczna wersja biblioteki Boost.Python dla Pythona 3.
+
+%package python3-numpy
+Summary:	Boost.Numpy library for Python 3
+Summary(pl.UTF-8):	Biblioteka Boost.Numpy dla Pythona 3
+Group:		Libraries
+Requires:	%{name}-python3 = %{version}-%{release}
+
+%description python3-numpy
+Boost.Python NumPy extension.
+
+%description python3-numpy -l pl.UTF-8
+Rozszerzenie NumPy do biblioteki Boost.Python.
+
+%package python3-numpy-devel
+Summary:	Boost.Numpy development files for Python 3
+Summary(pl.UTF-8):	Pliki programistyczne biblioteki Boost.Numpy dla Pythona 3
+Group:		Development/Libraries
+Requires:	%{name}-python3-numpy = %{version}-%{release}
+Requires:	%{name}-python3-numpy-devel-common = %{version}-%{release}
+
+%description python3-numpy-devel
+Boost.Numpy development files for Python 3.
+
+%description python3-numpy-devel -l pl.UTF-8
+Pliki programistyczne biblioteki Boost.Numpy dla Pythona 3.
+
+%package python3-numpy-static
+Summary:	Static version of Boost.Numpy library for Python 3
+Summary(pl.UTF-8):	Statyczna wersja biblioteki Boost.Numpy dla Pythona 3
+Group:		Development/Libraries
+Requires:	%{name}-python-numpy-devel = %{version}-%{release}
+
+%description python3-numpy-static
+Static version of Boost.Numpy library for Python 3.
+
+%description python3-numpy-static -l pl.UTF-8
+Statyczna wersja biblioteki Boost.Numpy dla Pythona 3.
 
 %package chrono
 Summary:	Useful time utilities
@@ -673,8 +759,14 @@ rm -rf $RPM_BUILD_ROOT
 %post	python -p /sbin/ldconfig
 %postun	python -p /sbin/ldconfig
 
+%post	python-numpy -p /sbin/ldconfig
+%postun	python-numpy -p /sbin/ldconfig
+
 %post	python3 -p /sbin/ldconfig
 %postun	python3 -p /sbin/ldconfig
+
+%post	python3-numpy -p /sbin/ldconfig
+%postun	python3-numpy -p /sbin/ldconfig
 
 %post	program_options -p /sbin/ldconfig
 %postun	program_options -p /sbin/ldconfig
@@ -875,66 +967,85 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_includedir}/boost/python
 %{_includedir}/boost/python.hpp
+%exclude %{_includedir}/boost/python/numpy
+%exclude %{_includedir}/boost/python/numpy.hpp
 %dir %{_libdir}/cmake/boost_python-%{version}
 %{_libdir}/cmake/boost_python-%{version}/boost_python-config.cmake
 %{_libdir}/cmake/boost_python-%{version}/boost_python-config-version.cmake
+
+%if %{with numpy}
+%files python-numpy-devel-common
+%defattr(644,root,root,755)
+%{_includedir}/boost/python/numpy
+%{_includedir}/boost/python/numpy.hpp
 %dir %{_libdir}/cmake/boost_numpy-%{version}
 %{_libdir}/cmake/boost_numpy-%{version}/boost_numpy-config.cmake
 %{_libdir}/cmake/boost_numpy-%{version}/boost_numpy-config-version.cmake
+%endif
 %endif
 
 %if %{with python2}
 %files python
 %defattr(644,root,root,755)
-%if %{with numpy}
-%attr(755,root,root) %{_libdir}/libboost_numpy%{py2v}.so.*.*.*
-%endif
 %attr(755,root,root) %{_libdir}/libboost_python%{py2v}.so.*.*.*
 
 %files python-devel
 %defattr(644,root,root,755)
-%if %{with numpy}
-%attr(755,root,root) %{_libdir}/libboost_numpy%{py2v}.so
-%{_libdir}/cmake/boost_numpy-%{version}/libboost_numpy-variant-shared-py2.*.cmake
-%endif
 %attr(755,root,root) %{_libdir}/libboost_python%{py2v}.so
 %{_libdir}/cmake/boost_python-%{version}/libboost_python-variant-shared-py2.*.cmake
 
 %files python-static
 %defattr(644,root,root,755)
+%{_libdir}/libboost_python%{py2v}.a
+%{_libdir}/cmake/boost_python-%{version}/libboost_python-variant-static-py2.*.cmake
+
 %if %{with numpy}
+%files python-numpy
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_numpy%{py2v}.so.*.*.*
+
+%files python-numpy-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_numpy%{py2v}.so
+%{_libdir}/cmake/boost_numpy-%{version}/libboost_numpy-variant-shared-py2.*.cmake
+
+%files python-numpy-static
+%defattr(644,root,root,755)
 %{_libdir}/libboost_numpy%{py2v}.a
 %{_libdir}/cmake/boost_numpy-%{version}/libboost_numpy-variant-static-py2.*.cmake
 %endif
-%{_libdir}/libboost_python%{py2v}.a
-%{_libdir}/cmake/boost_python-%{version}/libboost_python-variant-static-py2.*.cmake
 %endif
 
 %if %{with python3}
 %files python3
 %defattr(644,root,root,755)
-%if %{with numpy}
-%attr(755,root,root) %{_libdir}/libboost_numpy%{py3v}.so.*.*.*
-%endif
 %attr(755,root,root) %{_libdir}/libboost_python%{py3v}.so.*.*.*
 
 %files python3-devel
 %defattr(644,root,root,755)
-%if %{with numpy}
-%attr(755,root,root) %{_libdir}/libboost_numpy%{py3v}.so
-%{_libdir}/cmake/boost_numpy-%{version}/libboost_numpy-variant-shared-py3.*.cmake
-%endif
 %attr(755,root,root) %{_libdir}/libboost_python%{py3v}.so
 %{_libdir}/cmake/boost_python-%{version}/libboost_python-variant-shared-py3.*.cmake
 
 %files python3-static
 %defattr(644,root,root,755)
+%{_libdir}/libboost_python%{py3v}.a
+%{_libdir}/cmake/boost_python-%{version}/libboost_python-variant-static-py3.*.cmake
+
 %if %{with numpy}
+%files python3-numpy
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_numpy%{py3v}.so.*.*.*
+
+%files python3-numpy-devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libboost_numpy%{py3v}.so
+%{_libdir}/cmake/boost_numpy-%{version}/libboost_numpy-variant-shared-py3.*.cmake
+
+%files python3-numpy-static
+%defattr(644,root,root,755)
 %{_libdir}/libboost_numpy%{py3v}.a
 %{_libdir}/cmake/boost_numpy-%{version}/libboost_numpy-variant-static-py3.*.cmake
 %endif
-%{_libdir}/libboost_python%{py3v}.a
-%{_libdir}/cmake/boost_python-%{version}/libboost_python-variant-static-py3.*.cmake
 %endif
 
 %files chrono
