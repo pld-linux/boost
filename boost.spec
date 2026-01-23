@@ -14,7 +14,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.85.0
-Release:	7
+Release:	8
 Epoch:		1
 License:	Boost Software License and others
 Group:		Libraries
@@ -25,6 +25,7 @@ Patch1:		%{name}-clean-gcc-flags.patch
 Patch2:		%{name}-fallthrough.patch
 Patch3:		includes.patch
 Patch4:		numpy2.patch
+Patch5:		thread-typo.patch
 # FC Patches:
 Patch201:	%{name}-python-abi_letters.patch
 # https://svn.boost.org/trac/boost/ticket/5637
@@ -516,6 +517,7 @@ Dokumentacja dla biblioteki Boost C++.
 %patch -P 2 -p1
 %patch -P 3 -p1
 %patch -P 4 -p1 -d libs/python
+%patch -P 5 -p2
 
 %patch -P 201 -p1
 %patch -P 203 -p0
