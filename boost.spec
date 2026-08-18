@@ -14,11 +14,11 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.85.0
-Release:	8
+Release:	9
 Epoch:		1
 License:	Boost Software License and others
 Group:		Libraries
-Source0:	https://boostorg.jfrog.io/artifactory/main/release/%{version}/source/%{name}_%{fver}.tar.bz2
+Source0:	https://archives.boost.io/release/%{version}/source/%{name}_%{fver}.tar.bz2
 # Source0-md5:	429d451cb9197143cc77962c5ff272ef
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-clean-gcc-flags.patch
@@ -523,10 +523,10 @@ Dokumentacja dla biblioteki Boost C++.
 %patch -P 203 -p0
 %patch -P 221 -p1
 
-%if "%{cc_version}" < "6.0"
-CPPSTD="-std=c++11"
-%else
+%if %{_ver_ge "%{cc_version}" "6.0"}
 CPPSTD=
+%else
+CPPSTD="-std=c++11"
 %endif
 cat << EOF > tools/build/src/user-config.jam
 using gcc : %{cxx_version} : %{__cxx} : <cflags>"%{rpmcflags} -fPIC" <cxxflags>"%{rpmcxxflags} $CPPSTD -fPIC" <linkflags>"%{rpmldflags}" ;
@@ -713,6 +713,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_contract.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_coroutine.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_iostreams.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_math_*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_nowide.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_random.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_serialization.so.*.*.*
@@ -738,6 +739,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_locale.so
 %attr(755,root,root) %{_libdir}/libboost_log.so
 %attr(755,root,root) %{_libdir}/libboost_log_setup.so
+%attr(755,root,root) %{_libdir}/libboost_math_*.so
 %attr(755,root,root) %{_libdir}/libboost_nowide.so
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so
 %attr(755,root,root) %{_libdir}/libboost_program_options.so
@@ -779,6 +781,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_locale.a
 %{_libdir}/libboost_log.a
 %{_libdir}/libboost_log_setup.a
+%{_libdir}/libboost_math_*.a
 %{_libdir}/libboost_nowide.a
 %{_libdir}/libboost_prg_exec_monitor.a
 %{_libdir}/libboost_program_options.a
