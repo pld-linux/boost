@@ -13,19 +13,16 @@
 Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
-Version:	1.85.0
-Release:	8
+Version:	1.92.0
+Release:	1
 Epoch:		1
 License:	Boost Software License and others
 Group:		Libraries
-Source0:	https://boostorg.jfrog.io/artifactory/main/release/%{version}/source/%{name}_%{fver}.tar.bz2
-# Source0-md5:	429d451cb9197143cc77962c5ff272ef
+Source0:	https://archives.boost.io/release/%{version}/source/%{name}_%{fver}.tar.bz2
+# Source0-md5:	1a0ff25792aa24fd84d55e63c5fbb24c
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-clean-gcc-flags.patch
 Patch2:		%{name}-fallthrough.patch
-Patch3:		includes.patch
-Patch4:		numpy2.patch
-Patch5:		thread-typo.patch
 # FC Patches:
 Patch201:	%{name}-python-abi_letters.patch
 # https://svn.boost.org/trac/boost/ticket/5637
@@ -51,6 +48,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.750
 BuildRequires:	zlib-devel
 Obsoletes:	boost-signals < 1.69
+Obsoletes:	%{name}-system < %{epoch}:%{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		specflags	-DBOOST_IOSTREAMS_USE_DEPRECATED=1
@@ -98,7 +96,6 @@ Requires:	%{name}-locale = %{epoch}:%{version}-%{release}
 Requires:	%{name}-log = %{epoch}:%{version}-%{release}
 Requires:	%{name}-program_options = %{epoch}:%{version}-%{release}
 Requires:	%{name}-regex = %{epoch}:%{version}-%{release}
-Requires:	%{name}-system = %{epoch}:%{version}-%{release}
 Requires:	%{name}-test = %{epoch}:%{version}-%{release}
 Requires:	%{name}-thread = %{epoch}:%{version}-%{release}
 Requires:	%{name}-timer = %{epoch}:%{version}-%{release}
@@ -334,7 +331,6 @@ zarządzania i synchronizacji wątków podobne do boost.thread.
 Summary:	Portable paths, iteration over directories, and other useful filesystem operations
 Summary(pl.UTF-8):	Przenośne ścieżki, iteracje katalogów i inne użyteczne operacje na systemie plików
 Group:		Libraries
-Requires:	%{name}-system = %{epoch}:%{version}-%{release}
 Obsoletes:	boost < 1.33
 
 %description filesystem
@@ -422,22 +418,6 @@ Shared library for Boost C++ regular expressions.
 %description regex -l pl.UTF-8
 Biblioteka współdzielona do obsługi wyrażeń regularnych w C++.
 
-%package system
-Summary:	Support for getting system specific error codes
-Summary(pl.UTF-8):	Wsparcie dla pobierania specyficznych dla systemu kodów błędów
-Group:		Libraries
-
-%description system
-The Boost System library provides simple, light-weight error_code
-objects that encapsulate system-specific error code values, yet also
-provide access to more abstract and portable error conditions objects.
-
-%description system -l pl.UTF-8
-Biblioteka Boost System udostępnia proste, lekkie obiekty error_code
-obudowujące wartości kodów błędów specyficznych dla systemu, dając
-jednocześnie dostęp do bardziej abstrakcyjnych i przenośnych obiektów
-błędów.
-
 %package test
 Summary:	Support for program testing and execution monitoring
 Summary(pl.UTF-8):	Wsparcie dla testowania i monitorowania programu
@@ -515,18 +495,15 @@ Dokumentacja dla biblioteki Boost C++.
 %patch -P 0 -p1
 %patch -P 1 -p1
 %patch -P 2 -p1
-%patch -P 3 -p1
-%patch -P 4 -p1 -d libs/python
-%patch -P 5 -p2
 
 %patch -P 201 -p1
 %patch -P 203 -p0
 %patch -P 221 -p1
 
-%if "%{cc_version}" < "6.0"
-CPPSTD="-std=c++11"
-%else
+%if %{_ver_ge "%{cc_version}" "6.0"}
 CPPSTD=
+%else
+CPPSTD="-std=c++11"
 %endif
 cat << EOF > tools/build/src/user-config.jam
 using gcc : %{cxx_version} : %{__cxx} : <cflags>"%{rpmcflags} -fPIC" <cxxflags>"%{rpmcxxflags} $CPPSTD -fPIC" <linkflags>"%{rpmldflags}" ;
@@ -687,8 +664,6 @@ rm -rf $RPM_BUILD_ROOT
 %post	regex -p /sbin/ldconfig
 %postun regex -p /sbin/ldconfig
 
-%post	system -p /sbin/ldconfig
-%postun	system -p /sbin/ldconfig
 
 %post	test -p /sbin/ldconfig
 %postun	test -p /sbin/ldconfig
@@ -713,7 +688,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_contract.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_coroutine.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_iostreams.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_math_*.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_nowide.so.*.*.*
+%attr(755,root,root) %{_libdir}/libboost_process.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_random.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_serialization.so.*.*.*
 %attr(755,root,root) %{_libdir}/libboost_stacktrace_*.so.*.*.*
@@ -738,14 +715,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libboost_locale.so
 %attr(755,root,root) %{_libdir}/libboost_log.so
 %attr(755,root,root) %{_libdir}/libboost_log_setup.so
+%attr(755,root,root) %{_libdir}/libboost_math_*.so
 %attr(755,root,root) %{_libdir}/libboost_nowide.so
 %attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so
+%attr(755,root,root) %{_libdir}/libboost_process.so
 %attr(755,root,root) %{_libdir}/libboost_program_options.so
 %attr(755,root,root) %{_libdir}/libboost_regex.so
 %attr(755,root,root) %{_libdir}/libboost_random.so
 %attr(755,root,root) %{_libdir}/libboost_serialization.so
 %attr(755,root,root) %{_libdir}/libboost_stacktrace_*.so
-%attr(755,root,root) %{_libdir}/libboost_system.so
 %attr(755,root,root) %{_libdir}/libboost_thread.so
 %attr(755,root,root) %{_libdir}/libboost_timer.so
 %attr(755,root,root) %{_libdir}/libboost_type_erasure.so
@@ -779,14 +757,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libboost_locale.a
 %{_libdir}/libboost_log.a
 %{_libdir}/libboost_log_setup.a
+%{_libdir}/libboost_math_*.a
 %{_libdir}/libboost_nowide.a
 %{_libdir}/libboost_prg_exec_monitor.a
+%{_libdir}/libboost_process.a
 %{_libdir}/libboost_program_options.a
 %{_libdir}/libboost_random.a
 %{_libdir}/libboost_regex.a
 %{_libdir}/libboost_serialization.a
 %{_libdir}/libboost_stacktrace_*.a
-%{_libdir}/libboost_system.a
 %{_libdir}/libboost_test_exec_monitor.a
 %{_libdir}/libboost_timer.a
 %{_libdir}/libboost_url.a
@@ -898,10 +877,6 @@ rm -rf $RPM_BUILD_ROOT
 %files regex
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libboost_regex.so.*.*.*
-
-%files system
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_system.so.*.*.*
 
 %files test
 %defattr(644,root,root,755)
