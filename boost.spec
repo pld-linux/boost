@@ -677,6 +677,9 @@ install -p stage/lib/lib*.so.*.*.* $RPM_BUILD_ROOT%{_libdir}
 cp -a stage/lib/lib*.so $RPM_BUILD_ROOT%{_libdir}
 cp -a stage/lib/cmake $RPM_BUILD_ROOT%{_libdir}
 
+# adjust include paths from stage to install paths
+%{__sed} -i -e '/get_filename_component(_BOOST_INCLUDEDIR/  s,"${_BOOST_CMAKEDIR}/.*/","${_BOOST_CMAKEDIR}/../../include/",' $RPM_BUILD_ROOT%{_libdir}/cmake/boost_*/*-config.cmake
+
 %if %{with doc}
 # documentation
 install -d $RPM_BUILD_ROOT%{_docdir}/boost-%{version}
