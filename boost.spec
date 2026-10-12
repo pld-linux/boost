@@ -48,7 +48,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.750
 BuildRequires:	zlib-devel
 Obsoletes:	boost-signals < 1.69
-Obsoletes:	%{name}-system < %{epoch}:%{version}
+Obsoletes:	boost-system < 1:1.89.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		specflags	-DBOOST_IOSTREAMS_USE_DEPRECATED=1
