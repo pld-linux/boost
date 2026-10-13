@@ -29,7 +29,7 @@ Patch201:	%{name}-python-abi_letters.patch
 Patch203:	%{name}-1.54.0-mpl-print.patch
 # https://svn.boost.org/trac/boost/ticket/8881
 Patch221:	%{name}-1.54.0-mpi-unused_typedef.patch
-URL:		http://www.boost.org/
+URL:		https://www.boost.org/
 BuildRequires:	bzip2-devel
 BuildRequires:	expat-devel
 BuildRequires:	libicu-devel
@@ -777,55 +777,55 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_atomic.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_charconv.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_container.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_contract.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_coroutine.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_iostreams.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_math_*.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_nowide.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_process.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_random.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_serialization.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_stacktrace_*.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_type_erasure.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_wserialization.so.*.*.*
+%{_libdir}/libboost_atomic.so.*.*.*
+%{_libdir}/libboost_charconv.so.*.*.*
+%{_libdir}/libboost_container.so.*.*.*
+%{_libdir}/libboost_contract.so.*.*.*
+%{_libdir}/libboost_coroutine.so.*.*.*
+%{_libdir}/libboost_iostreams.so.*.*.*
+%{_libdir}/libboost_math_*.so.*.*.*
+%{_libdir}/libboost_nowide.so.*.*.*
+%{_libdir}/libboost_process.so.*.*.*
+%{_libdir}/libboost_random.so.*.*.*
+%{_libdir}/libboost_serialization.so.*.*.*
+%{_libdir}/libboost_stacktrace_*.so.*.*.*
+%{_libdir}/libboost_type_erasure.so.*.*.*
+%{_libdir}/libboost_wserialization.so.*.*.*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_atomic.so
-%attr(755,root,root) %{_libdir}/libboost_charconv.so
-%attr(755,root,root) %{_libdir}/libboost_chrono.so
-%attr(755,root,root) %{_libdir}/libboost_container.so
-%attr(755,root,root) %{_libdir}/libboost_context.so
-%attr(755,root,root) %{_libdir}/libboost_contract.so
-%attr(755,root,root) %{_libdir}/libboost_coroutine.so
-%attr(755,root,root) %{_libdir}/libboost_date_time.so
-%attr(755,root,root) %{_libdir}/libboost_fiber.so
-%attr(755,root,root) %{_libdir}/libboost_filesystem.so
-%attr(755,root,root) %{_libdir}/libboost_graph.so
-%attr(755,root,root) %{_libdir}/libboost_iostreams.so
-%attr(755,root,root) %{_libdir}/libboost_json.so
-%attr(755,root,root) %{_libdir}/libboost_locale.so
-%attr(755,root,root) %{_libdir}/libboost_log.so
-%attr(755,root,root) %{_libdir}/libboost_log_setup.so
-%attr(755,root,root) %{_libdir}/libboost_math_*.so
-%attr(755,root,root) %{_libdir}/libboost_nowide.so
-%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so
-%attr(755,root,root) %{_libdir}/libboost_process.so
-%attr(755,root,root) %{_libdir}/libboost_program_options.so
-%attr(755,root,root) %{_libdir}/libboost_regex.so
-%attr(755,root,root) %{_libdir}/libboost_random.so
-%attr(755,root,root) %{_libdir}/libboost_serialization.so
-%attr(755,root,root) %{_libdir}/libboost_stacktrace_*.so
-%attr(755,root,root) %{_libdir}/libboost_thread.so
-%attr(755,root,root) %{_libdir}/libboost_timer.so
-%attr(755,root,root) %{_libdir}/libboost_type_erasure.so
-%attr(755,root,root) %{_libdir}/libboost_unit_test_framework.so
-%attr(755,root,root) %{_libdir}/libboost_url.so
-%attr(755,root,root) %{_libdir}/libboost_wave.so
-%attr(755,root,root) %{_libdir}/libboost_wserialization.so
+%{_libdir}/libboost_atomic.so
+%{_libdir}/libboost_charconv.so
+%{_libdir}/libboost_chrono.so
+%{_libdir}/libboost_container.so
+%{_libdir}/libboost_context.so
+%{_libdir}/libboost_contract.so
+%{_libdir}/libboost_coroutine.so
+%{_libdir}/libboost_date_time.so
+%{_libdir}/libboost_fiber.so
+%{_libdir}/libboost_filesystem.so
+%{_libdir}/libboost_graph.so
+%{_libdir}/libboost_iostreams.so
+%{_libdir}/libboost_json.so
+%{_libdir}/libboost_locale.so
+%{_libdir}/libboost_log.so
+%{_libdir}/libboost_log_setup.so
+%{_libdir}/libboost_math_*.so
+%{_libdir}/libboost_nowide.so
+%{_libdir}/libboost_prg_exec_monitor.so
+%{_libdir}/libboost_process.so
+%{_libdir}/libboost_program_options.so
+%{_libdir}/libboost_regex.so
+%{_libdir}/libboost_random.so
+%{_libdir}/libboost_serialization.so
+%{_libdir}/libboost_stacktrace_*.so
+%{_libdir}/libboost_thread.so
+%{_libdir}/libboost_timer.so
+%{_libdir}/libboost_type_erasure.so
+%{_libdir}/libboost_unit_test_framework.so
+%{_libdir}/libboost_url.so
+%{_libdir}/libboost_wave.so
+%{_libdir}/libboost_wserialization.so
 %{_includedir}/boost
 %exclude %{_includedir}/boost/python
 %exclude %{_includedir}/boost/python.hpp
@@ -851,6 +851,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cmake/boost_log-%{version}
 %{_libdir}/cmake/boost_log_setup-%{version}
 %{_libdir}/cmake/boost_math-%{version}
+%{_libdir}/cmake/boost_math_c99-%{version}
+%{_libdir}/cmake/boost_math_c99f-%{version}
+%{_libdir}/cmake/boost_math_c99l-%{version}
+%{_libdir}/cmake/boost_math_tr1-%{version}
+%{_libdir}/cmake/boost_math_tr1f-%{version}
+%{_libdir}/cmake/boost_math_tr1l-%{version}
 %{_libdir}/cmake/boost_mpi-%{version}
 %{_libdir}/cmake/boost_mpi_python-%{version}
 %{_libdir}/cmake/boost_nowide-%{version}
@@ -859,9 +865,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cmake/boost_program_options-%{version}
 %{_libdir}/cmake/boost_random-%{version}
 %{_libdir}/cmake/boost_regex-%{version}
+%{_libdir}/cmake/boost_regex_old-%{version}
 %{_libdir}/cmake/boost_serialization-%{version}
 %{_libdir}/cmake/boost_stacktrace_addr2line-%{version}
 %{_libdir}/cmake/boost_stacktrace_basic-%{version}
+%{_libdir}/cmake/boost_stacktrace_dump-%{version}
 %{_libdir}/cmake/boost_stacktrace_noop-%{version}
 %{_libdir}/cmake/boost_system-%{version}
 %{_libdir}/cmake/boost_test_exec_monitor-%{version}
@@ -931,12 +939,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cmake/boost_process-%{version}/libboost_process-variant-static.cmake
 %{_libdir}/cmake/boost_program_options-%{version}/libboost_program_options-variant-static.cmake
 %{_libdir}/cmake/boost_random-%{version}/libboost_random-variant-static.cmake
-%{_libdir}/cmake/boost_regex-%{version}/libboost_regex-variant-static.cmake
 %{_libdir}/cmake/boost_serialization-%{version}/libboost_serialization-variant-static.cmake
 %{_libdir}/cmake/boost_stacktrace_addr2line-%{version}/libboost_stacktrace_addr2line-variant-static.cmake
 %{_libdir}/cmake/boost_stacktrace_basic-%{version}/libboost_stacktrace_basic-variant-static.cmake
 %{_libdir}/cmake/boost_stacktrace_noop-%{version}/libboost_stacktrace_noop-variant-static.cmake
-%{_libdir}/cmake/boost_system-%{version}/libboost_system-variant-static.cmake
 %{_libdir}/cmake/boost_test_exec_monitor-%{version}/libboost_test_exec_monitor-variant-static.cmake
 %{_libdir}/cmake/boost_thread-%{version}/libboost_thread-variant-static.cmake
 %{_libdir}/cmake/boost_timer-%{version}/libboost_timer-variant-static.cmake
@@ -971,11 +977,11 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python2}
 %files python
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_python%{py2v}.so.*.*.*
+%{_libdir}/libboost_python%{py2v}.so.*.*.*
 
 %files python-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_python%{py2v}.so
+%{_libdir}/libboost_python%{py2v}.so
 %{_libdir}/cmake/boost_python-%{version}/libboost_python-variant-shared-py2.*.cmake
 
 %files python-static
@@ -986,11 +992,11 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with numpy}
 %files python-numpy
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_numpy%{py2v}.so.*.*.*
+%{_libdir}/libboost_numpy%{py2v}.so.*.*.*
 
 %files python-numpy-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_numpy%{py2v}.so
+%{_libdir}/libboost_numpy%{py2v}.so
 %{_libdir}/cmake/boost_numpy-%{version}/libboost_numpy-variant-shared-py2.*.cmake
 
 %files python-numpy-static
@@ -1003,11 +1009,11 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python3}
 %files python3
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_python%{py3v}.so.*.*.*
+%{_libdir}/libboost_python%{py3v}.so.*.*.*
 
 %files python3-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_python%{py3v}.so
+%{_libdir}/libboost_python%{py3v}.so
 %{_libdir}/cmake/boost_python-%{version}/libboost_python-variant-shared-py3.*.cmake
 
 %files python3-static
@@ -1018,11 +1024,11 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with numpy}
 %files python3-numpy
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_numpy%{py3v}.so.*.*.*
+%{_libdir}/libboost_numpy%{py3v}.so.*.*.*
 
 %files python3-numpy-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_numpy%{py3v}.so
+%{_libdir}/libboost_numpy%{py3v}.so
 %{_libdir}/cmake/boost_numpy-%{version}/libboost_numpy-variant-shared-py3.*.cmake
 
 %files python3-numpy-static
@@ -1034,69 +1040,69 @@ rm -rf $RPM_BUILD_ROOT
 
 %files chrono
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_chrono.so.*.*.*
+%{_libdir}/libboost_chrono.so.*.*.*
 
 %files context
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_context.so.*.*.*
+%{_libdir}/libboost_context.so.*.*.*
 
 %files date_time
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_date_time.so.*.*.*
+%{_libdir}/libboost_date_time.so.*.*.*
 
 %files fiber
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_fiber.so.*.*.*
+%{_libdir}/libboost_fiber.so.*.*.*
 
 %files filesystem
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_filesystem.so.*.*.*
+%{_libdir}/libboost_filesystem.so.*.*.*
 
 %files graph
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_graph.so.*.*.*
+%{_libdir}/libboost_graph.so.*.*.*
 
 %files json
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_json.so.*.*.*
+%{_libdir}/libboost_json.so.*.*.*
 
 %files locale
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_locale.so.*.*.*
+%{_libdir}/libboost_locale.so.*.*.*
 
 %files log
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_log.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_log_setup.so.*.*.*
+%{_libdir}/libboost_log.so.*.*.*
+%{_libdir}/libboost_log_setup.so.*.*.*
 
 %files program_options
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_program_options.so.*.*.*
+%{_libdir}/libboost_program_options.so.*.*.*
 
 %files regex
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_regex.so.*.*.*
+%{_libdir}/libboost_regex.so.*.*.*
 
 %files test
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_prg_exec_monitor.so.*.*.*
-%attr(755,root,root) %{_libdir}/libboost_unit_test_framework.so.*.*.*
+%{_libdir}/libboost_prg_exec_monitor.so.*.*.*
+%{_libdir}/libboost_unit_test_framework.so.*.*.*
 
 %files thread
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_thread.so.*.*.*
+%{_libdir}/libboost_thread.so.*.*.*
 
 %files timer
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_timer.so.*.*.*
+%{_libdir}/libboost_timer.so.*.*.*
 
 %files url
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_url.so.*.*.*
+%{_libdir}/libboost_url.so.*.*.*
 
 %files wave
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libboost_wave.so.*.*.*
+%{_libdir}/libboost_wave.so.*.*.*
 
 %if %{with doc}
 %files doc
