@@ -14,7 +14,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.92.0
-Release:	1
+Release:	2
 Epoch:		1
 License:	Boost Software License and others
 Group:		Libraries
@@ -179,7 +179,7 @@ Pliki nagłówkowe biblioteki Boost.Python.
 Summary:	Boost.Numpy development headers
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Boost.Numpy
 Group:		Development/Libraries
-Requires:	%{name}-python-devel-common = %{version}-%{release}
+Requires:	%{name}-python-devel-common = %{epoch}:%{version}-%{release}
 
 %description python-numpy-devel-common
 Headers for the Boost.Numpy library.
@@ -241,7 +241,7 @@ Statyczna wersja biblioteki Boost.Python dla Pythona 2.
 Summary:	Boost.Numpy library for Python 2
 Summary(pl.UTF-8):	Biblioteka Boost.Numpy dla Pythona 2
 Group:		Libraries
-Requires:	%{name}-python = %{version}-%{release}
+Requires:	%{name}-python = %{epoch}:%{version}-%{release}
 
 %description python-numpy
 Boost.Python NumPy extension.
@@ -253,8 +253,8 @@ Rozszerzenie NumPy do biblioteki Boost.Python.
 Summary:	Boost.Numpy development files for Python 2
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki Boost.Numpy dla Pythona 2
 Group:		Development/Libraries
-Requires:	%{name}-python-numpy = %{version}-%{release}
-Requires:	%{name}-python-numpy-devel-common = %{version}-%{release}
+Requires:	%{name}-python-numpy = %{epoch}:%{version}-%{release}
+Requires:	%{name}-python-numpy-devel-common = %{epoch}:%{version}-%{release}
 
 %description python-numpy-devel
 Boost.Numpy development files for Python 2.
@@ -266,7 +266,7 @@ Pliki programistyczne biblioteki Boost.Numpy dla Pythona 2.
 Summary:	Static version of Boost.Numpy library for Python 2
 Summary(pl.UTF-8):	Statyczna wersja biblioteki Boost.Numpy dla Pythona 2
 Group:		Development/Libraries
-Requires:	%{name}-python-numpy-devel = %{version}-%{release}
+Requires:	%{name}-python-numpy-devel = %{epoch}:%{version}-%{release}
 
 %description python-numpy-static
 Static version of Boost.Numpy library for Python 2.
@@ -328,7 +328,7 @@ Statyczna wersja biblioteki Boost.Python dla Pythona 3.
 Summary:	Boost.Numpy library for Python 3
 Summary(pl.UTF-8):	Biblioteka Boost.Numpy dla Pythona 3
 Group:		Libraries
-Requires:	%{name}-python3 = %{version}-%{release}
+Requires:	%{name}-python3 = %{epoch}:%{version}-%{release}
 
 %description python3-numpy
 Boost.Python NumPy extension.
@@ -340,8 +340,8 @@ Rozszerzenie NumPy do biblioteki Boost.Python.
 Summary:	Boost.Numpy development files for Python 3
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki Boost.Numpy dla Pythona 3
 Group:		Development/Libraries
-Requires:	%{name}-python3-numpy = %{version}-%{release}
-Requires:	%{name}-python3-numpy-devel-common = %{version}-%{release}
+Requires:	%{name}-python3-numpy = %{epoch}:%{version}-%{release}
+Requires:	%{name}-python3-numpy-devel-common = %{epoch}:%{version}-%{release}
 
 %description python3-numpy-devel
 Boost.Numpy development files for Python 3.
@@ -353,7 +353,7 @@ Pliki programistyczne biblioteki Boost.Numpy dla Pythona 3.
 Summary:	Static version of Boost.Numpy library for Python 3
 Summary(pl.UTF-8):	Statyczna wersja biblioteki Boost.Numpy dla Pythona 3
 Group:		Development/Libraries
-Requires:	%{name}-python-numpy-devel = %{version}-%{release}
+Requires:	%{name}-python-numpy-devel = %{epoch}:%{version}-%{release}
 
 %description python3-numpy-static
 Static version of Boost.Numpy library for Python 3.
