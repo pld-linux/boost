@@ -4,8 +4,7 @@
 #	- split shared libs from core package into -iostreams/-serialization.
 #
 # Conditional build:
-%bcond_without	python2		# boost-python[2] support
-%bcond_without	python3		# boost-python3 support
+%bcond_without	python		# boost-python3 support
 %bcond_without	numpy		# boost-numpy support
 %bcond_without	doc		# don't package documentation
 
@@ -14,7 +13,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.92.0
-Release:	2
+Release:	3
 Epoch:		1
 License:	Boost Software License and others
 Group:		Libraries
@@ -35,11 +34,7 @@ BuildRequires:	expat-devel
 BuildRequires:	libicu-devel
 BuildRequires:	libstdc++-devel >= 6:4.7
 BuildRequires:	perl-base
-%if %{with python2}
-BuildRequires:	python-devel >= 2.2
-%{?with_numpy:BuildRequires:	python-numpy-devel}
-%endif
-%if %{with python3}
+%if %{with python}
 BuildRequires:	python3-devel
 %{?with_numpy:BuildRequires:	python3-numpy-devel}
 %endif
@@ -163,116 +158,31 @@ Static version of base Boost C++ libraries.
 %description static -l pl.UTF-8
 Statyczne wersje podstawowych bibliotek C++ Boost.
 
-%package python-devel-common
+%package python3-devel-common
 Summary:	Boost.Python development headers
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Boost.Python
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
+Obsoletes:	python-devel-common < 1:1.92.0-3
 
-%description python-devel-common
+%description python3-devel-common
 Headers for the Boost.Python library.
 
-%description python-devel-common -l pl.UTF-8
+%description python3-devel-common -l pl.UTF-8
 Pliki nagłówkowe biblioteki Boost.Python.
 
-%package python-numpy-devel-common
+%package python3-numpy-devel-common
 Summary:	Boost.Numpy development headers
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Boost.Numpy
 Group:		Development/Libraries
-Requires:	%{name}-python-devel-common = %{epoch}:%{version}-%{release}
+Requires:	%{name}-python3-devel-common = %{epoch}:%{version}-%{release}
+Obsoletes:	python-numpy-devel-common < 1:1.92.0-3
 
-%description python-numpy-devel-common
+%description python3-numpy-devel-common
 Headers for the Boost.Numpy library.
 
-%description python-numpy-devel-common -l pl.UTF-8
+%description python3-numpy-devel-common -l pl.UTF-8
 Pliki nagłówkowe biblioteki Boost.Numpy
-
-%package python
-Summary:	Boost.Python library for Python 2
-Summary(pl.UTF-8):	Biblioteka Boost.Python dla Pythona 2
-Group:		Libraries
-Requires:	python-libs
-
-%description python
-Use the Boost Python Library to quickly and easily export a C++
-library to Python 2 such that the Python 2 interface is very similar
-to the C++ interface. It is designed to be minimally intrusive on your
-C++ design. In most cases, you should not have to alter your C++
-classes in any way in order to use them with Boost.Python. The system
-should simply ``reflect'' your C++ classes and functions into Python
-3.
-
-%description python -l pl.UTF-8
-Biblioteka Boost Python służy do szybkiego i prostego eksportu
-biblioteki C++ do Pythona 2, tak że interfejs Pythona 2 jest bardzo
-podobny do interfejsu C++. Biblioteka jest zaprojektowana tak, żeby
-narzucać jak najmniej wymagań dotyczących konstrukcjii C++. W
-większości przypadków nie trzeba w ogóle zmieniać własnych klas C++,
-żeby używać ich z Boost.Python. System powinien po prostu ,,odbić''
-klasy C++ i funkcje do Pythona 3.
-
-%package python-devel
-Summary:	Boost.Python development files for Python 2
-Summary(pl.UTF-8):	Pliki programistyczne biblioteki Boost.Python dla Pythona 2
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
-Requires:	%{name}-python = %{epoch}:%{version}-%{release}
-Requires:	%{name}-python-devel-common = %{epoch}:%{version}-%{release}
-
-%description python-devel
-Boost.Python development files for Python 2.
-
-%description python-devel -l pl.UTF-8
-Pliki programistyczne biblioteki Boost.Python dla Pythona 2.
-
-%package python-static
-Summary:	Static version of Boost.Python library for Python 2
-Summary(pl.UTF-8):	Statyczna wersja biblioteki Boost.Python dla Pythona 2
-Group:		Development/Libraries
-Requires:	%{name}-python-devel = %{epoch}:%{version}-%{release}
-
-%description python-static
-Static version of Boost.Python library for Python 2.
-
-%description python-static -l pl.UTF-8
-Statyczna wersja biblioteki Boost.Python dla Pythona 2.
-
-%package python-numpy
-Summary:	Boost.Numpy library for Python 2
-Summary(pl.UTF-8):	Biblioteka Boost.Numpy dla Pythona 2
-Group:		Libraries
-Requires:	%{name}-python = %{epoch}:%{version}-%{release}
-
-%description python-numpy
-Boost.Python NumPy extension.
-
-%description python-numpy -l pl.UTF-8
-Rozszerzenie NumPy do biblioteki Boost.Python.
-
-%package python-numpy-devel
-Summary:	Boost.Numpy development files for Python 2
-Summary(pl.UTF-8):	Pliki programistyczne biblioteki Boost.Numpy dla Pythona 2
-Group:		Development/Libraries
-Requires:	%{name}-python-numpy = %{epoch}:%{version}-%{release}
-Requires:	%{name}-python-numpy-devel-common = %{epoch}:%{version}-%{release}
-
-%description python-numpy-devel
-Boost.Numpy development files for Python 2.
-
-%description python-numpy-devel -l pl.UTF-8
-Pliki programistyczne biblioteki Boost.Numpy dla Pythona 2.
-
-%package python-numpy-static
-Summary:	Static version of Boost.Numpy library for Python 2
-Summary(pl.UTF-8):	Statyczna wersja biblioteki Boost.Numpy dla Pythona 2
-Group:		Development/Libraries
-Requires:	%{name}-python-numpy-devel = %{epoch}:%{version}-%{release}
-
-%description python-numpy-static
-Static version of Boost.Numpy library for Python 2.
-
-%description python-numpy-static -l pl.UTF-8
-Statyczna wersja biblioteki Boost.Numpy dla Pythona 2.
 
 %package python3
 Summary:	Boost.Python library for Python 3
@@ -621,25 +531,11 @@ ICU_PATH=%{_prefix} \
 	threading=multi \
 	variant=release
 
-%if %{with python3}
+%if %{with python}
 echo "using python : %{py3_ver} : %{py3_prefix} : %{py3_incdir} : : : : %{py3v_suffix} ;" >> project-config.jam
 ./b2 \
 	%{?__jobs:-j %{__jobs}} \
 	--with-python python=%{py3_ver} \
-	-a -d2 --toolset=gcc \
-	debug-symbols=on \
-	inlining=on \
-	link=static,shared \
-	threading=multi \
-	variant=release
-%endif
-
-%if %{with python2}
-%{__sed} -i -e '/^using python : 3/d' project-config.jam
-echo "using python : %{py_ver} : %{py_prefix} : %{py_incdir} ;" >> project-config.jam
-./b2 \
-	%{?__jobs:-j %{__jobs}} \
-	--with-python python=%{py_ver} \
 	-a -d2 --toolset=gcc \
 	debug-symbols=on \
 	inlining=on \
@@ -740,12 +636,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	locale -p /sbin/ldconfig
 %postun	locale -p /sbin/ldconfig
-
-%post	python -p /sbin/ldconfig
-%postun	python -p /sbin/ldconfig
-
-%post	python-numpy -p /sbin/ldconfig
-%postun	python-numpy -p /sbin/ldconfig
 
 %post	python3 -p /sbin/ldconfig
 %postun	python3 -p /sbin/ldconfig
@@ -952,8 +842,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cmake/boost_wave-%{version}/libboost_wave-variant-static.cmake
 %{_libdir}/cmake/boost_wserialization-%{version}/libboost_wserialization-variant-static.cmake
 
-%if %{with python2} || %{with python3}
-%files python-devel-common
+%if %{with python}
+%files python3-devel-common
 %defattr(644,root,root,755)
 %{_includedir}/boost/python
 %{_includedir}/boost/python.hpp
@@ -964,7 +854,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cmake/boost_python-%{version}/boost_python-config-version.cmake
 
 %if %{with numpy}
-%files python-numpy-devel-common
+%files python3-numpy-devel-common
 %defattr(644,root,root,755)
 %{_includedir}/boost/python/numpy
 %{_includedir}/boost/python/numpy.hpp
@@ -974,39 +864,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 %endif
 
-%if %{with python2}
-%files python
-%defattr(644,root,root,755)
-%{_libdir}/libboost_python%{py2v}.so.*.*.*
-
-%files python-devel
-%defattr(644,root,root,755)
-%{_libdir}/libboost_python%{py2v}.so
-%{_libdir}/cmake/boost_python-%{version}/libboost_python-variant-shared-py2.*.cmake
-
-%files python-static
-%defattr(644,root,root,755)
-%{_libdir}/libboost_python%{py2v}.a
-%{_libdir}/cmake/boost_python-%{version}/libboost_python-variant-static-py2.*.cmake
-
-%if %{with numpy}
-%files python-numpy
-%defattr(644,root,root,755)
-%{_libdir}/libboost_numpy%{py2v}.so.*.*.*
-
-%files python-numpy-devel
-%defattr(644,root,root,755)
-%{_libdir}/libboost_numpy%{py2v}.so
-%{_libdir}/cmake/boost_numpy-%{version}/libboost_numpy-variant-shared-py2.*.cmake
-
-%files python-numpy-static
-%defattr(644,root,root,755)
-%{_libdir}/libboost_numpy%{py2v}.a
-%{_libdir}/cmake/boost_numpy-%{version}/libboost_numpy-variant-static-py2.*.cmake
-%endif
-%endif
-
-%if %{with python3}
+%if %{with python}
 %files python3
 %defattr(644,root,root,755)
 %{_libdir}/libboost_python%{py3v}.so.*.*.*
