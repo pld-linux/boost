@@ -13,7 +13,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.92.0
-Release:	3
+Release:	4
 Epoch:		1
 License:	Boost Software License and others
 Group:		Libraries
@@ -213,7 +213,7 @@ Summary:	Boost.Python development files for Python 3
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki Boost.Python dla Pythona 3
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
-Requires:	%{name}-python-devel-common = %{epoch}:%{version}-%{release}
+Requires:	%{name}-python3-devel-common = %{epoch}:%{version}-%{release}
 Requires:	%{name}-python3 = %{epoch}:%{version}-%{release}
 
 %description python3-devel
@@ -263,7 +263,7 @@ Pliki programistyczne biblioteki Boost.Numpy dla Pythona 3.
 Summary:	Static version of Boost.Numpy library for Python 3
 Summary(pl.UTF-8):	Statyczna wersja biblioteki Boost.Numpy dla Pythona 3
 Group:		Development/Libraries
-Requires:	%{name}-python-numpy-devel = %{epoch}:%{version}-%{release}
+Requires:	%{name}-python3-numpy-devel = %{epoch}:%{version}-%{release}
 
 %description python3-numpy-static
 Static version of Boost.Numpy library for Python 3.
