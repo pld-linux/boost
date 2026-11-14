@@ -13,7 +13,7 @@ Summary:	The Boost C++ Libraries
 Summary(pl.UTF-8):	Biblioteki C++ "Boost"
 Name:		boost
 Version:	1.92.0
-Release:	4
+Release:	5
 Epoch:		1
 License:	Boost Software License and others
 Group:		Libraries
@@ -163,7 +163,7 @@ Summary:	Boost.Python development headers
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Boost.Python
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
-Obsoletes:	python-devel-common < 1:1.92.0-3
+Obsoletes:	boost-python-devel-common < 1:1.92.0-5
 
 %description python3-devel-common
 Headers for the Boost.Python library.
@@ -176,7 +176,7 @@ Summary:	Boost.Numpy development headers
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki Boost.Numpy
 Group:		Development/Libraries
 Requires:	%{name}-python3-devel-common = %{epoch}:%{version}-%{release}
-Obsoletes:	python-numpy-devel-common < 1:1.92.0-3
+Obsoletes:	boost-python-numpy-devel-common < 1:1.92.0-5
 
 %description python3-numpy-devel-common
 Headers for the Boost.Numpy library.
